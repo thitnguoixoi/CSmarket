@@ -13,6 +13,7 @@
 .line_layer{
     display: flex;
     justify-content: center;
+    margin : 50px;
 }
 
 /*header*/
@@ -81,21 +82,54 @@ h1 {
     width: 90%;
     height: 8px;
 }
-.case .img{
-    display: flex;
-    justify-content: center;
+
+.case {
+    display:flex;
     align-items: center;
-}
-.case .img .case_free{
-    padding: 50px 100px;
+    justify-content: center;
 }
 
-.case .price span{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/*freecase*/
+.case .case_contain{
+    display: inline-block;
+    text-align: center;
 }
-.case 
+.case #freecase1 #free_case_name_1{
+    text-transform: uppercase;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    padding: 10px 0;
+    color: #fff;
+}
+
+.case_name {
+    text-transform: uppercase;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    padding: 10px 0;
+    color: #fff;
+}
+
+.price_span {
+    text-transform: uppercase;
+    height: 30px;
+    width: 70px;
+    line-height: 30px;
+    padding: 10px 0;
+    color: #fff;
+    background-color: rgb(204, 126, 8);
+    border-radius: 15%;
+}
+.case .price_span{
+    text-decoration: none;
+}
+
+.freecase{
+    margin-bottom: 30px;
+}
+
 /*footer*/
 .footer{
     display: flex;
