@@ -1,0 +1,121 @@
+* {
+    background-color: #1F1E27;
+    margin: 0;
+    border: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.distance_layer{
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.line_layer{
+    display: flex;
+    justify-content: center;
+}
+
+/*header*/
+.header{
+    display: flex;
+}
+.header .img #logo{
+    padding-left: 20px;
+}
+.header .navi span{
+    align-content: center;
+    color: white;
+    padding: 32px 32px 32px 32px;
+    line-height: 64px;
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 18px;
+}
+.header .navi :hover{
+    background-color: #f1f1f1;
+    color: black;
+}
+.header .distance_8px{
+    width: 5em;
+}
+.header .distance_64px{
+    width: 85em;
+}
+.login {
+    position: relative;
+    width: 50%;
+    display: flex-end;
+}
+
+.login .btn_login {
+    position: absolute;
+    top: 60%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #27C3D8;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+  
+.login .btn:hover {
+    background-color: rgb(133, 122, 122);
+}
+.banner{
+    width: 100%;
+}
+
+/*container*/
+h1 {
+    color: white;
+    margin-left: 3%;
+    width: 100%;
+}
+.line_layer{
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    height: 8px;
+}
+.case .img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.case .img .case_free{
+    padding: 50px 100px;
+}
+
+.case .price span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.case 
+/*footer*/
+.footer{
+    display: flex;
+}
+.footer .footer_terms ul{
+    list-style-type: none;
+    padding: 20;
+    margin: 0;
+    display: flex;
+    line-height: 80px;
+}
+.footer .footer_terms li{
+    color: #a6a6a6;
+    margin-right: 40px;
+}
+.footer_terms li:last-child{
+    margin-right: 0;
+}
+
+.footer .footer_logo img{
+    height: 80px;
+    padding: 0 20px;
+}
