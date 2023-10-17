@@ -99,13 +99,9 @@ h1 {
     display: inline-block;
     text-align: center;
 }
-.case #freecase1 #free_case_name_1{
-    text-transform: uppercase;
-    height: 30px;
-    line-height: 30px;
-    overflow: hidden;
-    padding: 10px 0;
-    color: #fff;
+
+.case .case_contain img {
+    padding-left: 50px;
 }
 
 .case_name {
@@ -116,11 +112,13 @@ h1 {
     padding: 10px 0;
     color: #fff;
 }
-
+.button {
+    color: rgb(204,126,8);
+}
 .price_span {
     text-transform: uppercase;
     height: 30px;
-    width: 70px;
+    width: 100px;
     line-height: 30px;
     padding: 10px 0;
     color: #fff;
