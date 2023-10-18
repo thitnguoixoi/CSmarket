@@ -36,6 +36,9 @@
     font-weight: bolder;
     font-size: 18px;
 }
+.header .navi a{
+    text-decoration: none;
+}
 .header .navi :hover{
     background-color: #f1f1f1;
     color: black;
@@ -144,6 +147,8 @@ h1 {
 /*footer*/
 .footer{
     display: flex;
+    border: #000;
+    border-style:solid;
 }
 .footer .footer_terms ul{
     list-style-type: none;
@@ -159,9 +164,12 @@ h1 {
 .footer_terms li:last-child{
     margin-right: 0;
 }
-
+.footer .footer_terms li a{
+    text-decoration: none;
+    color: #f1f1f1;
+}
 .footer .footer_logo{
-    display: inline-block;
+    display: flex;
     align-items: center;
 }
 .footer .footer_logo img{
