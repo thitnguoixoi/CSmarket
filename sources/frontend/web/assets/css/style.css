@@ -66,6 +66,12 @@
     background-color: rgb(133, 122, 122);
 }
 
+/*Live_drop*/
+#live_drop{
+    display: flex;
+}
+
+
 /*container*/
 h1 {
     color: white;
