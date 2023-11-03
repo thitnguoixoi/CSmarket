@@ -315,25 +315,36 @@ h1 {
 
 }
 
-.image-container img {
+.image-container img{
     width: 250px;
     height: 150px;
     object-fit: cover;
     margin: 20px 20px 20px 20px;
+    border-style: solid;
 }
 
 .tier1{
     background-image: url("/web/assets/img/frame/tier1.png");
+    border: 1px;
+    border-color: #1e9733;
 }
 .tier2{
     background-image: url("/web/assets/img/frame/tier2.png");
+    border: 1px;
+    border-color: #27C3D8;
 }
 .tier3{
     background-image: url("/web/assets/img/frame/tier3.png");
+    border: 1px;
+    border-color: rgb(85, 29, 78);
 }
 .tier4{
     background-image: url("/web/assets/img/frame/tier4.png");
+    border: 1px;
+    border-color: rgb(185, 39, 39);
 }
 .tier5{
     background-image: url("/web/assets/img/frame/tier5.png");
+    border: 1px;
+    border-color: rgb(146, 146, 43);
 }
