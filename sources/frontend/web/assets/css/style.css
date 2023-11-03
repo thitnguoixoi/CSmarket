@@ -246,14 +246,14 @@ h1 {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #322d44;
+    background-color: #000;
     color: #fff;
     padding: 10px;
     cursor: pointer;
 }
   
 #back-to-top:hover {
-    background-color: #333;
+    background-color: #322d44;
 }
 
 .live h3{
