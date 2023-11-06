@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 viewEngine(app);
+
 initWebRoutes(app);
 
 let port = process.env.PORT || 8080;
