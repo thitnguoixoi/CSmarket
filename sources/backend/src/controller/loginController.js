@@ -15,15 +15,13 @@ passport.use(new SteamStrategy({
         process.nextTick(function () {
 
             const steamID = profile.id; // Assuming profile.id contains the SteamID
-            const steamName = profile.displayName; // Assuming profile.displayName contains the Steam Name
             connection.query('SELECT * FROM user WHERE SteamID = ?', [steamID], (error, results) => {
                 if (error) {
                     return done(error);
                 }
                 if (results.length === 0) {
-                    // console.log(steamID)
-                    //         // SteamID doesn't exist in the User table, so insert it
-                    connection.query('INSERT INTO user (SteamID, Name) VALUES (?, ?)', [steamID, steamName], (insertError) => {
+                    // SteamID doesn't exist in the User table, so insert it
+                    connection.query('INSERT INTO user (SteamID) VALUES (?)', [steamID], (insertError) => {
                         if (insertError) {
                             return done(insertError);
                         }
