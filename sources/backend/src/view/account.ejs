@@ -1,5 +1,23 @@
-<p><img src='<%= user.photos[2].value %>' alt='Your Avatar Image' /></p>
-<p>ID: <%= user.id %>
-</p>
-<p>Name: <%= user.displayName %>
-</p>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a class="active" href="account">See Account Information</a>
+        <a href='logout'>Logout</a>
+    </div>
+    <p><img src='<%= user.photos[2].value %>' alt='Your Avatar Image' /></p>
+    <p>ID: <%= user.id %>
+    </p>
+    <p>Name: <%= user.displayName %>
+    </p>
+</body>
+
+</html>

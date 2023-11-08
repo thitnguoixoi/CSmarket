@@ -1,9 +1,30 @@
-<% if (!user) { %>
-    <h2>Welcome! Please log in.</h2>
-    <p><a href="auth/steam">Sign On with Steam</a></p>
-    <% } else { %>
-        <h2>Hello, <%= user.displayName %>. - <a href='logout'>Logout</a></h2>
-        <% } %>
+<html lang="en">
 
-            <!-- Should redirect to homepage if you're not logged in -->
-            <p><a href="account">See Account Information</a></p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <% if (!user) { %>
+            <a href="auth/steam">Sign in with Steam</a>
+            <% } else {%>
+                <a href="account">See Account Information</a>
+                <a href='logout'>Logout</a>
+                <% } %>
+    </div>
+    <% if (!user) { %>
+        <h2>Welcome! Please log in.</h2>
+        <% } else { %>
+            <h2>Hello, <%= user.displayName %>.</h2>
+            <% } %>
+
+                <!-- Should redirect to homepage if you're not logged in -->
+                <p></p>
+</body>
+
+</html>
