@@ -1,8 +1,8 @@
 import userService from "../service/userService"
 
 
-const handleHome = async (req, res) => {
-    const users = await userService.getUserList();
+const handleHome = (req, res) => {
+    const users = userService.getUserList();
     return res.render("home.ejs", { user: req.user, list: users })
 }
 
