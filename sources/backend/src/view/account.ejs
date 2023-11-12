@@ -17,15 +17,24 @@
 
 <body>
     <div class="topnav">
-        <a href="/">Home</a>
-        <a class="active" href="account">See Account Information</a>
-        <a href='logout'>Logout</a>
+        <a href="/" style="text-decoration: none">Home</a>
+        <a class="active" href="account" style="text-decoration: none">See Account Information</a>
+        <a href='logout' style="text-decoration: none">Logout</a>
     </div>
-    <p><img src='<%= user.photos[2].value %>' alt='Your Avatar Image' /></p>
-    <p>ID: <%= user.id %>
+    <p><img src='<%= steaminfo.photos[2].value %>' alt='Your Avatar Image' /></p>
+    <p>ID: <%= steaminfo.id %>
     </p>
-    <p>Name: <%= user.displayName %>
+    <p>Name: <%= steaminfo.displayName %>
     </p>
+    <form method="post" action="/update-user/<%=user.id%>">
+        <div class="form-group">
+            <input hidden value="<%=user.id%>" name="id">
+            <label for="TradeURL">TradeURL</label>
+            <input type="TradeURL" class="form-control" id="TradeURL" placeholder="TradeURL" name="TradeURL"
+                value="<%=user.TradeURL%>">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </body>
 
 </html>

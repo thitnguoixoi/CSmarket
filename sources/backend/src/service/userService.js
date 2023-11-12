@@ -1,33 +1,45 @@
-import connection from "../config/connectDB"
-const createUser = (steamID) => {
-    connection.query('SELECT * FROM user WHERE SteamID = ?', [steamID], (error, results) => {
-        if (error) {
-            return done(error);
+import db from "../models/index"
+
+const createUser = async (steamID) => {
+
+    try {
+        const user = await db.Users.findOne({ where: { SteamID: steamID } });
+
+        if (!user) {
+            await db.Users.create({ SteamID: steamID });
         }
-        if (results.length === 0) {
-            connection.query('INSERT INTO user (SteamID) VALUES (?)', [steamID], (insertError) => {
-                if (insertError) {
-                    return done(insertError);
-                }
-            });
+    } catch (error) {
+        console.error('Error creating user:', error);
+    }
+
+}
+const getUserList = async () => {
+    let users = []
+    users = await db.Users.findAll();
+    return users;
+}
+const deleteUser = async (userid) => {
+    await db.Users.destroy({
+        where: {
+            id: userid
         }
     })
 }
-const getUserList = () => {
-    let users = []
-    connection.query('SELECT * FROM user',
-        function (err, results, fields) {
-            if (err) {
-                console.log(err)
-                return users;
-            }
-            users = results;
-            return users;
-        }
 
-    )
+const getUserTradeURL = async (id) => {
+    let user = {}
+    user = await db.Users.findOne({ where: { SteamID: id } })
+    return user.get({ plain: true })
+}
+const updatedUser = async (id, TradeURL) => {
+    await db.Users.update(
+        { TradeURL: TradeURL },
+        { where: { id: id } })
 }
 module.exports = {
     createUser,
-    getUserList
+    getUserList,
+    deleteUser,
+    getUserTradeURL,
+    updatedUser
 }
