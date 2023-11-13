@@ -1,0 +1,178 @@
+* {
+ 
+    font-family: 'Comfortaa', sans-serif;
+    box-sizing: border-box;
+    color: white;
+}
+button {
+    cursor: pointer;
+    border: none;
+}
+body{
+    background-color: #1F1E27;
+}
+/*header*/
+#header{
+    display: flex;
+    align-items: center;
+}
+#header a{
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+}
+#logo{
+    width: 200px;
+    height: 50px;
+    margin-right: 20px;
+}
+#opencase_btn, #upgrade_btn{
+    height: 100%;
+    padding: 20px;
+    border: 1px solid transparent;
+}
+#login_btn{
+    margin-left: auto;
+    margin-right: 50px;
+    border: 1px solid #00ffff;
+    padding: 15px 22px;
+    border-radius: 10px;
+}
+#opencase_btn:hover, #upgrade_btn:hover{
+    border: 1px solid #00ffff;
+}
+#header .btn:hover{
+    background-color: #00ffff;
+    color: #000000;
+}
+/* End header */
+
+/* container */
+
+    #container a{
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    .img_box{
+        overflow: hidden;
+        display: flex;
+        width: 400px;
+        height: 300px;
+    }
+    #container h3{
+        font-size: 20px;
+        text-align: center;
+        border: 2px solid white;
+        display: inline-block;
+        margin-top: 10px;
+        margin-bottom: 0;
+        padding: 12px;
+        border-radius: 15px;
+    }
+    #container img:hover{
+        animation: hoverCase linear 0.1s forwards;
+    }
+    @keyframes hoverCase{
+        from {
+            width: 80%;
+        }
+        to {
+            width: 100%;
+        }
+    }
+    .title{
+        text-align: center;
+        padding: 30px 10px 10px 10px;
+        margin: 0px;
+    }
+    .case{
+        padding-bottom: 20px;
+    }
+    .case:nth-child(1), .case:nth-child(3){
+        background-color: #322d44;
+    }
+    .case_img{
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+    .case_img img{
+        width: 80%;
+        margin: auto;
+    }
+/* end container */
+
+/*Live status bar*/
+#live_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-bottom: 15px;
+    background-color: #322d44;
+}
+#live_div .logo{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding-right: 200px;
+}
+#live_div .logo #logo_big{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#live_div .logo #logo_big img{
+    padding: 20px 20px;
+}
+#live_div .logo #logo_small{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#live_div .logo #logo_small img{
+    height: 40px;
+    padding: 0 40px;
+}
+.live {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+.live img{
+    height: 50px;
+    width: auto;
+}
+.live h3{
+    color: #fff;
+    margin-left: 10px;
+}
+/* End live status bar */
+
+/* footer */
+#footer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+#footer p{
+    margin-right: 30px;
+}
+#footer button{
+    font-weight: bold;
+    font-size: 16px;
+    background-color: transparent;
+}
+#footer .popup-item:hover{
+    color: #939097;
+}
+#popup{
+    width: 85%;
+    display: flex;
+    justify-content: space-evenly;
+}
+/* end footer */

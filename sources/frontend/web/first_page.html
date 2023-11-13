@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/first_page.css">
+    <title>CSMarket</title>
+</head>
+<body>
+    <div id="header">
+      <div id="logo">
+          <a href="./first_page.html"><img id="logo"  src="./img/logo/demo2.png" width="240px"></a>
+      </div>        
+      <a href="#" class="btn" id="login_btn">Login via steam</a>
+    </div>
+    <div class="slider">
+        <div class="slides">
+          <!--radio buttons start-->
+          <input type="radio" name="radio-btn" id="radio1">
+          <input type="radio" name="radio-btn" id="radio2">
+          <input type="radio" name="radio-btn" id="radio3">
+          <input type="radio" name="radio-btn" id="radio4">
+          <!--radio buttons end-->
+          <!--slide images start-->
+          <div class="slide first">
+            <img src="./img/slide/2.png" alt="slide images">
+          </div>
+          <div class="slide">
+            <img src="./img/slide/3.png" alt="slide images">
+          </div>
+          <div class="slide">
+            <img src="./img/slide/1.png" alt="slide images">
+          </div>
+          <div class="slide">
+            <img src="./img/slide/4.webp" alt="slide images">
+          </div>
+          <!--slide images end-->
+          <!--automatic navigation start-->
+          <div class="navigation-auto">
+            <div class="auto-btn1"></div>
+            <div class="auto-btn2"></div>
+            <div class="auto-btn3"></div>
+            <div class="auto-btn4"></div>
+          </div>
+          <!--automatic navigation end-->
+        </div>
+        <!--manual navigation start-->
+        <div class="navigation-manual">
+          <label for="radio1" class="manual-btn"></label>
+          <label for="radio2" class="manual-btn"></label>
+          <label for="radio3" class="manual-btn"></label>
+          <label for="radio4" class="manual-btn"></label>
+        </div>
+        <!--manual navigation end-->
+      </div>
+      <!--image slider end-->
+
+      <script type="text/javascript">
+        var counter = 1;
+        setInterval(function(){
+          document.getElementById('radio' + counter).checked = true;
+          counter++;
+          if(counter > 4){
+            counter = 1;
+          }
+        }, 5000);
+
+        function login_done(){
+          window.location.href="./main_page.html";
+        }
+        </script>
+</body>
+</html>
