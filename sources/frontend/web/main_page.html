@@ -179,5 +179,18 @@
         </div>
     </div>
     <!-- end footer -->
+    <span id="back-to-top" style="display: inline;">
+        <i class="fa fa-angle-up"></i>
+    </span>
 </body>
+<script>
+    $("#back-to-top").fadeIn(),
+    $("#back-to-top").click((function() {
+    return $("body,html").animate({
+        scrollTop: 0
+    }, 200),
+    !1
+    }
+));
+</script>
 </html>
