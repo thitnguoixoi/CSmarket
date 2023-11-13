@@ -15,6 +15,7 @@ body{
 #header{
     display: flex;
     align-items: center;
+    padding-bottom: 10px;
 }
 #header a{
     text-decoration: none;
@@ -36,15 +37,15 @@ body{
 #login_btn{
     margin-left: auto;
     margin-right: 50px;
-    border: 1px solid #00ffff;
+    border: 1px solid #ffffff;
     padding: 15px 22px;
     border-radius: 10px;
 }
 #opencase_btn:hover, #upgrade_btn:hover{
-    border: 1px solid #00ffff;
+    border: 1px solid #ffffff;
 }
 #header .btn:hover{
-    background-color: #00ffff;
+    background-color: #ffffff;
     color: #000000;
 }
 /* End header */
@@ -158,6 +159,7 @@ body{
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
 }
 #footer p{
     margin-right: 30px;
