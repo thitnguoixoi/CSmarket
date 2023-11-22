@@ -10,6 +10,7 @@ function App() {
     <div className="content">
       <Header></Header>
       <Opencase></Opencase>
+      <Case_opened></Case_opened>
       <Footer></Footer>
     </div>
   );
