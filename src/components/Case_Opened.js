@@ -26,14 +26,6 @@ import tier4_2 from '../assets/skin/Freecase1/tier4/tier4_2.png';
 
 import tier5_1 from '../assets/skin/Freecase1/tier5/tier5_1.png';
 import tier5_2 from '../assets/skin/Freecase1/tier5/tier5_2.png';
-// SkinTier component defined inside CaseOpened.js
-const SkinTier = ({ tier, images }) => (
-  <div className={`tier${tier}`}>
-    {images.map((image, index) => (
-      <img key={index} src={image}/>
-    ))}
-  </div>
-);
 
 function Case_Opened(){
     return(
