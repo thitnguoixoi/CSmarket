@@ -1,62 +1,14 @@
-*{
-    font-family: 'Comfortaa', sans-serif;
-    box-sizing: border-box;
-}
-button {
-  cursor: pointer;
-  outline: none;
-}
-#header{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-}
-#header a{
-  text-decoration: none;
-  color: white;
-}
-#logo{
-  width: 200px;
-  height: 50px;
-  margin-right: 20px;
-}
-#login_btn{
-  margin-left: auto;
-  margin-right: 30px;
-  border: 1px solid #00ffff;
-  padding: 15px 22px;
-  border-radius: 10px;
-}
-#header .btn:hover{
-  background-color: #00ffff;
-  color: #000000;
-}
-
-/* Css for the slider  */  
-  body{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #1F1E27;
-  }
-  
-  .slider{
+.slider{
     margin-top: 20px;
-    width: 1440px;
-    height: 810px;
+    width: 1280px;
+    height: 720px;
     border-radius: 10px;
     overflow: hidden;
   }
   
   .slides{
     width: 500%;
-    height: 810px;
+    height: 720px;
     display: flex;
   }
   
@@ -70,15 +22,15 @@ button {
   }
   
   .slide img{
-    width: 1440px;
-    height: 810px;
+    width: 1280px;
+    height: 720px;
   }
   
   /*css for manual slide navigation*/
   
   .navigation-manual{
     position: absolute;
-    width: 1440px;
+    width: 1280px;
     margin-top: -40px;
     display: flex;
     justify-content: center;
@@ -120,9 +72,9 @@ button {
   .navigation-auto{
     position: absolute;
     display: flex;
-    width: 1440px;
+    width: 1280px;
     justify-content: center;
-    margin-top: 770px;
+    margin-top: 680px;
   }
   
   .navigation-auto div{
