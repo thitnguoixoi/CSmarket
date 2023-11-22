@@ -9,8 +9,7 @@ function App() {
   return (
     <div className="content">
       <Header></Header>
-      <Opencase></Opencase>
-      <Case_opened></Case_opened>
+      <Body></Body>
       <Footer></Footer>
     </div>
   );
