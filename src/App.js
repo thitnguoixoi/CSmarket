@@ -3,7 +3,6 @@ import Header from './components/Header.js';
 import Body from './components/Body.js';
 import Opencase from './components/Opencase.js';
 import Footer from './components/Footer.js'
-import Case_opened from './components/Case_Opened.js';
 
 function App() {
   return (
