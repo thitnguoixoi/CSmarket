@@ -2,7 +2,7 @@ import './styles/Footer.css';
 import User from '../assets/logo/User.png';
 import Online from '../assets/logo/online.png';
 import Opencase from '../assets/logo/opencase.png';
-import Upgrade from '../assets/logo/upgrade.png';
+import upgrade from '../assets/logo/upgrade.png';
 import csmarket from '../assets/logo/csmarket.png';
 import fb from '../assets/logo/facebook.webp';
 import dis from '../assets/logo/discord.webp';
@@ -44,7 +44,7 @@ function Footer(){
                     </div>
                 </div>
                 <div className='live' id='Upgrade'>
-                    <img src={Upgrade} />
+                    <img src={upgrade} />
                     <div className='live_txt'>
                         <h3>0</h3>
                         <h3>Upgraded</h3>
