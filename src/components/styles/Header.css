@@ -26,3 +26,21 @@
     background-color: #00ffffbb;
     color: #000000;
 }
+
+/* navigation */
+.topnav {
+    margin-left: 40px;
+    padding: 15px;
+    overflow: hidden;
+  }
+  
+  .topnav a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 20px;
+  }
+  
+
+  

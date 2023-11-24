@@ -1,4 +1,6 @@
 .content{
+    background-color: #1F1E27;
+    border-radius: 10px;
     margin: 0;
     padding: 0;
     display: flex;

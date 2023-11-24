@@ -1,5 +1,4 @@
 * {
-    background-color: #1F1E27;
     font-family: 'Comfortaa', sans-serif;
     box-sizing: border-box;
     color: white;
@@ -48,6 +47,7 @@ button {
 /* End header */
 
 /*case */
+
 .case a{
     text-decoration: none;
     display: flex;
