@@ -8,8 +8,7 @@ class SelectedItem extends React.Component {
         const { selectedItem, fixedSize } = this.props;
 
         return (
-            <div className={`selected-item ${selectedItem ? 'selected' : ''}`}>
-                <h3>Selected Item</h3>
+            <div className={`selected-item ${selectedItem ? 'selected' : ''}`}>               
                 {selectedItem ? (
                     <Item itemData={selectedItem} fixedSize={fixedSize} />
                 ) : (

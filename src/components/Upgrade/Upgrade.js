@@ -97,12 +97,22 @@ class Inventory extends React.Component {
         return (
             <div className="inventory-container">
                 <div className="selected-items">
-                    <SelectedItem selectedItem={selectedUserItem} fixedSize />
+                    <div className="User-select">
+                        <h3>Selected Item</h3>
+                        <SelectedItem selectedItem={selectedUserItem} fixedSize />
+                    </div>
+
                     <UpgradeSection
                         handleUpgradeClick={this.handleUpgradeClick}
                         upgradeSuccessRate={upgradeSuccessRate}
                     />
-                    <SelectedItem selectedItem={selectedServerItem} fixedSize />
+
+                    <div className="Server-select">
+                        <h3>Selected Item</h3>
+                        <SelectedItem selectedItem={selectedServerItem} fixedSize />
+                    </div>
+
+
                 </div>
 
 
