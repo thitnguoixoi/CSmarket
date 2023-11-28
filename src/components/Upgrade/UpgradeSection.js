@@ -9,9 +9,9 @@ class UpgradeSection extends React.Component {
 
         return (
             <div className="upgrade-section">
-                <h2>Upgrade Section</h2>
+                <h2>Upgrade your item</h2>
                 <button onClick={handleUpgradeClick}>Nâng cấp</button>
-                <p>Tỷ lệ nâng cấp thành công: {upgradeSuccessRate.toFixed(2)}%</p>
+                <p>Rating: {upgradeSuccessRate.toFixed(2)}%</p>
             </div>
         );
     }

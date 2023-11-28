@@ -1,93 +1,125 @@
-/* styles/Inventory.css */
+/* Add or modify styles in your existing Inventory.css file */
 
 .inventory-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.selected-items {
+    display: flex;
     justify-content: space-around;
-}
-
-.user-inventory,
-.server-inventory {
-    flex: 1;
-    padding: 10px;
-}
-
-.user-inventory h2,
-.server-inventory h2,
-.upgrade-section h2 {
     margin-bottom: 10px;
 }
 
+.selected-item {
+    text-align: center;
+}
+
 .upgrade-section {
-    flex: 1;
-    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-.selected {
-    background-color: #3498db;
-    color: #fff;
+h2 {
+    margin: 0;
+    /* Remove default margin to avoid extra spacing */
 }
 
-.user-inventory li:hover,
-.server-inventory li:hover,
-.selected {
-    cursor: pointer;
+/* Updated styles for the two inventory sections */
+.user-inventory,
+.server-inventory {
+    max-height: 350px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 550px;
+    /* Center text horizontally */
+    margin: 0 100px;
+    /* Add margin for spacing */
 }
 
-.user-inventory ul,
-.server-inventory ul {
-    list-style: none;
+.inventory {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+}
+
+.inventory-container ul{
+    list-style-type: none;
     padding: 0;
     margin: 0;
+    width: 550px;
+    display: flex;
+    height: 300px;
+    flex-wrap: wrap;
 }
 
-.user-inventory li,
-.server-inventory li {
-    margin: 5px 0;
+
+/* Centered headers outside the scrollable area */
+.user-inventory h2,
+.server-inventory h2 {
+    position: sticky;
+    top: 0;
+    background-color: #6d0606;
     padding: 10px;
-    border: 1px solid #ddd;
-    cursor: pointer;
+    z-index: 1;
 }
 
-.upgrade-section button {
-    padding: 10px;
-    background-color: #2ecc71;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+.user,
+.server {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-.upgrade-section p {
-    margin-top: 10px;
-}
-
-.user-inventory li:not(.selected),
-.server-inventory li:not(.selected) {
-    display: none;
-}
-
-/* Hiển thị toàn bộ nếu không có đối tượng nào được chọn */
-.user-inventory:not(.selected) li,
-.server-inventory:not(.selected) li {
-    display: list-item;
-}
-
-.selected-items .user-selected-item img,
-.selected-items .server-selected-item img {
-    width: 200px;
-    /* Đặt kích thước mong muốn */
-    height: 200px;
-    /* Đặt kích thước mong muốn */
-}
-
-.selected-items .user-selected-item,
-.selected-items .server-selected-item {
-    border: 2px solid #3498db;
-    /* Màu sắc của đường viền */
-    padding: 10px;
+.user li,
+.server li {
+    width: 150px;
+    /* Set the desired width for your items */
     margin: 10px;
+    /* Adjust margin as needed for spacing */
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.selected {
-    border-color: #e67e22;
-    /* Màu sắc của đường viền khi được chọn */
+.user li img,
+.server li img{
+    width: 150px;
+    /* Set the desired width for your items */
+    margin: 10px;
+    /* Adjust margin as needed for spacing */
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #1F1E27;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #747171;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+button {
+    background-color: #1F1E27;
+}
+
+button :hover{
+    background-color: #ffffff;
 }

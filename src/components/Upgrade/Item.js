@@ -6,7 +6,7 @@ class Item extends Component {
 
         return (
             <div className={`item ${fixedSize ? 'fixed-size' : ''}`}>
-                <img src={itemData.context} alt={itemData.name} />
+                <img src={require(`../../assets/skin/common1/tier1/${itemData.context}`)} alt={itemData.name} />
                 <div className="item-details">
                     <p>{itemData.updater}</p>
                     <p>Tier: {itemData.props}</p>
