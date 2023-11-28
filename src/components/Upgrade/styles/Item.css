@@ -1,0 +1,32 @@
+/* styles/Item.css */
+
+.item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+}
+
+.item-details {
+    text-align: center;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item.tier-1 {
+    border-color: #3498db;
+}
+
+.item.tier-2 {
+    border-color: #e67e22;
+}
+
+.item.tier-3 {
+    border-color: #2ecc71;
+}
