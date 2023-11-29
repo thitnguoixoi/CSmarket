@@ -2,9 +2,7 @@
 
 import React from "react";
 import './styles/Inventory.css';
-import UserInventory from './UserInventory';
 import UpgradeSection from './UpgradeSection';
-import ServerInventory from './ServerInventory';
 import SelectedItem from './SelectedItem';
 import Item from "./Item";
 

@@ -1,7 +1,6 @@
 // UpgradeSection.js
 
 import React from "react";
-import Item from './Item.js';
 
 class UpgradeSection extends React.Component {
     render() {

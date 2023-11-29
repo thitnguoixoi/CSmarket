@@ -8,43 +8,43 @@ import fb from '../assets/logo/facebook.webp';
 import dis from '../assets/logo/discord.webp';
 import steam from '../assets/logo/steam.webp';
 
-function Footer(){
+function Footer() {
     return (
         <>
             <div id='live_div'>
                 <div className='logo'>
                     <div id='logo_big'>
-                        <img src={csmarket} width='240px' alt=""/>
+                        <img src={csmarket} width='240px' alt="" />
                     </div>
                     <div id='logo_small'>
-                        <a href='https://www.facebook.com/thanh.lam.0907/'><img className='logo' src={fb} alt='facebook'/></a>
-                        <a href='https://discord.gg/langmin'><img className='logo' src={dis} alt='discord'/></a>
-                        <a href='https://steamcommunity.com/profiles/76561198359187274/'><img className='logo' src={steam} alt='steam'/></a>
+                        <a href='https://www.facebook.com/thanh.lam.0907/'><img className='logo' src={fb} alt='facebook' /></a>
+                        <a href='https://discord.gg/langmin'><img className='logo' src={dis} alt='discord' /></a>
+                        <a href='https://steamcommunity.com/profiles/76561198359187274/'><img className='logo' src={steam} alt='steam' /></a>
                     </div>
                 </div>
                 <div className='live' id='online'>
-                    <img src={Online} alt=""/>
+                    <img src={Online} alt="" />
                     <div className='live_txt'>
                         <h3>0</h3>
                         <h3>Online</h3>
                     </div>
                 </div>
                 <div className='live' id='User'>
-                    <img src={User} alt=""/>
+                    <img src={User} alt="" />
                     <div className='live_txt'>
                         <h3>0</h3>
                         <h3>User</h3>
                     </div>
                 </div>
                 <div className='live' id='Opened Case'>
-                    <img src={Opencase} alt=""/>
+                    <img src={Opencase} alt="" />
                     <div className='live_txt'>
                         <h3>0</h3>
                         <h3>Opened</h3>
                     </div>
                 </div>
                 <div className='live' id='Upgrade'>
-                    <img src={upgrade} alt=""/>
+                    <img src={upgrade} alt="" />
                     <div className='live_txt'>
                         <h3>0</h3>
                         <h3>Upgraded</h3>
