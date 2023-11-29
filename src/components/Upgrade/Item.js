@@ -1,20 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Item extends Component {
-    render() {
-        const { itemData, fixedSize } = this.props;
-
-        return (
-            <div className={`item ${fixedSize ? 'fixed-size' : ''}`}>
-                <img src={require(`../../assets/skin/common1/tier1/${itemData.context}`)} alt={itemData.name} />
-                <div className="item-details">
-                    <p>{itemData.updater}</p>
-                    <p>Tier: {itemData.props}</p>
-                    <p>Price: {itemData.price}</p>
-                </div>
+function Item({itemData}) {
+    return (
+        <div className="item">
+            <img src={itemData.context} alt="" />
+            <div className="item-details">
+                <p>{itemData.name}</p>
+                <p>{itemData.price}</p>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default Item;
