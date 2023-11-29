@@ -1,14 +1,15 @@
 import React from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Case = ({ image, price , to}) => {
+const Case = ({ name, image, price }) => {
   return (
     <div className="case_box">
-      <Link to="/opened_case">
-        <div className='img_box'>
-          <img src={image} alt=""/>
+      <Link to="/caseOpened">
+        <div className='img_box' id={name}>
+          <img src={image} alt="" />
         </div>
       </Link>
+
       <h3>{price}</h3>
     </div>
   );
