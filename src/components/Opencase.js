@@ -2,6 +2,7 @@ import React from 'react';
 
 import './styles/Opencase.css';
 import Case from './Case';
+import caseskin from '../assets/case';
 
 
 
@@ -12,7 +13,7 @@ class Opencase extends React.Component {
                 <div className='case' id='free'>
                     <h1 className="title">Free case</h1>
                     <div className="case_img">
-                        <Case name="Freecase1" image={require('../assets/case/freecase1.png')} price="$0.00" />
+                        <Case name={caseskin.Freecase1.name} image={caseskin.Freecase1.imgUrl} price={caseskin.Freecase1.price} />
                         <Case name="Freecase2" image={require('../assets/case/freecase2.png')} price="$0.00" />
                     </div>
                 </div>
