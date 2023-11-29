@@ -4,10 +4,7 @@ import './styles/Opencase.css';
 import Case from './Case';
 import FC1 from './cases/FC1/FC1.js';
 
-
-
-class Opencase extends React.Component {
-    render(){
+function Opencase() {
         return (
             <>
                 <div className='case' id='free'>
@@ -42,9 +39,8 @@ class Opencase extends React.Component {
                     <Case image={require('../assets/case/vipcase1.png')} price="$100.00" />
                     </div>
                 </div>
-            </>     
-          );
-    }  
+            </>  
+        )   
 }
 
 export default Opencase;
