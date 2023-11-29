@@ -2,7 +2,6 @@ import React from 'react';
 
 import './styles/Opencase.css';
 import Case from './Case';
-import FC1 from './cases/FC1/FC1.js';
 
 
 
