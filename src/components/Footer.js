@@ -52,7 +52,7 @@ function Footer(){
                 </div>
             </div>
 
-            <div class="footer_terms">
+            <div className="footer_terms">
                 <ul>
                     <li>© No copyright</li>
                     <li><a href="./GioiThieu.html">Giới thiệu về CsMarket</a></li>

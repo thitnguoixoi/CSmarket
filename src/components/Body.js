@@ -8,9 +8,9 @@ function Body(){
     return(
         <>
             <Routes>
-                <Route path='/home' exact element={<><Slider></Slider><Opencase></Opencase></>}></Route>
-                <Route path='/OpenCase' exact element={<Opencase/>}></Route>
-                <Route path='/Upgrade' exact element={<Inventory></Inventory>}></Route>
+                <Route path='/home' exact element={<><Slider></Slider><Opencase></Opencase></>}/>
+                <Route path='/opencase' exact element={<Opencase></Opencase>}/>
+                <Route path='/upgrade' exact element={<Inventory></Inventory>}/>
             </Routes>
         </>
     )

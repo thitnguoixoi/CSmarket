@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Route, Routes } from 'react-router-dom';
 const Case = ({ image, price ,href}) => {
   return (
     <a href="#">

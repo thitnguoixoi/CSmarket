@@ -1,15 +1,6 @@
 import './styles/Slider.css';
 
 function Slider(){
-    var counter = 1;
-    setInterval(function(){
-        document.getElementById('radio' + counter).checked = true;
-        counter++;
-        if(counter > 4){counter = 1;}}, 5000);
-
-        function login_done(){
-          window.location.href="./main_page.html";
-        }
     return(
         <div className="slider">
             <div className="slides">

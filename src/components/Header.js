@@ -6,8 +6,8 @@ function Header() {
         <div className="header">
         <Link to="/home"><img src={require('../assets/logo/csmarket.png')} alt="logo"/></Link> 
         <div className="topnav">
-              <Link to="/Opencase">Opencase</Link>
-              <Link to="/Upgrade">Upgrade</Link>
+              <Link to="/opencase">Opencase</Link>
+              <Link to="/upgrade">Upgrade</Link>
         </div>
         <Link to="#" className="btn">Login via steam</Link>
       </div>
