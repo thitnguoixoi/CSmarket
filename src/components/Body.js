@@ -11,6 +11,7 @@ function Body(){
                 <Route path='/home' exact element={<><Slider></Slider><Opencase></Opencase></>}/>
                 <Route path='/opencase' exact element={<Opencase></Opencase>}/>
                 <Route path='/upgrade' exact element={<Inventory></Inventory>}/>
+                <Route path='/opened_case' exact element={<></>}/>
             </Routes>
         </>
     )
