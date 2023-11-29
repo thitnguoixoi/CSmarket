@@ -1,15 +1,15 @@
 import './styles/Header.css';
-
+import { Link } from 'react-router-dom';
 function Header() {
     return (
       <>
         <div className="header">
-        <a href="home"><img src={require('../assets/logo/csmarket.png')}/></a> 
+        <Link to="/home"><img src={require('../assets/logo/csmarket.png')} alt="logo"/></Link> 
         <div className="topnav">
-              <a href="Opencase">Opencase</a>
-              <a href="Upgrade">Upgrade</a>
+              <Link to="/Opencase">Opencase</Link>
+              <Link to="/Upgrade">Upgrade</Link>
         </div>
-        <a href="#" className="btn">Login via steam</a>
+        <Link to="#" className="btn">Login via steam</Link>
       </div>
       </>
       
