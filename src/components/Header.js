@@ -13,7 +13,7 @@ function Header() {
         <a href="Opencase">Opencase</a>
         <a href="Upgrade">Upgrade</a>
       </div>
-      <a href="#" className="btn">Login via steam</a>
+      <button href="#" className="btn">Login via steam</button>
     </div>
   );
 }
