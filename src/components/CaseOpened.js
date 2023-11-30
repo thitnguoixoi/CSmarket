@@ -1,21 +1,21 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import './styles/CaseOpened.css';
 
-function CaseOpened({ name, ImgPath, SkinPath }) {
+function CaseOpened({ caseData }) {
     return (
         <div className="Case_Opened">
-            <Link>
-                <div>
-                    <h3>{name}</h3>
-                    <img src={ImgPath} alt="Case" />
-                </div>
+            <div className="opencase">
+                <h3>{caseData.name}</h3>
+                <img src={caseData.imgUrl} alt="Case" />
+            </div>
 
-                <div>
-                    
-                </div>
-            </Link>
-
+            <div className="image-container">
+                {caseData.skins.map((item) => {
+                    return (
+                        <img className={`tier${item.tier}`} src={item.imgUrl} alt="skin" />
+                    )
+                })}
+            </div>
         </div>
     );
 }

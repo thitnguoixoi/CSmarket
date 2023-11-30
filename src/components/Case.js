@@ -1,18 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Case = ({ name, image, price }) => {
+function Case({ caseData }) {
   return (
     <div className="case_box">
-      <Link to="/caseOpened">
-        <div className='img_box' id={name}>
-          <img src={image} alt="" />
+      <Link to={caseData.to}>
+        <div className='img_box' id={caseData.name}>
+          <img src={caseData.imgUrl} alt="" />
         </div>
       </Link>
-
-      <h3>{price}</h3>
+      <h3>{caseData.price}</h3>
     </div>
   );
-};
+}
 
 export default Case;
