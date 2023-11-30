@@ -44,9 +44,10 @@
     border-radius: 25%;
     margin-bottom: 30px;
 }
-.opencase h1{
+.opencase h3{
     margin-right: 0;
     background-color: transparent;
+    font-size: 36px;
 }
 .opencase img{
     width: 340px;

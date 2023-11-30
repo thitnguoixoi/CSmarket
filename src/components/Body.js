@@ -4,7 +4,7 @@ import Slider from './Slider.js';
 import Opencase from './OpencasePage.js';
 import Inventory from './Upgrade/Upgrade.js';
 import CaseOpened from './CaseOpened.js';
-import caseData from '../assets/caseData/index.js';
+import caseData from '../assets/caseData';
 function Body() {
     const renderCaseOpened = () => {
         return caseData.map((item) => {
@@ -25,10 +25,10 @@ function Body() {
     return (
         <>
             <Routes>
-                <Route path='/home' exact element={<><Slider></Slider><Opencase></Opencase></>} />
-                <Route path='/opencase' exact element={<Opencase></Opencase>} />
-                <Route path='/upgrade' exact element={<Inventory></Inventory>} />
-                <Route path='/caseOpened' exact element={<CaseOpened></CaseOpened>} />
+                <Route path='/' exact element={<Slider />} />
+                <Route path='/opencase' exact element={<Opencase />} />
+                <Route path='/upgrade' exact element={<Inventory />} />
+                <Route path='/caseOpened' exact element={<CaseOpened />} />
                 {renderCaseOpened()}
             </Routes>
         </>
