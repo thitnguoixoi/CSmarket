@@ -7,7 +7,7 @@ import csmarket from '../assets/logo/csmarket.png';
 import fb from '../assets/logo/facebook.webp';
 import dis from '../assets/logo/discord.webp';
 import steam from '../assets/logo/steam.webp';
-
+import Modal from './Popup';
 function Footer() {
     return (
         <>
@@ -55,11 +55,11 @@ function Footer() {
             <div className="footer_terms">
                 <ul>
                     <li>© No copyright</li>
-                    <li><a href="./GioiThieu.html">Giới thiệu về CsMarket</a></li>
-                    <li><a href="./FAQ.html">Câu hỏi thường gặp</a></li>
-                    <li><a href="./service.html">Điều khoản dịch vụ</a></li>
-                    <li><a href="./policy_personal.html">Chính sách quyền riêng tư</a></li>
-                    <li><a href="./policy_cookie.html">Chính sách cookie</a></li>
+                    <li><Modal text={"Giới thiệu về CSMarket"}/></li>
+                    <li><Modal text={"Câu hỏi thường gặp"}/></li>
+                    <li><Modal text={"Điều khoản dịch vụ"}/></li>
+                    <li><Modal text={"Chính sách bảo mật"}/></li>
+                    <li><Modal text={"Chính sách Cookie"}/></li>
                 </ul>
             </div>
         </>

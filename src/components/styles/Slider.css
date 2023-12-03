@@ -103,3 +103,35 @@
   #radio4:checked ~ .navigation-auto .auto-btn4{
     background: #00ffff;
   }
+
+  @media screen and (max-width: 1366px) and (min-width: 860px){
+    .slider{
+      width: 800px;
+      height: 450px;
+    }
+    
+    .slides{
+      height: 450px;
+    }
+    .slide img{
+      width: 800px;
+      height: 450px;
+    }
+    
+    .navigation-manual{
+      width: 800px;
+    }
+    
+    /*css for automatic navigation*/
+    
+    .navigation-auto{
+      width: 800px;
+      margin-top: 410px;
+    }
+  }
+
+  @media screen and (max-width: 860px) {
+    .slider{
+      display: none;
+    }
+  }
