@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './styles/Upgrade.css';
 import SelectedItem from './SelectedItem';
 import Item from "./Item";
@@ -8,39 +8,44 @@ function Inventory() {
     // State for selected user and server items
     const [selectedUserItem, setSelectedUserItem] = useState(null);
     const [selectedServerItem, setSelectedServerItem] = useState(null);
+    const [rateUser, setRateUser] = useState(0.0);
+    const [rateServer, setRateServer] = useState(0.0);
     // State for upgrade success rate
-    const [upgradeSuccessRate, setUpgradeSuccessRate] = useState(0);
-
+    const [upgradeSuccessRate, setUpgradeSuccessRate] = useState(0.0);
+    console.log(rateServer, rateUser, upgradeSuccessRate);
+    useEffect(() => {
+        console.log(selectedUserItem?.tier ||null, selectedServerItem?.tier||null);
+        rateUpgrade();
+    });
     // Handler for user item click
     const handleUserItemClick = (item) => {
-        setSelectedUserItem((prevItem) => (prevItem === item ? null : item));
-        rateUpgrade();
+        setSelectedUserItem(item);
+        setRateUser(item.float);
     };
 
     // Handler for server item click
     const handleServerItemClick = (item) => {
-        setSelectedServerItem((prevItem) => (prevItem === item ? null : item));
-        rateUpgrade();
+        setSelectedServerItem(item);
+        setRateServer(item.float);
     };
 
     // Function to calculate upgrade success rate
     const rateUpgrade = () => {
         // Access properties of selected items safely using optional chaining
-        const userFloat = selectedUserItem?.float || 0;
-        const serverFloat = selectedServerItem?.float || 0;
         const userTier = selectedUserItem?.tier || "tier1";
         const serverTier = selectedServerItem?.tier || "tier1";
-
+        console.log(userTier, serverTier);
+        console.log(selectedServerItem, selectedUserItem);
         // Example calculation: Combine float and tier to determine success rate
         let successRate = 0;
 
         // Adjust the calculation logic based on your requirements
-        if (userTier === serverTier) {
+        if (userTier === serverTier && rateServer > 0.0 && rateUser > 0.0) {
             // The higher the float difference, the higher the success rate
-            successRate = 100 - Math.abs(userFloat - serverFloat) * 100;
-        } else {
+            successRate = 100 - Math.abs(rateUser - rateServer) * 100;
+        } else if (userTier !== serverTier && rateServer > 0 && rateUser > 0) {
             // If tiers are different, lower success rate
-            successRate = 50 - Math.abs(userFloat - serverFloat) * 50;
+            successRate = 50 - Math.abs(rateUser - rateServer) * 50;
         }
 
         // Update the state with the calculated success rate
