@@ -1,4 +1,4 @@
-/* Add or modify styles in your existing Inventory.css file */
+
 
 .inventory-container {
     display: flex;
@@ -34,9 +34,7 @@ h2 {
     border: 1px solid #ddd;
     text-align: center;
     width: 550px;
-    /* Center text horizontally */
     margin: 0 100px;
-    /* Add margin for spacing */
 }
 
 .inventory {
@@ -142,4 +140,13 @@ button :hover{
     align-items: center;
     flex-direction: column;
     height: 500px;
+}
+
+
+.upgrade-section {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }

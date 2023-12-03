@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './styles/Inventory.css';
+import './styles/Upgrade.css';
 import UpgradeSection from './UpgradeSection';
 import SelectedItem from './SelectedItem';
 import Item from "./Item";
