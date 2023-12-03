@@ -150,3 +150,22 @@ button :hover{
     justify-content: center;
     flex-direction: column;
 }
+
+.item {
+    width: 160px;
+    height: auto;
+}
+
+.user ul,.server ul{
+    display: flex;
+    align-items: top;
+    justify-content: space-around;
+}
+
+.selected-item .item{
+    width: auto;
+}
+
+.selected-items h2{
+    margin: 20px 20px;
+}

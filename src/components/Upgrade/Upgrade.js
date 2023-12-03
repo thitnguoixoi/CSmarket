@@ -27,18 +27,26 @@ function Inventory() {
     };
 
     const userItems = [
-        { tier: "Tier 1", context: SkinData.glockOxideBlaze.imgUrl, name: "Item 1", price: 10 },
-        { tier: "Tier 2", context: "CC1-1_2.avif", name: "Item 2", price: 20 },
-        { tier: "Tier 3", context: "CC1-1_3.avif", name: "Item 3", price: 30 },
-        { tier: "Tier 1", context: "CC1-1_1.avif", name: "Item 1", price: 10 },
-        { tier: "Tier 2", context: "CC1-1_2.avif", name: "Item 2", price: 20 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier4", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier5", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
         // Add more items if needed
     ];
 
     const serverItems = [
-        { tier: "Tier 1", context: "CC1-1_1.avif", name: "Server Item 1", price: 15 },
-        { tier: "Tier 2", context: "CC1-1_2.avif", name: "Server Item 2", price: 25 },
-        { tier: "Tier 3", context: "CC1-1_3.avif", name: "Server Item 3", price: 35 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier4", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier5", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10,type:"FT",float: 0.0009 },
         // Add more items if needed
     ];
 
@@ -46,7 +54,7 @@ function Inventory() {
         <div className="inventory-container">
             <div className="selected-items">
                 <div className="User-select">
-                    <h3>Selected Item</h3>
+                    <h2>User Selected Item</h2>
                     <SelectedItem selectedItem={selectedUserItem} fixedSize />
                 </div>
 
@@ -55,7 +63,7 @@ function Inventory() {
                 />
 
                 <div className="Server-select">
-                    <h3>Selected Item</h3>
+                    <h2>Server Selected Item</h2>
                     <SelectedItem selectedItem={selectedServerItem} fixedSize />
                 </div>
             </div>
