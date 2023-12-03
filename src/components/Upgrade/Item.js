@@ -5,7 +5,7 @@ function Item({ itemData }) {
         <div className={`item ${itemData.tier}`}>
             <img src={itemData.context} alt="" />
             <div className="item-details">
-                <p>{itemData.type} {itemData.float}</p>    
+                <p>{itemData.type} / {itemData.float}</p>    
                 <p>{itemData.name}</p>
                 <p>{itemData.price}$</p>
             </div>
