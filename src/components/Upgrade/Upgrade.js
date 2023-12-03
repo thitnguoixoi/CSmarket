@@ -8,8 +8,6 @@ function Inventory() {
     // State for selected user and server items
     const [selectedUserItem, setSelectedUserItem] = useState(null);
     const [selectedServerItem, setSelectedServerItem] = useState(null);
-    const [rateUser, setRateUser] = useState(0);
-    const [rateServer, setServer] = useState(0);
     // State for upgrade success rate
     const [upgradeSuccessRate, setUpgradeSuccessRate] = useState(0);
 
