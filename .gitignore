@@ -2,7 +2,7 @@
 
 *.pack
 # dependencies
-/node_modules
+/sources/frontend/node_modules
 /.pnp
 .pnp.js
 
