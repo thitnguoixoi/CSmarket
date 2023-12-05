@@ -4,13 +4,13 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 #live_div .logo{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-right: 200px;
+    padding-right: 150px;
 }
 #live_div .logo #logo_big{
     display: flex;
@@ -19,6 +19,7 @@
 }
 #live_div .logo #logo_big img{
     padding: 20px 20px;
+    width: 240px;
 }
 #live_div .logo #logo_small{
     display: flex;
@@ -49,6 +50,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-right: 20px;
 }
 .footer_terms ul{
     width: 100%;
@@ -78,4 +80,62 @@
 .footer_logo img{
     height: 40px;
     padding: 0 20px;
+}
+
+@media screen and (max-width: 1366px) {
+    #live_div .logo #logo_big img{
+        display: none;
+    }
+    #live_div .logo #logo_small img{
+        height: 30px;
+        padding: 0 20px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #live_div {
+        padding-bottom: 15px;
+    }
+    #live_div .logo{
+        display: none;
+    }
+    .live {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .live img{
+        height: 25px;
+        width: auto;
+    }
+    .live h3{
+        color: #fff;
+        margin-left: 10px;
+    }
+    
+    /* Footer term and policy, etc */
+    .footer_terms{
+        padding: 10px 0;
+    }
+    .footer_terms li{
+        padding: 0;
+        font-size: 12px;
+    }
+    .footer_terms li:last-child{
+        margin-right: 0;
+    
+    }
+    .footer_logo img{
+        height: 40px;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer_terms {
+        display: none;
+    }
+    .live_txt{
+        display: flex;
+    }
 }
