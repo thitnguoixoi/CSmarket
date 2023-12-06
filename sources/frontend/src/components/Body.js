@@ -13,9 +13,7 @@ function Body() {
                     key={item.id}
                     path={item.to}
                     element={
-                        <CaseOpened
-                            caseData={item}
-                        />
+                        <CaseOpened caseData={item}/>
                     }
                 />
             )
@@ -25,7 +23,7 @@ function Body() {
     return (
         <>
             <Routes>
-                <Route path='/' exact element={<Slider />} />
+                <Route path='/' exact element={<><Slider /> <Opencase/></>} />
                 <Route path='/opencase' exact element={<Opencase />} />
                 <Route path='/upgrade' exact element={<Inventory />} />
                 <Route path='/caseOpened' exact element={<CaseOpened />} />

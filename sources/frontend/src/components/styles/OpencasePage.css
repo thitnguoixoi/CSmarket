@@ -56,6 +56,8 @@ button {
 
 }
 .img_box{
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     display: flex;
     width: 400px;
@@ -104,3 +106,9 @@ button {
     align-items: center;
 }
 /* end case */
+@media screen and (max-width: 1080px) {
+    .img_box{
+        width: 300px;
+        height: 225px;
+    }
+}
