@@ -106,9 +106,6 @@ function Inventory() {
         setUpgradeSuccessRate(successRate);
     };
 
-
-
-
     // Sample data for user and server items
     const userItems = [
         // ... your userItems data

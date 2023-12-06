@@ -3,41 +3,26 @@ import './styles/OpencasePage.css';
 import Case from './Case';
 import { caseData } from '../assets/caseData';
 
+const caseCategories = [
+    { id: 'free', title: 'Free case', items: [0, 1] },
+    { id: 'common', title: 'Common case', items: [2, 3, 4] },
+    { id: 'epic', title: 'Epic case', items: [5, 6, 7] },
+    { id: 'vip', title: 'Vip case', items: [8] },
+];
+
 function Opencase() {
     return (
         <>
-            <div className='case' id='free'>
-                <h1 className="title">Free case</h1>
-                <div className="case_img">
-                    <Case caseData={caseData[0]} />
-                    <Case caseData={caseData[1]} />
+            {caseCategories.map((item) => (
+                <div className='case' id={item.id} key={item.id}>
+                    <h1 className="title">{item.title}</h1>
+                    <div className="case_img">
+                        {item.items.map((itemIndex) => (
+                            <Case key={itemIndex} caseData={caseData[itemIndex]} />
+                        ))}
+                    </div>
                 </div>
-            </div>
-
-            <div className='case' id='common'>
-                <h1 className="title">Common case</h1>
-                <div className="case_img">
-                    <Case caseData={caseData[2]} />
-                    <Case caseData={caseData[3]} />
-                    <Case caseData={caseData[4]} />
-                </div>
-            </div>
-
-            <div className='case' id='epic'>
-                <h1 className="title">Epic case</h1>
-                <div className="case_img">
-                    <Case caseData={caseData[5]} />
-                    <Case caseData={caseData[6]} />
-                    <Case caseData={caseData[7]} />
-                </div>
-            </div>
-
-            <div className='case' id='vip'>
-                <h1 className="title">Vip case</h1>
-                <div className="case_img">
-                    <Case caseData={caseData[8]} />
-                </div>
-            </div>
+            ))}
         </>
     );
 }
