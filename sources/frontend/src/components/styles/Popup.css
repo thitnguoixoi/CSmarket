@@ -48,15 +48,9 @@ body.active-modal {
     height: 40px;
 }
 
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1080px){
     .btn-modal{
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 768px){
-    .btn-modal{
-        font-size: 10px;
-        padding: 0;
+        font-size: 15px;
+        padding: 10px 0px;
     }
 }

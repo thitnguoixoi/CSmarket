@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './styles/Opencase.css';
+import './styles/OpencasePage.css';
 import Case from './Case';
 import { caseData } from '../assets/caseData';
 

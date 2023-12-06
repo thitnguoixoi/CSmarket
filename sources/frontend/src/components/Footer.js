@@ -55,7 +55,7 @@ function Footer() {
 
             <div className="footer_terms">
                 <ul>
-                    <li>© No copyright</li>
+                    <li id="copyright">© No copyright</li>
                     <li><Modal text={"Giới thiệu về CSMarket"}/></li>
                     <li><Modal text={"Câu hỏi thường gặp"}/></li>
                     <li><Modal text={"Điều khoản dịch vụ"}/></li>
