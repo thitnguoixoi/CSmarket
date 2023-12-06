@@ -21,11 +21,6 @@ function Header() {
     setShowDropdown(false); // Close the dropdown when logging out
   };
 
-  const handleAvatarClick = () => {
-    // Toggle the dropdown when clicking on the avatar
-    setShowDropdown(!showDropdown);
-  };
-
   const handleAvatarHover = () => {
     // Open the dropdown when hovering over the avatar
     setShowDropdown(true);
@@ -48,7 +43,6 @@ function Header() {
       {isLoggedIn ? (
         <div
           className="avatar-container"
-          onClick={handleAvatarClick}
           onMouseEnter={handleAvatarHover}
           onMouseLeave={handleAvatarLeave}
         >

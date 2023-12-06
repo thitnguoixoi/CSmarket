@@ -1,22 +1,16 @@
-// SelectedItem.js
-
 import React from "react";
 import Item from './Item.js';
 
-class SelectedItem extends React.Component {
-    render() {
-        const { selectedItem, fixedSize } = this.props;
-
-        return (
-            <div className={`selected-item ${selectedItem ? 'selected' : ''}`}>               
-                {selectedItem ? (
-                    <Item itemData={selectedItem} fixedSize={fixedSize} />
-                ) : (
-                    <img src="path_to_default_image.jpg" alt="No item selected" width="200" height="200" />
-                )}
-            </div>
-        );
-    }
+function SelectedItem({ selectedItem, fixedSize }) {
+    return (
+        <div className={`selected-item ${selectedItem ? 'selected' : ''}`}>
+            {selectedItem ? (
+                <Item itemData={selectedItem} fixedSize={fixedSize} />
+            ) : (
+                <img src="path_to_default_image.jpg" alt="No item selected" width="200" height="200" />
+            )}
+        </div>
+    );
 }
 
 export default SelectedItem;
