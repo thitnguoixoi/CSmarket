@@ -46,14 +46,17 @@ function Header() {
           onMouseEnter={handleAvatarHover}
           onMouseLeave={handleAvatarLeave}
         >
-          <img
-            className="avatar"
-            src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" // Replace with the path to the user's avatar
-            alt="User Avatar"
-          />
+          <Link to="/panel">
+            <img
+              className="avatar"
+              src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg"
+              alt="User Avatar"
+            />
+          </Link>
+
           {showDropdown && (
             <ul className="dropdown-menu">
-              <li>User Profile</li>
+              <Link to="/panel"><li>User Profile</li></Link>
               {/* Assuming userIsAdmin is a state/prop indicating admin status */}
               {userIsAdmin && <li>Admin Panel</li>}
               <li onClick={handleLogout}>Logout</li>
