@@ -11,7 +11,7 @@ import Modal from './Popup';
 import { Link } from 'react-router-dom';
 function Footer() {
     return (
-        <>
+        <div className='footer'>
             <div id='live_div'>
                 <div className='logo'>
                     <div id='logo_big'>
@@ -63,7 +63,7 @@ function Footer() {
                     <li><Modal text={"Chính sách Cookie"}/></li>
                 </ul>
             </div>
-        </>
+        </div>
     );
 }
 

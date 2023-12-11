@@ -12,7 +12,7 @@ const caseCategories = [
 
 function Opencase() {
     return (
-        <>
+        <div className='openCasePage'>
             {caseCategories.map((item) => (
                 <div className='case' id={item.id} key={item.id}>
                     <h1 className="title">{item.title}</h1>
@@ -23,7 +23,7 @@ function Opencase() {
                     </div>
                 </div>
             ))}
-        </>
+        </div>
     );
 }
 
