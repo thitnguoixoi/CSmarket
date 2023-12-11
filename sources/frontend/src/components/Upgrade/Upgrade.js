@@ -5,6 +5,30 @@ import Item from "./Item";
 import SkinData from "../../assets/SkinData";
 
 function Inventory() {
+    // Sample data for user and server items
+    const userItems = [
+        // ... your userItems data
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0129 },
+        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier4", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier5", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+    ];
+
+    const serverItems = [
+        // ... your serverItems data
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0119 },
+        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier4", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier5", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
+    ];
     // State for selected user and server items
     const [selectedUserItem, setSelectedUserItem] = useState(null);
     const [selectedServerItem, setSelectedServerItem] = useState(null);
@@ -12,7 +36,11 @@ function Inventory() {
     const [rateServer, setRateServer] = useState(0.0);
     // State for upgrade success rate
     const [upgradeSuccessRate, setUpgradeSuccessRate] = useState(0.0);
-    console.log(rateServer, rateUser, upgradeSuccessRate);
+    // State for search term
+    const [userSearchTerm, setUserSearchTerm] = useState("");
+    const [serverSearchTerm, setServerSearchTerm] = useState("");
+    const [filteredUserItems, setFilteredUserItems] = useState(userItems);
+    const [filteredServerItems, setFilteredServerItems] = useState(serverItems);
     useEffect(() => {
         console.log(selectedUserItem?.tier || null, selectedServerItem?.tier || null);
         rateUpgrade();
@@ -28,7 +56,32 @@ function Inventory() {
         setSelectedServerItem(item);
         setRateServer(item.float);
     };
+    const handleUserSearchChange = (event) => {
+        const term = event.target.value;
+        setUserSearchTerm(term);
 
+        // Filter user items based on the search term
+        const filteredUser = userItems.filter(
+            (item) => item.name.toLowerCase().includes(term.toLowerCase())
+        );
+
+        // Update filteredUserItems only if there's a search term, otherwise, keep all items
+        setFilteredUserItems(term ? filteredUser : userItems);
+    };
+
+    // Handler for server inventory search term change
+    const handleServerSearchChange = (event) => {
+        const term = event.target.value;
+        setServerSearchTerm(term);
+
+        // Filter server items based on the search term
+        const filteredServer = serverItems.filter(
+            (item) => item.name.toLowerCase().includes(term.toLowerCase())
+        );
+
+        // Update filteredServerItems only if there's a search term, otherwise, keep all items
+        setFilteredServerItems(term ? filteredServer : serverItems);
+    };
     const mapTierToNumber = (tier) => {
         switch (tier) {
             case 'tier2':
@@ -106,30 +159,29 @@ function Inventory() {
         setUpgradeSuccessRate(successRate);
     };
 
-    // Sample data for user and server items
-    const userItems = [
-        // ... your userItems data
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0129 },
-        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier4", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier5", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-    ];
 
-    const serverItems = [
-        // ... your serverItems data
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0119 },
-        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier4", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier5", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-    ];
+    const userSearchBar = (
+        <div className="search-bar">
+            <input
+                type="text"
+                placeholder="Search User Inventory"
+                value={userSearchTerm}
+                onChange={handleUserSearchChange}
+            />
+        </div>
+    );
+    const serverSearchBar = (
+        <div className="search-bar">
+            <input
+                type="text"
+                placeholder="Search Server Inventory"
+                value={serverSearchTerm}
+                onChange={handleServerSearchChange}
+            />
+        </div>
+    );
+
+
 
     return (
         <div className="inventory-container">
@@ -159,9 +211,10 @@ function Inventory() {
                 {/* User Inventory */}
                 <div className="user-inventory">
                     <h2>User Inventory</h2>
+                    {userSearchBar}
                     <div className="user">
                         <ul>
-                            {userItems.map((item, index) => (
+                            {filteredUserItems.map((item, index) => (
                                 <li
                                     key={index}
                                     onClick={() => handleUserItemClick(item)}
@@ -177,9 +230,10 @@ function Inventory() {
                 {/* Server Inventory */}
                 <div className="server-inventory">
                     <h2>Server Inventory</h2>
+                    {serverSearchBar}
                     <div className="server">
                         <ul>
-                            {serverItems.map((item, index) => (
+                            {filteredServerItems.map((item, index) => (
                                 <li
                                     key={index}
                                     onClick={() => handleServerItemClick(item)}
