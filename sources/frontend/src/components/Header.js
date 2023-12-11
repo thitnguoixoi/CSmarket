@@ -7,16 +7,12 @@ function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
 
-  const handleLogin = () => {
-    // In a real application, you might want to implement proper authentication logic here
-    // For the sake of the example, we'll assume successful login
+  const handleLogin = (id) => {
     setLoggedIn(true);
     setUserIsAdmin(true);
   };
 
   const handleLogout = () => {
-    // In a real application, you might want to implement proper logout logic here
-    // For the sake of the example, we'll assume successful logout
     setLoggedIn(false);
     setShowDropdown(false); // Close the dropdown when logging out
   };

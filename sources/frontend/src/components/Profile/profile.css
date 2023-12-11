@@ -1,10 +1,14 @@
-.user-profile{
+.content-user-profile {
+    width: 100%;
+}
+
+.user-profile {
     width: 100%;
     display: flex;
     padding: 40px 50px;
 }
 
-.ava-link{
+.ava-link {
     display: flex;
     width: 50%;
     border-right: 1px;
@@ -12,62 +16,99 @@
     border-style: solid;
 }
 
-.user-avatar img{
+.user-avatar img {
     height: 200px;
     width: 200px;
     border-radius: 50%;
     margin-right: 20px;
 }
 
-.ava-link .infor{
+.ava-link .infor {
     padding-right: 10%;
 
 }
 
 
 
-.infor h3{
+.infor h3 {
     margin-bottom: 30px;
     padding-top: 10px;
 }
-.infor h5{
+
+.infor h5 {
     white-space: nowrap;
     margin-bottom: 20px;
 }
-.infor button{
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgb(20, 17, 68) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+
+.infor button {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgb(20, 17, 68) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     border-radius: 99px;
     padding: 5px 20px;
     border-color: white;
     border: 1px;
-    border-style : solid;
+    border-style: solid;
 }
-.infor button :hover{
+
+.infor button :hover {
     background: rgb(145, 20, 89);
     border-radius: 99px;
 }
 
 
-.properties{
+.properties {
     display: flex;
     width: 50%;
     justify-content: center;
     align-items: center;
 }
 
-.properties img{
+.properties img {
     height: 40px;
     width: 40px;
 }
 
-.properties h4{
+.properties h4 {
     margin: 0 40px 10px 0px;
     vertical-align: baseline;
     white-space: nowrap;
 }
-.user-case-count span, .user-upgrade-count span{
+
+.user-case-count span,
+.user-upgrade-count span {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
+}
+
+
+/*Inventory*/
+.user-profile-inventory {
+    padding: 50px;
+}
+
+.user-profile-inventory-items ul {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+}
+
+.user-profile-inventory-items li {
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px;
+}
+
+.user-profile-inventory-items li img {
+    width: 150px;
+    /* Set the desired width for your items */
+    margin: 10px;
+    /* Adjust margin as needed for spacing */
+    text-align: center;
+}
+
+.item-details {
+    padding: 10px;
 }
