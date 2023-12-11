@@ -1,0 +1,128 @@
+/* AdminPanel.css */
+.dashboard .content {
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.dashboard {
+    width: 80%;
+}
+
+.dashboard nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+.dashboard li {
+    display: block;
+    /* Change from inline to block */
+    margin-bottom: 15px;
+    /* Add margin-bottom for spacing between items */
+}
+
+.dashboard a {
+    color: white;
+    text-decoration: none;
+}
+
+.dashboard .container {
+    margin: 20px;
+}
+
+.dashboard h2 {
+    padding: 20px 0px;
+}
+
+.dashboard h3 {
+    padding: 10px 0px;
+}
+
+.dashboard p {
+    padding: 5px 0px;
+}
+
+.dashboard ul {
+    color: #777;
+    max-height: 200px;
+    /* Set a max-height for the list */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+}
+
+.dashboard .live-static {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+/* Add this to your existing CSS or create a new CSS file */
+.dashboard {
+    width: 80%;
+}
+
+.dashboard .content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.dashboard .content th,
+.dashboard .content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.dashboard .content th {
+    background-color: #332222;
+}
+
+.scrollable-content {
+    max-height: 300px;
+    /* Set max height for tbody */
+    overflow-y: auto;
+}
+
+/* Your existing styles for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #332222;
+}
+
+/* Set the maximum height for the tbody */
+.scrollable-content {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* No limit for the width of the content cells */
+td {
+    width: auto;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+bottom: .5em;
+}

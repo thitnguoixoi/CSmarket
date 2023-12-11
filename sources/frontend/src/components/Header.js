@@ -54,7 +54,7 @@ function Header() {
             <ul className="dropdown-menu">
               <Link to="/panel"><li>User Profile</li></Link>
               {/* Assuming userIsAdmin is a state/prop indicating admin status */}
-              {userIsAdmin && <li>Admin Panel</li>}
+              {userIsAdmin && <Link to="/AdminPanel"><li>AdminPanel</li></Link>}
               <li onClick={handleLogout}>Logout</li>
             </ul>
           )}
