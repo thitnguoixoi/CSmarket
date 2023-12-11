@@ -7,6 +7,7 @@ function CaseOpened({ caseData }) {
             <div className="opencase">
                 <h3>{caseData.name}</h3>
                 <img src={caseData.imgUrl} alt="Case" />
+                <button>Open {caseData.price}</button>
             </div>
 
             <div className="image-container">
