@@ -86,6 +86,9 @@
 .user-profile-inventory {
     padding: 50px;
 }
+.user-profile-inventory h2{
+    margin-bottom: 20px;
+}
 
 .user-profile-inventory-items ul {
     display: flex;
@@ -97,8 +100,7 @@
 
 .user-profile-inventory-items li {
     text-decoration: none;
-    margin: 0 10px;
-    padding: 5px;
+    padding-bottom: 10px;
 }
 
 .user-profile-inventory-items li img {
