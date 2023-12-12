@@ -46,22 +46,24 @@ function Dashboard() {
         <div className="recent-activities">
           <h3>Recent Activities</h3>
           <div className="content">
-            <table id="dtVerticalScrollExample" className="table table-striped table-bordered table-sm" cellSpacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th className="th-sm">Content</th>
-                  <th className="th-sm">Time</th>
-                </tr>
-              </thead>
-              <tbody className="scrollable-content">
-                {recentActivities.map((activity, index) => (
-                  <tr key={index}>
-                    <td>{activity.content}</td>
-                    <td>{activity.time}</td>
+            <div class="tableFixHead">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Content</th>
+                    <th>Time</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {recentActivities.map((activity, index) => (
+                    <tr key={index}>
+                      <td>{activity.content}</td>
+                      <td>{activity.time}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
