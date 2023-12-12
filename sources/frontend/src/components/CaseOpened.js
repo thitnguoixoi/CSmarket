@@ -13,7 +13,11 @@ function CaseOpened({ caseData }) {
             <div className="image-container">
                 {caseData.skins.map((item) => {
                     return (
-                        <img className={`tier${item.tier}`} src={item.imgUrl} alt="skin" />
+                        <div className={`tierskin tier${item.tier}`} >
+                            <img src={item.imgUrl} alt="skin" />
+                            <h4>{item.name}</h4>
+                        </div>
+                        
                     )
                 })}
             </div>

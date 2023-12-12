@@ -154,15 +154,23 @@ button :hover {
 }
 
 .item {
+    flex:1;
+    margin: 0 10px;
     width: 160px;
     height: auto;
+    border-left:10px;
+    border-style: solid;
+    background-color: #161518;
+}
+.item-details{
+    background-color: black;
 }
 
 .user ul,
 .server ul {
     display: flex;
     align-items: top;
-    justify-content: space-around;
+
 }
 
 .selected-item .item {
