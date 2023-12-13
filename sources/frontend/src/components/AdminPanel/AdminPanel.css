@@ -32,9 +32,10 @@
     align-items: flex-start;
 }
 
-.dashboard {
+.dashboard,.skin-management {
     width: 80%;
 }
+
 
 .dashboard nav {
     background-color: #333;
@@ -115,4 +116,10 @@ td {
 
 th {
     background: #2c1b1b;
+}
+
+.page-nums{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
