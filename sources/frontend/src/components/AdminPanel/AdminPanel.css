@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
 }
+
 .admin-panel img {
     height: 80px;
 }
@@ -32,8 +33,12 @@
     align-items: flex-start;
 }
 
-.dashboard,.skin-management {
+.dashboard,
+.skin-management,
+.case-management,
+.user-management {
     width: 80%;
+    position: relative;
 }
 
 
@@ -106,6 +111,7 @@ table {
     border-collapse: collapse;
     /* make the table borders collapse to each other */
     width: 100%;
+    margin-bottom: 10px;
 }
 
 th,
@@ -118,8 +124,14 @@ th {
     background: #2c1b1b;
 }
 
-.page-nums{
+.page-nums {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.back-button a{
+    position: absolute;
+    top: -30px;
+    left: -30px;
 }

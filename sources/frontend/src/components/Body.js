@@ -29,19 +29,19 @@ function Body() {
     }
 
     return (
-            <Routes>
-                <Route path='/' exact element={<Slider />} />
-                <Route path='/opencase' exact element={<Opencase />} />
-                <Route path='/upgrade' exact element={<Inventory />} />
-                <Route path='/caseOpened' exact element={<CaseOpened />} />
-                <Route path='/panel' exact element={<UserProfile user={userData[0]} />} />
-                <Route path='/AdminPanel' exact element={<AdminPanel />} />
-                <Route path='/admin/dashboard' exact element={<Dashboard />} />
-                <Route path='/admin/users' exact element={<UsersManagement />} />
-                <Route path='/admin/users' exact element={<CaseManagement />} />
-                <Route path='/admin/skins' exact element={<SkinManagement />} />
-                {renderCaseOpened()}
-            </Routes>
+        <Routes>
+            <Route path='/' exact element={<Slider />} />
+            <Route path='/opencase' exact element={<Opencase />} />
+            <Route path='/upgrade' exact element={<Inventory />} />
+            <Route path='/caseOpened' exact element={<CaseOpened />} />
+            <Route path='/panel' exact element={<UserProfile user={userData[0]} />} />
+            <Route path='/AdminPanel' exact element={<AdminPanel />} />
+            <Route path='/admin/dashboard' exact element={<Dashboard />} />
+            <Route path='/admin/users' exact element={<UsersManagement />} />
+            <Route path='/admin/cases' exact element={<CaseManagement />} />
+            <Route path='/admin/skins' exact element={<SkinManagement />} />
+            {renderCaseOpened()}
+        </Routes>
     )
 }
 
