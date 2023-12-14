@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBackward } from '@fortawesome/free-solid-svg-icons';
 
 function CaseManagement() {
   const [data, setData] = useState([]);
@@ -96,8 +98,8 @@ function CaseManagement() {
   return (
     <div className="case-management">
       <div className="back-button">
-        <i class="fa-solid fa-backward"></i>
-        <Link to="/AdminPanel">Back to menu</Link>
+        <FontAwesomeIcon icon={faBackward} />
+        <Link to="/AdminPanel">  Back to menu</Link>
       </div>
 
       <h2>Skin Management</h2>

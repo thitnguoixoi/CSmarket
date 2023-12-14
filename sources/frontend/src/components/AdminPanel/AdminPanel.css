@@ -7,6 +7,7 @@
 .admin-panel li {
     display: flex;
     align-items: center;
+    margin-bottom: 50px;
 }
 
 .admin-panel img {
@@ -130,8 +131,12 @@ th {
     justify-content: center;
 }
 
-.back-button a{
+.back-button{
     position: absolute;
     top: -30px;
     left: -30px;
+}
+
+.back-button a{
+    text-decoration: none;
 }
