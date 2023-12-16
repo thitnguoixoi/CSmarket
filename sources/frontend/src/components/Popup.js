@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles/Popup.css";
 
+
 export default function Modal({text}) {
   const [modal, setModal] = useState(false);
 

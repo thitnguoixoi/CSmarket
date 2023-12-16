@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/OpencasePage.css';
 import Case from './Case';
-import { caseData } from '../assets/caseData';
+import { caseData } from '../../assets/caseData';
 
 const caseCategories = [
     { id: 'free', title: 'Free case', items: [0, 1] },

@@ -44,7 +44,7 @@
     flex-direction: column;
 }
 
-.opencase button {
+.opencase-btn {
     text-transform: uppercase;
     height: 30px;
     width: 100px;

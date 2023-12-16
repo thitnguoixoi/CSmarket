@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './styles/Header.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWallet } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -42,6 +44,11 @@ function Header() {
           onMouseEnter={handleAvatarHover}
           onMouseLeave={handleAvatarLeave}
         >
+          <div className='user-wallet'>
+            <FontAwesomeIcon icon={faWallet} />
+            <h4>0.00$</h4>
+          </div>
+
           <Link to="/panel">
             <img
               className="avatar"

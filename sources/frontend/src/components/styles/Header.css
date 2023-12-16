@@ -82,6 +82,21 @@
     width: 150px;
 }
 
+.avatar-container{
+    display: flex;
+}
+.user-wallet{
+    margin-right: 10px;
+    display: flex;
+}
+.user-wallet h4{
+    margin: 10px;
+    margin-left: 3px;
+}
+.user-wallet svg{
+    margin: 10px;
+    margin-right: 5px;
+}
 .avatar-container:hover .dropdown-menu {
     display: block;
 }

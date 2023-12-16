@@ -1,9 +1,9 @@
 import './styles/Body.css';
 import { Routes, Route, } from 'react-router-dom';
 import Slider from './Slider.js';
-import Opencase from './OpencasePage.js';
+import Opencase from '../components/opencase/OpencasePage.js';
 import Inventory from './Upgrade/Upgrade.js';
-import CaseOpened from './CaseOpened.js';
+import CaseOpened from '../components/opencase/CaseOpened.js';
 import caseData from '../assets/caseData';
 import UserProfile from './Profile/profile.js';
 import { userData } from '../assets/userData';
