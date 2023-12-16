@@ -88,6 +88,7 @@
 .user-wallet{
     margin-right: 10px;
     display: flex;
+    align-items: center;
 }
 .user-wallet h4{
     margin: 10px;
@@ -96,6 +97,7 @@
 .user-wallet svg{
     margin: 10px;
     margin-right: 5px;
+    margin-bottom: 12px;
 }
 .avatar-container:hover .dropdown-menu {
     display: block;
