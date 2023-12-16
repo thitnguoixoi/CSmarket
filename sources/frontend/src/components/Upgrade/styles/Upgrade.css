@@ -1,0 +1,190 @@
+.inventory-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.selected-items {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.selected-item {
+    text-align: center;
+}
+
+.upgrade-section {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin: 0;
+    /* Remove default margin to avoid extra spacing */
+}
+
+/* Updated styles for the two inventory sections */
+.user-inventory,
+.server-inventory {
+    max-height: 550px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 550px;
+    margin: 0 100px;
+}
+
+.inventory {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+}
+
+.inventory-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 550px;
+    display: flex;
+    height: 500px;
+    flex-wrap: wrap;
+}
+
+
+/* Centered headers outside the scrollable area */
+.user-inventory h2,
+.server-inventory h2 {
+    position: sticky;
+    top: 0;
+    background-color: #6d0606;
+    padding: 10px;
+    z-index: 1;
+}
+
+.user,
+.server {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.user li,
+.server li {
+    width: 150px;
+    /* Set the desired width for your items */
+    margin: 10px;
+    /* Adjust margin as needed for spacing */
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user li img,
+.server li img {
+    width: 150px;
+    /* Set the desired width for your items */
+    margin: 10px;
+    /* Adjust margin as needed for spacing */
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #1F1E27;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #747171;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+button {
+    background-color: #1F1E27;
+}
+
+button :hover {
+    background-color: #ffffff;
+}
+
+.inventory-container {
+    width: 100%;
+    background-color: #0D0448;
+}
+
+.inventory {
+    width: 100%;
+    background-color: #293A4E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px;
+}
+
+.User-select,
+.Server-select {
+    width: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 500px;
+}
+
+
+.upgrade-section {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.item {
+    flex:1;
+    margin: 0 10px;
+    width: 160px;
+    height: auto;
+    border-left:10px;
+    border-style: solid;
+    background-color: #161518;
+}
+.item-details{
+    background-color: black;
+}
+
+.user ul,
+.server ul {
+    display: flex;
+    align-items: top;
+
+}
+
+.selected-item .item {
+    width: auto;
+}
+
+.selected-items h2 {
+    margin: 20px 20px;
+}
+
+
+.search-bar input {
+    background-color: black;
+    color: white;
+    padding: 10px 30px;
+    width: 100%;
+}

@@ -1,0 +1,142 @@
+/* AdminPanel.css */
+.admin-panel ul {
+    list-style-type: none;
+
+}
+
+.admin-panel li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.admin-panel img {
+    height: 80px;
+}
+
+.admin-panel li a {
+    display: block;
+    padding: 40px;
+    text-decoration: none;
+    font-size: 25px;
+    padding-left: 10px;
+}
+
+.admin-panel li:hover {
+    background-color: #777;
+}
+
+
+
+
+.dashboard .content {
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.dashboard,
+.skin-management,
+.case-management,
+.user-management {
+    width: 80%;
+    position: relative;
+}
+
+
+.dashboard nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+.dashboard li {
+    display: block;
+    /* Change from inline to block */
+    margin-bottom: 15px;
+    /* Add margin-bottom for spacing between items */
+}
+
+.dashboard a {
+    color: white;
+    text-decoration: none;
+}
+
+.dashboard .container {
+    margin: 20px;
+}
+
+.dashboard h2 {
+    padding: 20px 0px;
+}
+
+.dashboard h3 {
+    padding: 10px 0px;
+}
+
+.dashboard p {
+    padding: 5px 0px;
+}
+
+.dashboard ul {
+    color: #777;
+    max-height: 200px;
+    /* Set a max-height for the list */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+}
+
+.dashboard .live-static {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.tableFixHead {
+    overflow-y: auto;
+    /* make the table scrollable if height is more than 200 px  */
+    max-height: 500px;
+    width: 100%;
+    /* gives an initial height of 200px to the table */
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    border: 1px solid #ccc;
+    /* make the table heads sticky */
+    top: 0px;
+    /* table head will be placed from the top of the table and sticks to it */
+}
+
+table {
+    border-collapse: collapse;
+    /* make the table borders collapse to each other */
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+th,
+td {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+}
+
+th {
+    background: #2c1b1b;
+}
+
+.page-nums {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button{
+    position: absolute;
+    top: -30px;
+    left: -30px;
+}
+
+.back-button a{
+    text-decoration: none;
+}
