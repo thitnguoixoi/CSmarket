@@ -4,7 +4,6 @@ import viewEngine from "./config/viewEngine"
 import initWebRoutes from "./route/web"
 import passport from "./config/passport";
 import session from "./config/session"
-import connection from "./config/connectDB"
 require('dotenv').config();
 let app = express();
 
@@ -16,8 +15,7 @@ viewEngine(app);
 session(app);
 passport(app);
 initWebRoutes(app);
-//test DB
-connection()
+
 
 
 
