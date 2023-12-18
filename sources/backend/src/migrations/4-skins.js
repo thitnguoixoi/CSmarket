@@ -2,34 +2,32 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Skins', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      SteamID: {
+      Type: {
         type: Sequelize.STRING
       },
-      GroupID: {
-        allowNull: true,
-        type: Sequelize.INTEGER
-      },
-      TradeURL: {
-        allowNull: true,
+      Name: {
         type: Sequelize.STRING
       },
-      Wallet: {
-        defaultValue: 0,
+      Float: {
+        type: Sequelize.STRING
+      },
+      Price: {
         type: Sequelize.FLOAT
       },
-      CountOpen: {
-        defaultValue: 0,
-        type: Sequelize.INTEGER
+      Rating: {
+        type: Sequelize.STRING
       },
-      CountUpgrade: {
-        defaultValue: 0,
+      Image: {
+        type: Sequelize.STRING
+      },
+      Count: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -43,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Skins');
   }
 };

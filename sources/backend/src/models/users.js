@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Users.belongsTo(models.Group_Users, { foreignKey: 'GroupID' })
+      Users.belongsToMany(models.Skins, { through: models.Users_Skins, foreignKey: 'UserID', otherKey: 'SkinID' })
     }
   }
   Users.init({
