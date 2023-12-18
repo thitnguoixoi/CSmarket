@@ -2,14 +2,15 @@
     margin: 0;
     border: 0;
 }
-body{
+.body {
     min-height: calc(100vh - 94px - 145px);
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.content{
+
+.content {
     background-color: #1F1E27;
     margin: 0;
     padding: 0;
