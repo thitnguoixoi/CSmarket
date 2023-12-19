@@ -27,7 +27,7 @@ const handleUpdateUser = async (req, res) => {
 }
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/acc');
+    res.redirect('/');
 }
 
 module.exports = {

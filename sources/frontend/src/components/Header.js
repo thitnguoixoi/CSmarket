@@ -1,19 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
-
+import axios from 'axios'
 function Header() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
+  const [user, setUser] = useState(null);
 
-  const handleLogin = (id) => {
-    setLoggedIn(true);
-    setUserIsAdmin(true);
+  const handleLogin = async (id) => {
+    const popupWindow = window.open(
+      "http://localhost:8080/auth/steam",
+      "_blank",
+      "width=800, height=600",
+    );
+    if (window.focus) popupWindow.focus();
   };
-
+  useEffect(() => {
+    window.addEventListener("message", (event) => {
+      if (event.origin !== "http://localhost:8080") return;
+      const tokenData = JSON.parse(event.data); // Parse the received string back to an object
+      setUser(tokenData)
+      setLoggedIn(true)
+      console.log(tokenData.avatarmedium)
+    });
+  }, []);
   const handleLogout = () => {
     setLoggedIn(false);
     setShowDropdown(false); // Close the dropdown when logging out
@@ -52,7 +65,7 @@ function Header() {
           <Link to="/panel">
             <img
               className="avatar"
-              src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg"
+              src={user.avatarmedium}
               alt="User Avatar"
             />
           </Link>
