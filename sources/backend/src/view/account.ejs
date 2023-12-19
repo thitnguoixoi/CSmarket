@@ -1,0 +1,40 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/" style="text-decoration: none">Home</a>
+        <a class="active" href="account" style="text-decoration: none">See Account Information</a>
+        <a href='logout' style="text-decoration: none">Logout</a>
+    </div>
+    <p><img src='<%= steaminfo.photos[2].value %>' alt='Your Avatar Image' /></p>
+    <p>ID: <%= steaminfo.id %>
+    </p>
+    <p>Name: <%= steaminfo.displayName %>
+    </p>
+    <form method="post" action="/update-user/<%=user.id%>">
+        <div class="form-group">
+            <input hidden value="<%=user.id%>" name="id">
+            <label for="TradeURL">TradeURL</label>
+            <input type="TradeURL" class="form-control" id="TradeURL" placeholder="TradeURL" name="TradeURL"
+                value="<%=user.TradeURL%>">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</body>
+
+</html>
