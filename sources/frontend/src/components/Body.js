@@ -11,6 +11,7 @@ import Dashboard from "./AdminPanel/Dashboard";
 import UsersManagement from "./AdminPanel/UserManagement";
 import CaseManagement from "./AdminPanel/CaseManagement";
 import SkinManagement from "./AdminPanel/SkinManagement";
+import UserSkin from "./AdminPanel/UserSkin";
 
 function Body({ user }) {
     const renderCaseOpened = () => {
@@ -39,6 +40,7 @@ function Body({ user }) {
             <Route path='/admin/users' exact element={<UsersManagement />} />
             <Route path='/admin/cases' exact element={<CaseManagement />} />
             <Route path='/admin/skins' exact element={<SkinManagement />} />
+            <Route path='/admin/userskins' exact element={<UserSkin />} />
             {renderCaseOpened()}
         </Routes>
     )
