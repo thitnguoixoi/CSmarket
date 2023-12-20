@@ -3,6 +3,7 @@ import './profile.css';
 import Item from "../Upgrade/Item";
 import SkinData from "../../assets/SkinData";
 import SteamProfileButton from "./steamprofile";
+import Swal from 'sweetalert2';
 
 function userProfile({ user }) {
     const userItems = [
@@ -20,7 +21,27 @@ function userProfile({ user }) {
         { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
         { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
     ];
+    const PopupSell = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            console.log(result.value);
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
 
+    }
 
     return (
         //information
@@ -28,14 +49,14 @@ function userProfile({ user }) {
             <div className="user-profile">
                 <div className="ava-link">
                     <div className="user-avatar">
-                        <img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg" alt="avatar" />
+                        <img src={user.avatarfull} alt="avatar" />
                     </div>
 
                     <div className="infor">
-                        <h3>Name: {user.name}</h3>
-                        <h5>SteamID64: {user.id}</h5>
+                        <h3>Name: {user.personaname}</h3>
+                        <h5>SteamID64: {user.steamid}</h5>
                         <h5>Balance: {user.balance}$</h5>
-                        <SteamProfileButton steamID={user.id} />
+                        <SteamProfileButton steamID={user.steamid} />
                     </div>
                 </div>
 
@@ -66,6 +87,10 @@ function userProfile({ user }) {
                         {userItems.map((item) => (
                             <li>
                                 <Item itemData={item} />
+                                <div className="user-inventory-button">
+                                    <button onClick={PopupSell}>Sell</button>
+                                    <button onClick={PopupSell}>Withdraw</button>
+                                </div>
                             </li>
                         ))}
                     </ul>

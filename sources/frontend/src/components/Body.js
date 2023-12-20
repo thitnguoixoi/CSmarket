@@ -6,14 +6,13 @@ import Inventory from './Upgrade/Upgrade.js';
 import CaseOpened from '../components/opencase/CaseOpened.js';
 import caseData from '../assets/caseData';
 import UserProfile from './Profile/profile.js';
-import { userData } from '../assets/userData';
 import AdminPanel from './AdminPanel/adminPanel.js';
 import Dashboard from "./AdminPanel/Dashboard";
 import UsersManagement from "./AdminPanel/UserManagement";
 import CaseManagement from "./AdminPanel/CaseManagement";
 import SkinManagement from "./AdminPanel/SkinManagement";
 
-function Body() {
+function Body({ user }) {
     const renderCaseOpened = () => {
         return caseData.map((item) => {
             return (
@@ -34,7 +33,7 @@ function Body() {
             <Route path='/opencase' exact element={<Opencase />} />
             <Route path='/upgrade' exact element={<Inventory />} />
             <Route path='/caseOpened' exact element={<CaseOpened />} />
-            <Route path='/panel' exact element={<UserProfile user={userData[0]} />} />
+            <Route path='/panel' exact element={<UserProfile user={user} />} />
             <Route path='/AdminPanel' exact element={<AdminPanel />} />
             <Route path='/admin/dashboard' exact element={<Dashboard />} />
             <Route path='/admin/users' exact element={<UsersManagement />} />

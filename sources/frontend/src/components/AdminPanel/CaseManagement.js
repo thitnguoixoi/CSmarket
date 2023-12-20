@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import AddCaseForm from "./AddCaseForm";
 
 function CaseManagement() {
   const [data, setData] = useState([]);
@@ -9,6 +10,7 @@ function CaseManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showAddForm, setShowAddForm] = useState(false);
 
   useEffect(() => {
     // Fetch your data or set it statically
@@ -46,23 +48,45 @@ function CaseManagement() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
+
+  const handleAddCase = () => {
+    handleClickAddButton();
+    setShowAddForm(!showAddForm);
+  };
+
+  const [isPlus, setIsPlus] = useState(true);
+  const handleClickAddButton = () => {
+    setIsPlus((prevIsPlus) => !prevIsPlus);
+  };
+
   const renderTable = () => (
     <table>
       <thead>
         <tr>
+          <th>Group</th>
           <th>ID</th>
           <th>Name</th>
+          <th>Price</th>
+          <th>Image</th>
           <th>Skins</th>
-          <th>Tier</th>
+          <th>
+            <button onClick={handleAddCase}>
+              <FontAwesomeIcon icon={isPlus ? faPlus : faTimes} />
+            </button>
+          </th>
+
         </tr>
       </thead>
       <tbody>
         {currentItems.map((item) => (
           <tr key={item.id}>
+            <td>{item.group}</td>
             <td>{item.id}</td>
             <td>{item.name}</td>
-            <td>{item.age}</td>
-            <td>{item.tier}</td>
+            <td>{item.price}</td>
+            <td>{item.image}</td>
+            <td>{item.skins}</td>
+            <td></td>
           </tr>
         ))}
       </tbody>
@@ -97,6 +121,7 @@ function CaseManagement() {
 
   return (
     <div className="case-management">
+      {showAddForm && <AddCaseForm />}
       <div className="back-button">
         <FontAwesomeIcon icon={faBackward} />
         <Link to="/AdminPanel">  Back to menu</Link>

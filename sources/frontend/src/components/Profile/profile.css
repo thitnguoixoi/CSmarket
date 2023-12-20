@@ -86,7 +86,8 @@
 .user-profile-inventory {
     padding: 50px;
 }
-.user-profile-inventory h2{
+
+.user-profile-inventory h2 {
     margin-bottom: 20px;
 }
 
@@ -101,6 +102,9 @@
 .user-profile-inventory-items li {
     text-decoration: none;
     padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .user-profile-inventory-items li img {
@@ -111,6 +115,25 @@
     text-align: center;
 }
 
+.user-profile-inventory-items button {
+    background-color: #010a01;
+    color: #fff;
+    /* Màu văn bản là trắng để tương phản với nền */
+    text-decoration: none;
+    border: 2px solid #3d5afe;
+    /* Màu viền xeon green */
+    border-radius: 5px;
+    /* Đường cong các góc */
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 5px;
+}
+
 .item-details {
     padding: 10px;
+}
+
+.user-inventory-button {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
