@@ -24,7 +24,7 @@ function AdminPanel() {
                         <Link to="/admin/skins">Skins</Link>
                     </li>
                     <li>
-                        <img src={require("../../assets/logo/skins.png")} alt="skins"></img>
+                        <img src={require("../../assets/logo/userskin.png")} alt="skins"></img>
                         <Link to="/admin/userskins">User Skins</Link>
                     </li>
                 </ul>

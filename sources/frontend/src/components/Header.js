@@ -84,7 +84,7 @@ function Header({ user, setUser }) {
               <Link to="/panel"><li>User Profile</li></Link>
               {/* Assuming userIsAdmin is a state/prop indicating admin status */}
               {userIsAdmin && <Link to="/AdminPanel"><li>AdminPanel</li></Link>}
-              <li onClick={handleLogout}>Logout</li>
+              <li onClick={handleLogout}><Link to="/">Logout</Link></li>
             </ul>
           )}
         </div>
