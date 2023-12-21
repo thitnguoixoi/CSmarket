@@ -39,6 +39,7 @@ function Header() {
 
   };
   const handleLogout = () => {
+    sessionStorage.clear();
     setLoggedIn(false);
     setUserIsAdmin(false);
     setShowDropdown(false); // Close the dropdown when logging out

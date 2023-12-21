@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward } from '@fortawesome/free-solid-svg-icons';
+import axios from "../../assets/setup/axios"
 
 function Withdraw() {
   const [data, setData] = useState([]);
@@ -9,6 +10,8 @@ function Withdraw() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isMod, setIsMod] = useState(false);
 
   useEffect(() => {
     // Fetch your data or set it statically
@@ -45,6 +48,26 @@ function Withdraw() {
 
     setData(recentActivities);
     setFilteredData(recentActivities);
+
+    const storedUser = sessionStorage.getItem('steamprofile');
+    // Parse data from sessionStorage
+    const tmp = JSON.parse(storedUser);
+
+    // Send Axios request to check user's group ID
+    axios.get(`/api/v1/user`, { params: { steamid: tmp.steamid } })
+      .then(response => {
+        if (response.data.DT.GroupID === 3) {
+          setIsAdmin(true);
+        } else if (response.data.DT.GroupID === 2) {
+          setIsMod(true);
+        }
+      })
+      .catch(error => {
+        console.error('Error checking user group:', error);
+      });
+
+      console.log(isAdmin);
+      console.log(isMod);
   }, []);
 
   const handleSearch = (e) => {
@@ -115,19 +138,28 @@ function Withdraw() {
 
   return (
     <div className="skin-management">
-      <div className="back-button">
-        <FontAwesomeIcon icon={faBackward} />
-        <Link to="/AdminPanel">  Back to menu</Link>
-      </div>
-      <h2>WithDraw</h2>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-      {renderTable()}
-      {renderPagination()}
+      {(isAdmin || isMod) ? (
+        <>
+          <div className="back-button">
+            <FontAwesomeIcon icon={faBackward} />
+            <Link to="/AdminPanel">Back to menu</Link>
+          </div>
+          <h2>WithDraw</h2>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+          {renderTable()}
+          {renderPagination()}
+        </>
+      ) : (
+        <div className="not-admin">
+          <p>You do not have permission to access this page.</p>
+          <Link to="/">Go back to homepage</Link>
+        </div>
+      )}
     </div>
   );
 }

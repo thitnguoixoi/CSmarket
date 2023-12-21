@@ -14,6 +14,7 @@ function UserManagement() {
   const [showInput, setShowInput] = useState(false);
   const [isPlus, setIsPlus] = useState(true);
   const [walletInputValue, setWalletInputValue] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
 
   useEffect(() => {
@@ -211,21 +212,31 @@ function UserManagement() {
 
   return (
     <div className="case-management">
-      <div className="back-button">
-        <FontAwesomeIcon icon={faBackward} />
-        <Link to="/AdminPanel">  Back to menu</Link>
-      </div>
-      <h2>User Management</h2>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-      {renderTable()}
-      {renderPagination()}
+      {isAdmin ? (
+        <>
+          <div className="back-button">
+            <FontAwesomeIcon icon={faBackward} />
+            <Link to="/AdminPanel">Back to menu</Link>
+          </div>
+          <h2>User Management</h2>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+          {renderTable()}
+          {renderPagination()}
+        </>
+      ) : (
+        <div className="not-admin">
+          <p>You do not have permission to access this page.</p>
+          <Link to="/">Go back to homepage</Link>
+        </div>
+      )}
     </div>
   );
+  
 }
 
 export default UserManagement;

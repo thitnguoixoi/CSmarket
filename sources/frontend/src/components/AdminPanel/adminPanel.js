@@ -16,8 +16,6 @@ function AdminPanel() {
         // Send Axios request to check user's group ID
         axios.get(`/api/v1/user`, { params: { steamid: tmp.steamid } })
             .then(response => {
-                console.log(tmp.steamid)
-                console.log(response.data.DT.GroupID);
                 if (response.data.DT.GroupID === 3) {
                     setIsAdmin(true);
                 } else if (response.data.DT.GroupID === 2) {
