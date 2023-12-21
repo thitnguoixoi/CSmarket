@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faPlus, faTimes, faTrash, faRefresh } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios'; // Import Axios library
 
 function UserManagement() {
@@ -13,6 +13,8 @@ function UserManagement() {
   const [clickedItemId, setClickedItemId] = useState(null);
   const [showInput, setShowInput] = useState(false);
   const [isPlus, setIsPlus] = useState(true);
+  const [walletInputValue, setWalletInputValue] = useState('');
+
 
   useEffect(() => {
     // Fetch data from the API using Axios
@@ -50,7 +52,7 @@ function UserManagement() {
   const handleDel = (itemId) => {
     console.log(itemId);
     // Send Axios request to delete item with the specified ID
-    axios.delete(`http://localhost:8080/api/v1/users/delete`,{data:{id: itemId}})
+    axios.delete(`http://localhost:8080/api/v1/users/delete`, { data: { id: itemId } })
       .then(response => {
         console.log('Item deleted successfully:', response);
         // After deleting, you may want to refresh the data
@@ -82,6 +84,51 @@ function UserManagement() {
       setShowInput(false);
     }
   };
+  const refresh = () => {
+    axios.get('http://localhost:8080/api/v1/users')
+      .then(response => {
+        setData(response.data.DT);
+        setFilteredData(response.data.DT);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleAddWalletSubmit = (itemId, inputValue) => {
+    // Implement your logic for handling wallet submission
+    setIsSubmitting(true);
+
+    // Example: Send Axios request or perform other actions
+    const dataToSend = {
+      id: itemId,
+      walletValue: inputValue,
+    };
+
+    axios.post('http://localhost:8080/api/v1/users/addWallet', dataToSend)
+      .then(response => {
+        console.log('Wallet added successfully:', response);
+
+        // After submitting, you may want to refresh the data
+        axios.get('http://localhost:8080/api/v1/users')
+          .then(response => {
+            setData(response.data.DT);
+            setFilteredData(response.data.DT);
+            setIsSubmitting(false);
+            setClickedItemId(null); // Close the input field after submitting
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+            setIsSubmitting(false);
+          });
+      })
+      .catch(error => {
+        console.error('Error adding wallet:', error);
+        setIsSubmitting(false);
+      });
+  };
 
   const renderTable = () => (
     <table>
@@ -94,7 +141,12 @@ function UserManagement() {
           <th>CountOpen</th>
           <th>CountUpgrade</th>
           <th>Role</th>
-          <th>Action</th>
+          <th>
+            Action
+            <button onClick={() => refresh()}>
+              <FontAwesomeIcon icon={faRefresh} />
+            </button>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -110,15 +162,22 @@ function UserManagement() {
             <td>
               <div>
                 <button onClick={() => handleClick(item.id)}>
-                  <FontAwesomeIcon icon={(clickedItemId === item.id) && isPlus ? faTimes : faPlus} />
+                  <FontAwesomeIcon icon={(clickedItemId === item.id) && isPlus ? faTimes : faPlus} />Wallet
                 </button>
                 <button onClick={() => handleDel(item.id)}>
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
                 {(clickedItemId === item.id) && (
                   <div>
-                    {/* Render your input field here */}
-                    <input type="text" placeholder="Add Wallet" />
+                    <input
+                      type="text"
+                      placeholder="Add Wallet"
+                      value={walletInputValue}
+                      onChange={(e) => setWalletInputValue(e.target.value)}
+                    />
+                    <button onClick={() => handleAddWalletSubmit(item.id, walletInputValue)}>
+                      Submit
+                    </button>
                   </div>
                 )}
               </div>
