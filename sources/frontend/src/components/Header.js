@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { admin } from '../assets/admin';
 
-function Header({ user, setUser }) {
+function Header() {
+  const [user, setUser] = useState(null);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
@@ -24,6 +25,7 @@ function Header({ user, setUser }) {
     window.addEventListener("message", (event) => {
       if (event.origin !== "http://localhost:8080") return;
       const tokenData = JSON.parse(event.data);
+      sessionStorage.setItem("steamprofile", JSON.stringify(tokenData));
       setUser(tokenData);
       setLoggedIn(true);
       for (let i = 0; i < admin.length; i++) {
@@ -34,7 +36,6 @@ function Header({ user, setUser }) {
       }
     });
   }, [setUser, setLoggedIn, setUserIsAdmin]);
-
   const handleLogout = () => {
     setLoggedIn(false);
     setUserIsAdmin(false);

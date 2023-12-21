@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward } from '@fortawesome/free-solid-svg-icons';
 
-function UserSkin() {
+function Withdraw() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,16 +13,38 @@ function UserSkin() {
   useEffect(() => {
     // Fetch your data or set it statically
     // Example data:
-    const exampleData = [
-      { id: 1, name: 'John Doe', age: 25 },
-      { id: 2, name: 'Jane Doe', age: 30 },
-      { id: 1, name: 'John Doe', age: 25 },
-      { id: 2, name: 'Jane Doe', age: 30 },
-
+    const recentActivities = [
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      { content: "User John Doe registered.", time: "10 minutes ago" },
+      { content: "Case #123 created.", time: "20 minutes ago" },
+      // Add other activities as needed
     ];
 
-    setData(exampleData);
-    setFilteredData(exampleData);
+    setData(recentActivities);
+    setFilteredData(recentActivities);
   }, []);
 
   const handleSearch = (e) => {
@@ -50,17 +72,15 @@ function UserSkin() {
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Skin ID</th>
-          <th>User ID</th>
+          <th>Content</th>
+          <th>Time</th>
         </tr>
       </thead>
       <tbody>
         {currentItems.map((item) => (
           <tr key={item.id}>
-            <td>{item.id}</td>
-            <td>{item.skinid}</td>
-            <td>{item.userid}</td>
+            <td>{item.content}</td>
+            <td>{item.time}</td>
           </tr>
         ))}
       </tbody>
@@ -94,12 +114,12 @@ function UserSkin() {
   };
 
   return (
-    <div className="case-management">
+    <div className="skin-management">
       <div className="back-button">
         <FontAwesomeIcon icon={faBackward} />
         <Link to="/AdminPanel">  Back to menu</Link>
       </div>
-      <h2>User Management</h2>
+      <h2>WithDraw</h2>
       <input
         type="text"
         placeholder="Search..."
@@ -112,4 +132,4 @@ function UserSkin() {
   );
 }
 
-export default UserSkin;
+export default Withdraw;

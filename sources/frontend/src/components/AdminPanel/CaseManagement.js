@@ -16,10 +16,10 @@ function CaseManagement() {
     // Fetch your data or set it statically
     // Example data:
     const exampleData = [
-      { id: 1, name: 'John Doe', age: 25 },
-      { id: 2, name: 'Jane Doe', age: 30 },
-      { id: 1, name: 'John Doe', age: 25 },
-      { id: 2, name: 'Jane Doe', age: 30 },
+      { group:"free" ,id: 1, name: 'John Doe', age: 25 },
+      { group:"free" ,id: 2, name: 'Jane Doe', age: 30 },
+      { group:"free" ,id: 1, name: 'John Doe', age: 25 },
+      { group:2 ,id: 2, name: 'Jane Doe', age: 30 },
 
     ];
 
@@ -78,9 +78,9 @@ function CaseManagement() {
         </tr>
       </thead>
       <tbody>
-        {currentItems.map((item) => (
+        {currentItems.map((item, index) => (
           <tr key={item.id}>
-            <td>{item.group}</td>
+            <td>{index === 0 || item.group !== currentItems[index - 1].group ? item.group : ''}</td>
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>{item.price}</td>
@@ -127,7 +127,7 @@ function CaseManagement() {
         <Link to="/AdminPanel">  Back to menu</Link>
       </div>
 
-      <h2>Skin Management</h2>
+      <h2>Case Management</h2>
       <input
         type="text"
         placeholder="Search..."

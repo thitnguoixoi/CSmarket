@@ -7,13 +7,12 @@ import CaseOpened from '../components/opencase/CaseOpened.js';
 import caseData from '../assets/caseData';
 import UserProfile from './Profile/profile.js';
 import AdminPanel from './AdminPanel/adminPanel.js';
-import Dashboard from "./AdminPanel/Dashboard";
+import Withdraw from "./AdminPanel/WithDraw.js";
 import UsersManagement from "./AdminPanel/UserManagement";
 import CaseManagement from "./AdminPanel/CaseManagement";
 import SkinManagement from "./AdminPanel/SkinManagement";
-import UserSkin from "./AdminPanel/UserSkin";
 
-function Body({ user }) {
+function Body() {
     const renderCaseOpened = () => {
         return caseData.map((item) => {
             return (
@@ -30,17 +29,20 @@ function Body({ user }) {
 
     return (
         <Routes>
+            {/* everyone */}
             <Route path='/' exact element={<Slider />} />
             <Route path='/opencase' exact element={<Opencase />} />
             <Route path='/upgrade' exact element={<Inventory />} />
             <Route path='/caseOpened' exact element={<CaseOpened />} />
-            <Route path='/panel' exact element={<UserProfile user={user} />} />
+            <Route path='/panel' exact element={<UserProfile/>} />
+            {/* mod + admin */}
             <Route path='/AdminPanel' exact element={<AdminPanel />} />
-            <Route path='/admin/dashboard' exact element={<Dashboard />} />
+            {/* mod + admin*/}
+            <Route path='/admin/Withdraw' exact element={<Withdraw />} />
+            {/* admin only */}
             <Route path='/admin/users' exact element={<UsersManagement />} />
             <Route path='/admin/cases' exact element={<CaseManagement />} />
             <Route path='/admin/skins' exact element={<SkinManagement />} />
-            <Route path='/admin/userskins' exact element={<UserSkin />} />
             {renderCaseOpened()}
         </Routes>
     )

@@ -8,8 +8,8 @@ function AdminPanel() {
             <nav>
                 <ul>
                     <li>
-                        <img src={require("../../assets/logo/dashboard.png")} alt="dashboard"></img>
-                        <Link to="/admin/dashboard">Dashboard</Link>
+                        <img src={require("../../assets/logo/dashboard.png")} alt="Withdraw"></img>
+                        <Link to="/admin/Withdraw">Withdraw</Link>
                     </li>
                     <li>
                         <img src={require("../../assets/logo/User.png")} alt="users"></img>
@@ -22,10 +22,6 @@ function AdminPanel() {
                     <li>
                         <img src={require("../../assets/logo/skins.png")} alt="skins"></img>
                         <Link to="/admin/skins">Skins</Link>
-                    </li>
-                    <li>
-                        <img src={require("../../assets/logo/userskin.png")} alt="skins"></img>
-                        <Link to="/admin/userskins">User Skins</Link>
                     </li>
                 </ul>
             </nav>

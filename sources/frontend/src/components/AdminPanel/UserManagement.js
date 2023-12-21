@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function UserManagement() {
   const [data, setData] = useState([]);
@@ -9,15 +9,16 @@ function UserManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [clickedItemId, setClickedItemId] = useState(null);
+  const [showInput, setShowInput] = useState(false);
   useEffect(() => {
     // Fetch your data or set it statically
     // Example data:
     const exampleData = [
       { id: 1, name: 'John Doe', age: 25 },
       { id: 2, name: 'Jane Doe', age: 30 },
-      { id: 1, name: 'John Doe', age: 25 },
-      { id: 2, name: 'Jane Doe', age: 30 },
+      { id: 3, name: 'John Doe', age: 25 },
+      { id: 4, name: 'Jane Doe', age: 30 },
 
     ];
 
@@ -39,12 +40,29 @@ function UserManagement() {
     setFilteredData(filtered);
     setCurrentPage(1);
   };
+  const handleClick = (itemId) => {
+    setClickedItemId(itemId);
+    handleClickAddButton();
+  }
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+
+  const [isPlus, setIsPlus] = useState(true);
+  const handleClickAddButton = () => {
+    setIsPlus((prevIsPlus) => !prevIsPlus);
+    if(!isPlus){
+      setShowInput(true)
+    }
+    else{
+      setShowInput(false)
+    }
+  };
+
 
   const renderTable = () => (
     <table>
@@ -57,6 +75,8 @@ function UserManagement() {
           <th>Wallet</th>
           <th>CountOpen</th>
           <th>CountUpgrade</th>
+          <th>Role</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -69,6 +89,21 @@ function UserManagement() {
             <td>{item.wallet}</td>
             <td>{item.opencount}</td>
             <td>{item.upgradedcount}</td>
+            <td>{item.role}</td>
+            <td>
+              <div>
+                <button onClick={() => handleClick(item.id)}>
+                  <FontAwesomeIcon icon={(clickedItemId === item.id)&&isPlus ? faTimes : faPlus} />
+                </button>
+
+                {(clickedItemId === item.id) && (
+                  <div>
+                    {/* Render your input field here */}
+                    <input type="text" placeholder="Add Wallet" />
+                  </div>
+                )}
+              </div>
+            </td>
           </tr>
         ))}
       </tbody>

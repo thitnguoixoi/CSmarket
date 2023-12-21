@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './profile.css';
 import Item from "../Upgrade/Item";
 import SkinData from "../../assets/SkinData";
 import SteamProfileButton from "./steamprofile";
 import Swal from 'sweetalert2';
 
-function userProfile({ user }) {
+function UserProfile() {
+    const [user, setUser] = useState({});
+    const [tradeURL, setTradeURL] = useState(sessionStorage.getItem('steamprofileURL') || '');
+
+    useEffect(() => {
+        // Retrieve data from sessionStorage
+        const storedUser = sessionStorage.getItem('steamprofile');
+        const tmp = JSON.parse(storedUser);
+        if (storedUser) {
+            setUser(tmp);
+        }
+        const storedTradeURL = sessionStorage.getItem('steamProfileTradeURL');
+        if (storedTradeURL) {
+            setTradeURL(storedTradeURL);
+        }
+    }, []);
+
     const userItems = [
         // ... your userItems data
         { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0129 },
@@ -42,8 +58,17 @@ function userProfile({ user }) {
         });
 
     }
+    const handleTradeUpdate = () => {
+        const key = `steamprofileURL_${user.steamid}`;
 
+        // Remove existing tradeURL
+        sessionStorage.removeItem(key);
+
+        // Set new key with the updated tradeURL
+        sessionStorage.setItem(key, tradeURL);
+    }
     return (
+
         //information
         <div className="content-user-profile">
             <div className="user-profile">
@@ -55,6 +80,16 @@ function userProfile({ user }) {
                     <div className="infor">
                         <h3>Name: {user.personaname}</h3>
                         <h5>SteamID64: {user.steamid}</h5>
+                        <div>
+                            <label htmlFor="tradeURL">TradeURL:</label>
+                            <input
+                                type="text"
+                                id="tradeURL"
+                                value={tradeURL}
+                                onChange={(e) => setTradeURL(e.target.value)}
+                            />
+                            <button onClick={handleTradeUpdate}>Update TradeURL</button>
+                        </div>
                         <h5>Balance: {user.balance}$</h5>
                         <SteamProfileButton steamID={user.steamid} />
                     </div>
@@ -102,4 +137,4 @@ function userProfile({ user }) {
     );
 }
 
-export default userProfile;
+export default UserProfile;
