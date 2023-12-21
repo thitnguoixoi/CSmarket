@@ -2,15 +2,11 @@ import userService from "../service/userService"
 
 
 const handleHome = async (req, res) => {
-    const userlist = await userService.getUserList();
+    const userlist = await userService.getUsers();
     return res.render("home.ejs", { user: req.user, userlist })
 }
 
-const handleAccount = async (req, res) => {
-    const user = await userService.getUserTradeURL(req.user.id);
 
-    res.render('account', { steaminfo: req.user, user });
-}
 
 const handleSteamLogout = (req, res) => {
     req.logout();
@@ -21,8 +17,12 @@ const handleDeleteUser = async (req, res) => {
     await userService.deleteUser(req.params.id)
     res.redirect('/');
 }
-const handleUpdateUser = async (req, res) => {
-    await userService.updatedUser(req.params.id, req.body.TradeURL)
+const handleUpdatedTradeURL = async (req, res) => {
+    await userService.updatedTradeURL(req.params.id, req.body.TradeURL)
+    res.redirect('/');
+}
+const handleUpdatedWallet = async (req, res) => {
+    await userService.updateWallet(req.params.id, req.body.Wallet)
     res.redirect('/');
 }
 function ensureAuthenticated(req, res, next) {
@@ -32,9 +32,9 @@ function ensureAuthenticated(req, res, next) {
 
 module.exports = {
     handleHome,
-    handleAccount,
     handleSteamLogout,
     ensureAuthenticated,
     handleDeleteUser,
-    handleUpdateUser
+    handleUpdatedTradeURL,
+    handleUpdatedWallet
 }

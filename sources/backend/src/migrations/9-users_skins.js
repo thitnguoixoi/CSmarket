@@ -23,6 +23,10 @@ module.exports = {
           key: 'id'
         },
       },
+      isWithdraw: {
+        defaultValue: 0,
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -23,6 +23,9 @@ module.exports = {
           key: 'id'
         },
       },
+      Percent: {
+        type: Sequelize.FLOAT,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
