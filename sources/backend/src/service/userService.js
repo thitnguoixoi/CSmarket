@@ -42,6 +42,38 @@ const getUsers = async () => {
     }
 }
 
+const getUser = async (steamid) => {
+    try {
+        let user = []
+        user = await db.Users.findOne({
+            where: {
+                SteamID: steamid
+            },
+            include: { model: db.Group_Users, attributes: ["Name"] }
+        });
+        if (user) {
+            return {
+                EM: "Get user success",
+                EC: "0",
+                DT: user
+            }
+        } else {
+            return {
+                EM: "Get user success",
+                EC: "0",
+                DT: []
+            }
+        }
+    } catch (e) {
+        console.log(e)
+        return {
+            EM: "Get user error",
+            EC: "-1",
+            DT: []
+        }
+    }
+}
+
 const getTradeURL = async (steamid) => {
     try {
         let data = await db.Users.findOne({
@@ -151,6 +183,7 @@ const deleteUser = async (userid) => {
     }
 }
 module.exports = {
+    getUser,
     createUser,
     getUsers,
     deleteUser,

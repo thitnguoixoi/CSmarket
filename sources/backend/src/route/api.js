@@ -10,6 +10,7 @@ let initApiRoutes = (app) => {
     router.get('/auth/steam/return', loginController.handleSteamReturn, loginController.handleSendProfile);
 
     router.get("/users", usersController.readUsers);
+    router.get("/user", usersController.readUser);
     router.put("/users/update/tradeurl", usersController.updateTradeURL);
     router.put("/users/update/wallet", usersController.updateWallet);
     router.delete("/users/delete", usersController.deleteUser);
