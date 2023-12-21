@@ -95,7 +95,7 @@ const getTradeURL = async (steamid) => {
     }
 }
 
-const updatedTradeURL = async (steamid, TradeURL) => {
+const updateUserTradeURL = async (steamid, TradeURL) => {
 
     try {
         if (typeof TradeURL === 'string') {
@@ -125,7 +125,7 @@ const updatedTradeURL = async (steamid, TradeURL) => {
     }
 }
 
-const updateWallet = async (userid, addWallet) => {
+const updateUserWallet = async (userid, addWallet) => {
     try {
         if (typeof parseFloat(addWallet) === 'number') {
             let getWallet = await db.Users.findOne({
@@ -200,6 +200,6 @@ module.exports = {
     getUsers,
     deleteUser,
     getTradeURL,
-    updatedTradeURL,
-    updateWallet,
+    updateUserTradeURL,
+    updateUserWallet,
 }
