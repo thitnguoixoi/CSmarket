@@ -35,6 +35,7 @@ const readUser = async (req, res) => {
 }
 const updateTradeURL = async (req, res) => {
     try {
+        let data = await userService.updateTradeURL(req.body)
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
