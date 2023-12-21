@@ -95,13 +95,13 @@ const getTradeURL = async (steamid) => {
     }
 }
 
-const updatedTradeURL = async (id, TradeURL) => {
+const updatedTradeURL = async (steamid, TradeURL) => {
 
     try {
         if (typeof TradeURL === 'string') {
             await db.Users.update(
                 { TradeURL: TradeURL },
-                { where: { id: id } })
+                { where: { SteamID: steamid } })
             return {
                 EM: "Your trade is update",
                 EC: "0",
