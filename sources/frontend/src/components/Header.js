@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from "../assets/setup/axios"
 import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,7 +29,6 @@ function Header() {
     const tokenData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(tokenData));
     setUser(tokenData);
-    console.log(tokenData);
     setLoggedIn(true);
     for (let i = 0; i < admin.length; i++) {
       if (tokenData.steamid === admin[i].steamid) {
@@ -40,6 +39,7 @@ function Header() {
 
   };
   const handleLogout = () => {
+    sessionStorage.clear();
     setLoggedIn(false);
     setUserIsAdmin(false);
     setShowDropdown(false); // Close the dropdown when logging out

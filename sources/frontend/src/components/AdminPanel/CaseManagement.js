@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import AddCaseForm from "./AddCaseForm";
+import axios from "../../assets/setup/axios"
 
 function CaseManagement() {
   const [data, setData] = useState([]);
@@ -11,20 +12,37 @@ function CaseManagement() {
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isMod, setIsMod] = useState(false);
 
   useEffect(() => {
     // Fetch your data or set it statically
     // Example data:
     const exampleData = [
-      { group:"free" ,id: 1, name: 'John Doe', age: 25 },
-      { group:"free" ,id: 2, name: 'Jane Doe', age: 30 },
-      { group:"free" ,id: 1, name: 'John Doe', age: 25 },
-      { group:2 ,id: 2, name: 'Jane Doe', age: 30 },
-
+      { group: "free", id: 1, name: 'John Doe', age: 25 },
+      { group: "free", id: 2, name: 'Jane Doe', age: 30 },
+      { group: "free", id: 1, name: 'John Doe', age: 25 },
+      { group: 2, id: 2, name: 'Jane Doe', age: 30 },
     ];
 
     setData(exampleData);
     setFilteredData(exampleData);
+    const storedUser = sessionStorage.getItem('steamprofile');
+    // Parse data from sessionStorage
+    const tmp = JSON.parse(storedUser);
+
+    // Send Axios request to check user's group ID
+    axios.get(`/api/v1/user`, { params: { steamid: tmp.steamid } })
+      .then(response => {
+        if (response.data.DT.GroupID === 3) {
+          setIsAdmin(true);
+        } else if (response.data.DT.GroupID === 2) {
+          setIsMod(true);
+        }
+      })
+      .catch(error => {
+        console.error('Error checking user group:', error);
+      });
   }, []);
 
   const handleSearch = (e) => {
@@ -47,7 +65,6 @@ function CaseManagement() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
-
 
   const handleAddCase = () => {
     handleClickAddButton();
@@ -74,7 +91,6 @@ function CaseManagement() {
               <FontAwesomeIcon icon={isPlus ? faPlus : faTimes} />
             </button>
           </th>
-
         </tr>
       </thead>
       <tbody>
@@ -121,21 +137,30 @@ function CaseManagement() {
 
   return (
     <div className="case-management">
-      {showAddForm && <AddCaseForm />}
-      <div className="back-button">
-        <FontAwesomeIcon icon={faBackward} />
-        <Link to="/AdminPanel">  Back to menu</Link>
-      </div>
+      {isAdmin ? (
+        <>
+          {showAddForm && <AddCaseForm />}
+          <div className="back-button">
+            <FontAwesomeIcon icon={faBackward} />
+            <Link to="/AdminPanel">  Back to menu</Link>
+          </div>
 
-      <h2>Case Management</h2>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-      {renderTable()}
-      {renderPagination()}
+          <h2>Case Management</h2>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+          {renderTable()}
+          {renderPagination()}
+        </>
+      ) : (
+        <div className="not-admin">
+          <a>You do not have permission to access this page.</a>
+          <Link to="/">Go back to homepage</Link>
+        </div>
+      )}
     </div>
   );
 }
