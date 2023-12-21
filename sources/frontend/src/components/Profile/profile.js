@@ -24,7 +24,6 @@ function UserProfile() {
         // Send Axios request to delete item with the specified ID
         axios.get(`http://localhost:8080/api/v1/user`, { params: { steamid: "76561198359187274" } })
             .then(response => {
-                console.log(response.data.DT);
                 setTradeURL(response.data.DT?.TradeURL || '');
             })
             .catch(error => {
@@ -71,21 +70,20 @@ function UserProfile() {
     const handleTradeUpdate = () => {
         const key = `steamprofileURL_${user.steamid}`;
 
-        // Remove existing tradeURL
-        sessionStorage.removeItem(key);
-
         // Set new key with the updated tradeURL
         sessionStorage.setItem(key, tradeURL);
+
         console.log(tradeURL);
         console.log(user.steamid);
-        axios.post(`http://localhost:8080/api/v1/user/update/tradeurl`, { params: { steamid: user.steamid, url: tradeURL } })
+
+        axios.put(`http://localhost:8080/api/v1/users/update/tradeurl`, { steamid: user.steamid, url: tradeURL })
             .then(response => {
-                console.log(response.data.DT);
-                setTradeURL(response.data.DT?.TradeURL || '');
+                console.log('Item updated successfully:', response);
             })
             .catch(error => {
-                console.error('Error set item:', error);
+                console.error('Error updating item:', error);
             });
+
     }
     return (
 
