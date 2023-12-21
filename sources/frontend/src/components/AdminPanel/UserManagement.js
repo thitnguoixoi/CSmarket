@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward, faPlus, faTimes, faTrash, faRefresh } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios'; // Import Axios library
+import axios from "../../assets/setup/axios"
 
 function UserManagement() {
   const [data, setData] = useState([]);
@@ -18,7 +18,7 @@ function UserManagement() {
 
   useEffect(() => {
     // Fetch data from the API using Axios
-    axios.get('http://localhost:8080/api/v1/users')
+    axios.get('/api/v1/users')
       .then(response => {
         setData(response.data.DT);
         setFilteredData(response.data.DT);
@@ -50,10 +50,10 @@ function UserManagement() {
   }
   const handleDel = (itemId) => {
     // Send Axios request to delete item with the specified ID
-    axios.delete(`http://localhost:8080/api/v1/users/delete`, { data: { id: itemId } })
+    axios.delete(`/api/v1/users/delete`, { data: { id: itemId } })
       .then(response => {
         console.log('Item deleted successfully:');
-        axios.get('http://localhost:8080/api/v1/users')
+        axios.get('/api/v1/users')
           .then(response => {
             setData(response.data.DT);
             setFilteredData(response.data.DT);
@@ -81,7 +81,7 @@ function UserManagement() {
     }
   };
   const refresh = () => {
-    axios.get('http://localhost:8080/api/v1/users')
+    axios.get('/api/v1/users')
       .then(response => {
         setData(response.data.DT);
         setFilteredData(response.data.DT);
@@ -103,12 +103,12 @@ function UserManagement() {
       walletValue: inputValue,
     };
 
-    axios.put('http://localhost:8080/api/v1/users/update/wallet', dataToSend)
+    axios.put('/api/v1/users/update/wallet', dataToSend)
       .then(response => {
         console.log('Wallet added successfully:');
 
         // After submitting, you may want to refresh the data
-        axios.get('http://localhost:8080/api/v1/users')
+        axios.get('/api/v1/users')
           .then(response => {
             setData(response.data.DT);
             setFilteredData(response.data.DT);

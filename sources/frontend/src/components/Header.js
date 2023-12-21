@@ -29,7 +29,6 @@ function Header() {
     const tokenData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(tokenData));
     setUser(tokenData);
-    console.log(tokenData);
     setLoggedIn(true);
     for (let i = 0; i < admin.length; i++) {
       if (tokenData.steamid === admin[i].steamid) {

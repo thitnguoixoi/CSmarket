@@ -173,3 +173,11 @@ input {
     background-color: green;
     width: auto;
 }
+
+.not-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+}

@@ -4,7 +4,7 @@ import Item from "../Upgrade/Item";
 import SkinData from "../../assets/SkinData";
 import SteamProfileButton from "./steamprofile";
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import axios from '../../assets/setup/axios';
 
 function UserProfile() {
     const [user, setUser] = useState({});
@@ -22,7 +22,7 @@ function UserProfile() {
             setTradeURL(storedTradeURL);
         }
         // Send Axios request to delete item with the specified ID
-        axios.get(`http://localhost:8080/api/v1/user`, { params: { steamid: "76561198359187274" } })
+        axios.get(`/api/v1/user`, { params: { steamid: "76561198359187274" } })
             .then(response => {
                 setTradeURL(response.data.DT?.TradeURL || '');
             })
@@ -73,7 +73,7 @@ function UserProfile() {
         // Set new key with the updated tradeURL
         sessionStorage.setItem(key, tradeURL);
 
-        axios.put(`http://localhost:8080/api/v1/users/update/tradeurl`, { steamid: user.steamid, url: tradeURL })
+        axios.put(`/api/v1/users/update/tradeurl`, { steamid: user.steamid, url: tradeURL })
             .then(response => {
                 console.log('Item updated successfully:', response);
             })
