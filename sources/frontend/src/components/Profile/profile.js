@@ -22,12 +22,10 @@ function UserProfile() {
             setTradeURL(storedTradeURL);
         }
         // Send Axios request to delete item with the specified ID
-        axios.get(`http://localhost:8080/api/v1/user`, { data: { steamid: "76561198359187274" } })
+        axios.get(`http://localhost:8080/api/v1/user`, { params: { steamid: "76561198359187274" } })
             .then(response => {
-                console.log('Item deleted successfully:', response);
-                // After deleting, you may want to refresh the data
-                // For example, you can fetch the updated data again
-
+                console.log(response.data.DT);
+                setTradeURL(response.data.DT?.TradeURL || '');
             })
             .catch(error => {
                 console.error('Error deleting item:', error);
@@ -78,6 +76,16 @@ function UserProfile() {
 
         // Set new key with the updated tradeURL
         sessionStorage.setItem(key, tradeURL);
+        console.log(tradeURL);
+        console.log(user.steamid);
+        axios.post(`http://localhost:8080/api/v1/user`, { params: { steamid: user.steamid, url: tradeURL } })
+            .then(response => {
+                console.log(response.data.DT);
+                setTradeURL(response.data.DT?.TradeURL || '');
+            })
+            .catch(error => {
+                console.error('Error set item:', error);
+            });
     }
     return (
 
