@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   Cases_Skins.init({
     CaseID: DataTypes.INTEGER,
     SkinID: DataTypes.INTEGER,
+    Percent: DataTypes.FLOAT
   }, {
     sequelize,
     modelName: 'Cases_Skins',

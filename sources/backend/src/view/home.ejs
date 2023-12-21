@@ -19,67 +19,61 @@
     <div class="topnav">
         <a class="active" style="text-decoration: none" href="/">Home</a>
 
-        <% if (!user) { %>
-            <a href="auth/steam" style="text-decoration: none">Sign in with Steam</a>
-            <% } else {%>
-                <a href="account" style="text-decoration: none">See Account Information</a>
-                <a href='logout' style="text-decoration: none">Logout</a>
-                <% } %>
-
     </div>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">SteamID</th>
+                <th scope="col">Role</th>
+                <th scope="col">Trade URL</th>
+                <th scope="col">Wallet</th>
+                <th scope="col">Opened</th>
+                <th scope="col">Upgraded</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% userlist.forEach(function(user, i){ %>
+                <tr>
+                    <th scope="row">
+                        <%=user.id%>
+                    </th>
+                    <td>
+                        <%= user.SteamID %>
+                    </td>
+                    <td>
+                        <%= user.GroupID %>
+                    </td>
+                    <td>
+                        <%= user.TradeURL %>
+                    </td>
+                    <td>
+                        <%= user.Wallet %>
+                    </td>
+                    <td>
+                        <%= user.CountOpen %>
+                    </td>
+                    <td>
+                        <%= user.CountUpgrade %>
+                    </td>
+                    <td>
+                        <form action="/delete-user/<%=user.id%>" method="post"><button
+                                class="btn btn-danger">Delete</button></form>
+                        <form action="/update-user-tradeurl/<%= user.id %>" method="post">
+                            <input type="text" name="TradeURL" placeholder="TradeURL" value="">
+                            <button class="btn btn-danger">Update</button>
+                        </form>
+                        <form action="/update-user-wallet/<%= user.id %>" method="post">
+                            <input type="number" step="0.01" name="Wallet" value=0>
+                            <button class="btn btn-danger">Update</button>
+                        </form>
 
-    <% if (!user) { %>
-        <h2>Welcome! Please log in.</h2>
-        <% } else { %>
-            <h2>Hello, <%= user.displayName %>.</h2>
-            <% } %>
-
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">SteamID</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Trade URL</th>
-                            <th scope="col">Wallet</th>
-                            <th scope="col">Opened</th>
-                            <th scope="col">Upgraded</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% userlist.forEach(function(user, i){ %>
-                            <tr>
-                                <th scope="row">
-                                    <%=user.id%>
-                                </th>
-                                <td>
-                                    <%= user.SteamID %>
-                                </td>
-                                <td>
-                                    <%= user.GroupID %>
-                                </td>
-                                <td>
-                                    <%= user.TradeURL %>
-                                </td>
-                                <td>
-                                    <%= user.Wallet %>
-                                </td>
-                                <td>
-                                    <%= user.CountOpen %>
-                                </td>
-                                <td>
-                                    <%= user.CountUpgrade %>
-                                </td>
-                                <td>
-                                    <form action="/delete-user/<%=user.id%>" method="post"><button
-                                            class="btn btn-danger">Delete</button></form>
-
-                                </td>
-                            </tr>
-                            <% }); %>
-                    </tbody>
-                </table>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
 </body>
 
 </html>
