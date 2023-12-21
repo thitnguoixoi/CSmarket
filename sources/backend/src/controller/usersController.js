@@ -18,7 +18,7 @@ const readUsers = async (req, res) => {
 }
 const readUser = async (req, res) => {
     try {
-        let data = await userService.getUser(req.steamid);
+        let data = await userService.getUser(req.body.steamid);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -67,6 +67,7 @@ const updateWallet = async (req, res) => {
 }
 const deleteUser = async (req, res) => {
     try {
+        let data = await userService.deleteUser(req.body.id)
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
