@@ -14,7 +14,7 @@ function Header() {
 
   const handleLogin = async () => {
     const popupWindow = window.open(
-      "http://localhost:8080//api/v1/auth/steam",
+      "http://localhost:8080/api/v1/auth/steam",
       "_blank",
       "width=800, height=600",
     );

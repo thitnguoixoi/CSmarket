@@ -14,6 +14,7 @@ module.exports = {
       },
       GroupID: {
         allowNull: true,
+        defaultValue: 1,
         type: Sequelize.INTEGER,
         references: {
           model: 'Group_Users',
