@@ -163,15 +163,27 @@ const updateWallet = async (userid, addWallet) => {
 }
 const deleteUser = async (userid) => {
     try {
-        await db.Users.destroy({
-            where: {
-                id: userid
-            }
+        let user = await db.Users.findOne({
+            where: { id: userid }
         })
-        return {
-            EM: userid + " deleted",
-            EC: "0",
-            DT: ''
+        if (user) {
+            await db.Users.destroy({
+                where: {
+                    id: userid
+                }
+            })
+            return {
+                EM: userid + " deleted",
+                EC: "0",
+                DT: ''
+            }
+        }
+        else {
+            return {
+                EM: userid + " does not exist",
+                EC: "-1",
+                DT: ''
+            }
         }
     } catch (e) {
         console.log('Error delete user:', e)
