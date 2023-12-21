@@ -83,7 +83,6 @@ function UserProfile() {
             .catch(error => {
                 console.error('Error updating item:', error);
             });
-
     }
     return (
 

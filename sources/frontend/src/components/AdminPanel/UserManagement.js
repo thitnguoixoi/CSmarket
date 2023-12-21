@@ -107,7 +107,7 @@ function UserManagement() {
       walletValue: inputValue,
     };
 
-    axios.post('http://localhost:8080/api/v1/users/addWallet', dataToSend)
+    axios.put('http://localhost:8080/api/v1/users/update/wallet', dataToSend)
       .then(response => {
         console.log('Wallet added successfully:', response);
 
