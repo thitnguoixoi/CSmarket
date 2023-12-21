@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,10 +7,11 @@ import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { admin } from '../assets/admin';
 
 function Header() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState('');
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
+  const [wallet, setWallet] = useState(0);
 
 
   const handleLogin = async () => {
@@ -21,21 +23,22 @@ function Header() {
     if (window.focus) popupWindow.focus();
   };
 
-  useEffect(() => {
-    window.addEventListener("message", (event) => {
-      if (event.origin !== "http://localhost:8080") return;
-      const tokenData = JSON.parse(event.data);
-      sessionStorage.setItem("steamprofile", JSON.stringify(tokenData));
-      setUser(tokenData);
-      setLoggedIn(true);
-      for (let i = 0; i < admin.length; i++) {
-        if (tokenData.steamid === admin[i].steamid) {
-          setUserIsAdmin(true);
-          break;
-        }
+  // Empty dependency array ensures the effect runs only once
+  const handleMessage = (event) => {
+    if (event.origin !== "http://localhost:8080") return;
+    const tokenData = JSON.parse(event.data);
+    sessionStorage.setItem("steamprofile", JSON.stringify(tokenData));
+    setUser(tokenData);
+    console.log(tokenData);
+    setLoggedIn(true);
+    for (let i = 0; i < admin.length; i++) {
+      if (tokenData.steamid === admin[i].steamid) {
+        setUserIsAdmin(true);
+        break;
       }
-    });
-  }, [setUser, setLoggedIn, setUserIsAdmin]);
+    }
+
+  };
   const handleLogout = () => {
     setLoggedIn(false);
     setUserIsAdmin(false);
@@ -52,6 +55,26 @@ function Header() {
     setShowDropdown(false);
   };
 
+  const handleWallet = (id) => {
+    axios.get('http://localhost:8080/api/v1/users')
+      .then(response => {
+        const userData = response.data.DT.find(item => item.SteamID === id);
+        setWallet(userData.Wallet);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+  useEffect(() => {
+
+    window.addEventListener("message", handleMessage);
+    // Cleanup the event listener when the component is unmounted
+    handleWallet(user.steamid);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+
+  });
   return (
     <div className="header">
       <Link to="/">
@@ -69,10 +92,10 @@ function Header() {
         >
           <div className='user-wallet'>
             <FontAwesomeIcon icon={faWallet} />
-            <h4>0.00$</h4>
+            <h4>{wallet}$</h4>
           </div>
 
-          <Link to="/panel">
+          <Link to="/profile">
             <img
               className="avatar"
               src={user.avatarmedium}
@@ -82,7 +105,7 @@ function Header() {
 
           {showDropdown && (
             <ul className="dropdown-menu">
-              <Link to="/panel"><li>User Profile</li></Link>
+              <Link to="/profile"><li>User Profile</li></Link>
               {/* Assuming userIsAdmin is a state/prop indicating admin status */}
               {userIsAdmin && <Link to="/AdminPanel"><li>AdminPanel</li></Link>}
               <Link to="/"><li onClick={handleLogout}>Logout</li></Link>

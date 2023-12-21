@@ -22,7 +22,6 @@ function UserManagement() {
       .then(response => {
         setData(response.data.DT);
         setFilteredData(response.data.DT);
-        console.log(response.data.DT);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -50,13 +49,10 @@ function UserManagement() {
     handleClickAddButton();
   }
   const handleDel = (itemId) => {
-    console.log(itemId);
     // Send Axios request to delete item with the specified ID
     axios.delete(`http://localhost:8080/api/v1/users/delete`, { data: { id: itemId } })
       .then(response => {
-        console.log('Item deleted successfully:', response);
-        // After deleting, you may want to refresh the data
-        // For example, you can fetch the updated data again
+        console.log('Item deleted successfully:');
         axios.get('http://localhost:8080/api/v1/users')
           .then(response => {
             setData(response.data.DT);
@@ -109,7 +105,7 @@ function UserManagement() {
 
     axios.put('http://localhost:8080/api/v1/users/update/wallet', dataToSend)
       .then(response => {
-        console.log('Wallet added successfully:', response);
+        console.log('Wallet added successfully:');
 
         // After submitting, you may want to refresh the data
         axios.get('http://localhost:8080/api/v1/users')
@@ -170,7 +166,6 @@ function UserManagement() {
                 {(clickedItemId === item.id) && (
                   <div>
                     <input
-                      type="text"
                       placeholder="Add Wallet"
                       value={walletInputValue}
                       onChange={(e) => setWalletInputValue(e.target.value)}

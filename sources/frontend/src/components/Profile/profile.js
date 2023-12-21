@@ -73,9 +73,6 @@ function UserProfile() {
         // Set new key with the updated tradeURL
         sessionStorage.setItem(key, tradeURL);
 
-        console.log(tradeURL);
-        console.log(user.steamid);
-
         axios.put(`http://localhost:8080/api/v1/users/update/tradeurl`, { steamid: user.steamid, url: tradeURL })
             .then(response => {
                 console.log('Item updated successfully:', response);

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './AdminPanel.css';
 
 function AdminPanel() {
+
+
     return (
         <div className="admin-panel">
             <nav>
