@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios'; // Import Axios library
 
 function UserManagement() {
   const [data, setData] = useState([]);
@@ -11,20 +12,21 @@ function UserManagement() {
   const [searchTerm, setSearchTerm] = useState('');
   const [clickedItemId, setClickedItemId] = useState(null);
   const [showInput, setShowInput] = useState(false);
+  const [isPlus, setIsPlus] = useState(true);
+
   useEffect(() => {
-    // Fetch your data or set it statically
-    // Example data:
-    const exampleData = [
-      { id: 1, name: 'John Doe', age: 25 },
-      { id: 2, name: 'Jane Doe', age: 30 },
-      { id: 3, name: 'John Doe', age: 25 },
-      { id: 4, name: 'Jane Doe', age: 30 },
+    // Fetch data from the API using Axios
+    axios.get('http://localhost:8080/api/v1/users')
+      .then(response => {
+        setData(response.data.DT);
+        setFilteredData(response.data.DT);
+        console.log(response.data.DT);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
 
-    ];
-
-    setData(exampleData);
-    setFilteredData(exampleData);
-  }, []);
+  }, []); // Empty dependency array ensures the effect runs only once, similar to componentDidMount
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
@@ -40,29 +42,46 @@ function UserManagement() {
     setFilteredData(filtered);
     setCurrentPage(1);
   };
+
   const handleClick = (itemId) => {
     setClickedItemId(itemId);
     handleClickAddButton();
   }
-
+  const handleDel = (itemId) => {
+    console.log(itemId);
+    // Send Axios request to delete item with the specified ID
+    axios.delete(`http://localhost:8080/api/v1/users/delete`,{data:{id: itemId}})
+      .then(response => {
+        console.log('Item deleted successfully:', response);
+        // After deleting, you may want to refresh the data
+        // For example, you can fetch the updated data again
+        axios.get('http://localhost:8080/api/v1/users')
+          .then(response => {
+            setData(response.data.DT);
+            setFilteredData(response.data.DT);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      })
+      .catch(error => {
+        console.error('Error deleting item:', error);
+      });
+  };
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-
-  const [isPlus, setIsPlus] = useState(true);
   const handleClickAddButton = () => {
     setIsPlus((prevIsPlus) => !prevIsPlus);
-    if(!isPlus){
-      setShowInput(true)
-    }
-    else{
-      setShowInput(false)
+    if (!isPlus) {
+      setShowInput(true);
+    } else {
+      setShowInput(false);
     }
   };
-
 
   const renderTable = () => (
     <table>
@@ -70,7 +89,6 @@ function UserManagement() {
         <tr>
           <th>ID</th>
           <th>Steam ID</th>
-          <th>Group ID</th>
           <th>TradeURL</th>
           <th>Wallet</th>
           <th>CountOpen</th>
@@ -83,19 +101,20 @@ function UserManagement() {
         {currentItems.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
-            <td>{item.steamid}</td>
-            <td>{item.groupid}</td>
-            <td>{item.tradeurl}</td>
-            <td>{item.wallet}</td>
-            <td>{item.opencount}</td>
-            <td>{item.upgradedcount}</td>
-            <td>{item.role}</td>
+            <td>{item.SteamID}</td>
+            <td>{item.TradeURL}</td>
+            <td>{item.Wallet}</td>
+            <td>{item.CountOpen}</td>
+            <td>{item.CountOpen}</td>
+            <td>{item.Group_User?.Name ? item.Group_User.Name : ''}</td>
             <td>
               <div>
                 <button onClick={() => handleClick(item.id)}>
-                  <FontAwesomeIcon icon={(clickedItemId === item.id)&&isPlus ? faTimes : faPlus} />
+                  <FontAwesomeIcon icon={(clickedItemId === item.id) && isPlus ? faTimes : faPlus} />
                 </button>
-
+                <button onClick={() => handleDel(item.id)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
                 {(clickedItemId === item.id) && (
                   <div>
                     {/* Render your input field here */}

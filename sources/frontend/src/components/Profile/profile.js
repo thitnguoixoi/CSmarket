@@ -4,6 +4,7 @@ import Item from "../Upgrade/Item";
 import SkinData from "../../assets/SkinData";
 import SteamProfileButton from "./steamprofile";
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 function UserProfile() {
     const [user, setUser] = useState({});
@@ -20,6 +21,17 @@ function UserProfile() {
         if (storedTradeURL) {
             setTradeURL(storedTradeURL);
         }
+        // Send Axios request to delete item with the specified ID
+        axios.get(`http://localhost:8080/api/v1/user`, { data: { steamid: "76561198359187274" } })
+            .then(response => {
+                console.log('Item deleted successfully:', response);
+                // After deleting, you may want to refresh the data
+                // For example, you can fetch the updated data again
+
+            })
+            .catch(error => {
+                console.error('Error deleting item:', error);
+            });
     }, []);
 
     const userItems = [
