@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     SteamID: DataTypes.STRING,
     GroupID: DataTypes.INTEGER,
     TradeURL: DataTypes.STRING,
-    Wallet: DataTypes.FLOAT,
+    Wallet: DataTypes.STRING,
     CountOpen: DataTypes.INTEGER,
     CountUpgrade: DataTypes.INTEGER
   }, {

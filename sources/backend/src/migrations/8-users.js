@@ -25,8 +25,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       Wallet: {
-        defaultValue: 0,
-        type: Sequelize.FLOAT
+        defaultValue: 0.00,
+        type: Sequelize.STRING
       },
       CountOpen: {
         defaultValue: 0,

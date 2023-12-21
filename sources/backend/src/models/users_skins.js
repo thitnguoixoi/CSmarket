@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   Users_Skins.init({
     SkinID: DataTypes.INTEGER,
     UserID: DataTypes.INTEGER,
+    isWithdraw: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Users_Skins',
