@@ -78,7 +78,7 @@ function UserProfile() {
         sessionStorage.setItem(key, tradeURL);
         console.log(tradeURL);
         console.log(user.steamid);
-        axios.post(`http://localhost:8080/api/v1/user`, { params: { steamid: user.steamid, url: tradeURL } })
+        axios.post(`http://localhost:8080/api/v1/user/update/tradeurl`, { params: { steamid: user.steamid, url: tradeURL } })
             .then(response => {
                 console.log(response.data.DT);
                 setTradeURL(response.data.DT?.TradeURL || '');
