@@ -52,6 +52,7 @@ const updateTradeURL = async (req, res) => {
 }
 const updateWallet = async (req, res) => {
     try {
+        let data = await userService.updateUserWallet(req.body.id, req.body.walletValue)
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
