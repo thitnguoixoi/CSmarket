@@ -50,21 +50,25 @@ function UserManagement() {
     <table>
       <thead>
         <tr>
+          <th>ID</th>
           <th>Steam ID</th>
-          <th>Name</th>
-          <th>Inventory</th>
-          <th>Case opened</th>
-          <th>Skin Upgraded</th>
+          <th>Group ID</th>
+          <th>TradeURL</th>
+          <th>Wallet</th>
+          <th>CountOpen</th>
+          <th>CountUpgrade</th>
         </tr>
       </thead>
       <tbody>
         {currentItems.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
-            <td>{item.name}</td>
-            <td>{item.inventory}</td>
-            <td>{item.caseopenedcount}</td>
-            <td>{item.skinupgradedcount}</td>
+            <td>{item.steamid}</td>
+            <td>{item.groupid}</td>
+            <td>{item.tradeurl}</td>
+            <td>{item.wallet}</td>
+            <td>{item.opencount}</td>
+            <td>{item.upgradedcount}</td>
           </tr>
         ))}
       </tbody>

@@ -55,8 +55,7 @@
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
+    width: 50px;
     border-radius: 50%;
 }
 
@@ -110,7 +109,12 @@
         height: 40px;
         margin-right: 10px;
     }
-
+    
+    .header .avatar {
+        width: 50px;
+        height: 40px;
+        margin-right: 10px;
+    }
     .topnav {
         margin-left: 10px;
         padding: 10px;

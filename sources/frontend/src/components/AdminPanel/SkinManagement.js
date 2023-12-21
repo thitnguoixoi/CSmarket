@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import AddSkinForm from "./AddSkinForm";
 
 function SkinManagement() {
   const [data, setData] = useState([]);
@@ -9,6 +10,8 @@ function SkinManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showDelForm, setShowDelForm] = useState(false);
 
   useEffect(() => {
     // Fetch your data or set it statically
@@ -23,6 +26,7 @@ function SkinManagement() {
 
     setData(exampleData);
     setFilteredData(exampleData);
+
   }, []);
 
   const handleSearch = (e) => {
@@ -40,6 +44,13 @@ function SkinManagement() {
     setCurrentPage(1);
   };
 
+  const handleAddSkin = () => {
+    setShowAddForm(!showAddForm);
+  };
+  const handleDeleteSkin = () => {
+    setShowDelForm(!showDelForm);
+  };
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -51,18 +62,34 @@ function SkinManagement() {
       <thead>
         <tr>
           <th>ID</th>
+          <th>Type</th>
           <th>Name</th>
           <th>Float</th>
           <th>Tier</th>
+          <th>Image</th>
+          <th>Count</th>
+          <th>
+            <button onClick={handleAddSkin}>
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+          </th>
         </tr>
       </thead>
       <tbody>
         {currentItems.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
+            <td>{item.type}</td>
             <td>{item.name}</td>
-            <td>{item.age}</td>
+            <td>{item.float}</td>
             <td>{item.tier}</td>
+            <td>{item.image}</td>
+            <td>{item.counts}</td>
+            <td>
+              <button onClick={handleDeleteSkin}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
@@ -96,7 +123,10 @@ function SkinManagement() {
   };
 
   return (
+
     <div className="skin-management">
+      {showAddForm && <AddSkinForm />}
+      {showDelForm}
       <div className="back-button">
         <FontAwesomeIcon icon={faBackward} />
         <Link to="/AdminPanel">  Back to menu</Link>

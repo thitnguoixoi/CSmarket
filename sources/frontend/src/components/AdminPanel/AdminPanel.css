@@ -1,6 +1,17 @@
 /* AdminPanel.css */
+.admin-panel {
+    width: 100%;
+}
+
+.admin-panel nav {
+    width: 100%;
+}
+
 .admin-panel ul {
     list-style-type: none;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 
 }
 
@@ -131,12 +142,33 @@ th {
     justify-content: center;
 }
 
-.back-button{
+.back-button {
     position: absolute;
     top: -30px;
     left: -30px;
 }
 
-.back-button a{
+.back-button a {
     text-decoration: none;
+}
+
+form {
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-wrap: 1;
+    flex-direction: column;
+}
+
+input {
+    background-color: transparent;
+    border: 1px;
+    border-color: #fff;
+    border-style: solid;
+    margin: 5px;
+}
+
+.add-form button {
+    background-color: green;
+    width: auto;
 }

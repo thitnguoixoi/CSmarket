@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import AddCaseForm from "./AddCaseForm";
+import { faBackward } from '@fortawesome/free-solid-svg-icons';
 
-function CaseManagement() {
+function UserSkin() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
-  const [showAddForm, setShowAddForm] = useState(false);
 
   useEffect(() => {
     // Fetch your data or set it statically
@@ -48,45 +46,21 @@ function CaseManagement() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-
-  const handleAddCase = () => {
-    handleClickAddButton();
-    setShowAddForm(!showAddForm);
-  };
-
-  const [isPlus, setIsPlus] = useState(true);
-  const handleClickAddButton = () => {
-    setIsPlus((prevIsPlus) => !prevIsPlus);
-  };
-
   const renderTable = () => (
     <table>
       <thead>
         <tr>
-          <th>Group</th>
           <th>ID</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Image</th>
-          <th>Skins</th>
-          <th>
-            <button onClick={handleAddCase}>
-              <FontAwesomeIcon icon={isPlus ? faPlus : faTimes} />
-            </button>
-          </th>
-
+          <th>Skin ID</th>
+          <th>User ID</th>
         </tr>
       </thead>
       <tbody>
         {currentItems.map((item) => (
           <tr key={item.id}>
-            <td>{item.group}</td>
             <td>{item.id}</td>
-            <td>{item.name}</td>
-            <td>{item.price}</td>
-            <td>{item.image}</td>
-            <td>{item.skins}</td>
-            <td></td>
+            <td>{item.skinid}</td>
+            <td>{item.userid}</td>
           </tr>
         ))}
       </tbody>
@@ -121,13 +95,11 @@ function CaseManagement() {
 
   return (
     <div className="case-management">
-      {showAddForm && <AddCaseForm />}
       <div className="back-button">
         <FontAwesomeIcon icon={faBackward} />
         <Link to="/AdminPanel">  Back to menu</Link>
       </div>
-
-      <h2>Skin Management</h2>
+      <h2>User Management</h2>
       <input
         type="text"
         placeholder="Search..."
@@ -140,4 +112,4 @@ function CaseManagement() {
   );
 }
 
-export default CaseManagement;
+export default UserSkin;
