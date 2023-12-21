@@ -65,9 +65,6 @@ function Withdraw() {
       .catch(error => {
         console.error('Error checking user group:', error);
       });
-
-      console.log(isAdmin);
-      console.log(isMod);
   }, []);
 
   const handleSearch = (e) => {
