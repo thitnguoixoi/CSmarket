@@ -30,13 +30,18 @@ function Header() {
     sessionStorage.setItem("steamprofile", JSON.stringify(tokenData));
     setUser(tokenData);
     setLoggedIn(true);
-    for (let i = 0; i < admin.length; i++) {
-      if (tokenData.steamid === admin[i].steamid) {
-        setUserIsAdmin(true);
-        break;
-      }
-    }
-
+    //send api to set role for user
+    axios.get(`/api/v1/user`, { params: { steamid: tokenData.steamid } })
+      .then(response => {
+        if (response.data.DT.GroupID === 3) {
+          setUserIsAdmin(true);
+        } else if (response.data.DT.GroupID === 2) {
+          setUserIsAdmin(true);
+        }
+      })
+      .catch(error => {
+        console.error('Error checking user group:', error);
+      });
   };
   const handleLogout = () => {
     sessionStorage.clear();
@@ -66,7 +71,6 @@ function Header() {
       });
   }
   useEffect(() => {
-
     window.addEventListener("message", handleMessage);
     // Cleanup the event listener when the component is unmounted
     handleWallet(user.steamid);
