@@ -33,7 +33,6 @@ function Header() {
     //jwt
     axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
       .then(response => {
-        // console.log(response);
       })
       .catch(error => {
         console.error('Error jwt:', error);
@@ -51,7 +50,7 @@ function Header() {
         console.error('Error checking user group:', error);
       });
 
-    
+
   };
   const handleLogout = () => {
     sessionStorage.clear();
@@ -71,8 +70,8 @@ function Header() {
   };
 
   const checkCookieExists = (cookieName) => {
-    console.log("Check cookie",Cookies.get('jwt'));
-    return Cookies.get(cookieName) !== undefined;
+    // console.log("Check cookie", Cookies.get('jwt'));
+    // return Cookies.get(cookieName) !== undefined;
   };
 
   const handleWallet = (id) => {
@@ -86,7 +85,7 @@ function Header() {
       });
   }
   useEffect(() => {
-    
+
     window.addEventListener("message", handleMessage);
     // Cleanup the event listener when the component is unmounted
     handleWallet(user.steamid);

@@ -25,7 +25,6 @@ const verifyToken = (token) => {
 }
 const checkUserJWT = (req, res, next) => {
     if (nonSecurePath.includes(req.path)) return next();
-
     let cookies = req.cookies;
     if (cookies && cookies.jwt) {
         let token = cookies.jwt
@@ -60,7 +59,7 @@ const checkUserPermisson = (req, res, next) => {
                 EM: "User do not have permission"
             })
         }
-        let checkRole = roles.some(item => item.URL === currentURL)
+        let checkRole = roles.some(item => item.Role.URL === currentURL)
         if (checkRole === true) {
             next();
         } else {

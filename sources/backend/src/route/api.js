@@ -8,11 +8,12 @@ let router = express.Router();
 let initApiRoutes = (app) => {
 
     router.all("*", checkUserJWT, checkUserPermisson,);
-
+    //everyone
     router.get('/auth/steam', loginController.handleSteamAuth);//, loginController.redirectHome
     router.get('/auth/steam/return', loginController.handleSteamReturn, loginController.handleSendProfile);
     // router.get('/logout', 
     router.get('/jwt/steamid', loginController.getJWT);
+
     //user, trader, admin
     router.get("/users", usersController.readUsers);
     router.get("/users/steamid", usersController.readUser);
