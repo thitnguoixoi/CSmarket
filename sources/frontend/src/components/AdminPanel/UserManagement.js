@@ -171,6 +171,7 @@ function UserManagement() {
                 </button>
                 <button onClick={() => handleDel(item.id)}>
                   <FontAwesomeIcon icon={faTrash} />
+                  Delete
                 </button>
                 {(clickedItemId === item.id) && (
                   <div>
