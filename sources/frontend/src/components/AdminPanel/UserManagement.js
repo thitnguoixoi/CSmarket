@@ -11,7 +11,6 @@ function UserManagement() {
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
   const [clickedItemId, setClickedItemId] = useState(null);
-  const [showInput, setShowInput] = useState(false);
   const [isPlus, setIsPlus] = useState(true);
   const [walletInputValue, setWalletInputValue] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
@@ -27,7 +26,20 @@ function UserManagement() {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
+    const storedUser = sessionStorage.getItem('steamprofile');
+    // Parse data from sessionStorage
+    const tmp = JSON.parse(storedUser);
 
+    // Send Axios request to check user's group ID
+    axios.get(`/api/v1/user`, { params: { steamid: tmp.steamid } })
+      .then(response => {
+        if (response.data.DT.GroupID === 3) {
+          setIsAdmin(true);
+        }
+      })
+      .catch(error => {
+        console.error('Error checking user group:', error);
+      });
   }, []); // Empty dependency array ensures the effect runs only once, similar to componentDidMount
 
   const handleSearch = (e) => {
@@ -47,7 +59,6 @@ function UserManagement() {
 
   const handleClick = (itemId) => {
     setClickedItemId(itemId);
-    handleClickAddButton();
   }
   const handleDel = (itemId) => {
     // Send Axios request to delete item with the specified ID
@@ -73,14 +84,6 @@ function UserManagement() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handleClickAddButton = () => {
-    setIsPlus((prevIsPlus) => !prevIsPlus);
-    if (!isPlus) {
-      setShowInput(true);
-    } else {
-      setShowInput(false);
-    }
-  };
   const refresh = () => {
     axios.get('/api/v1/users')
       .then(response => {
@@ -236,7 +239,7 @@ function UserManagement() {
       )}
     </div>
   );
-  
+
 }
 
 export default UserManagement;

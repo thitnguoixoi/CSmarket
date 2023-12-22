@@ -32,6 +32,7 @@ function UserProfile() {
             .catch(error => {
                 console.error('Error deleting item:', error);
             });
+        handleWallet(tmp.steamid);
     }, []);
 
     const userItems = [
@@ -84,6 +85,17 @@ function UserProfile() {
                 console.error('Error updating item:', error);
             });
     }
+
+    const handleWallet = (id) => {
+        axios.get('http://localhost:8080/api/v1/users')
+          .then(response => {
+            const userData = response.data.DT.find(item => item.SteamID === id);
+            setBalance(userData.Wallet);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
+      }
     return (
 
         //information
@@ -95,8 +107,9 @@ function UserProfile() {
                     </div>
 
                     <div className="infor">
-                        <h3>Name: {user.personaname}</h3>
+                        <h2>Name: {user.personaname}</h2>
                         <h5>SteamID64: {user.steamid}</h5>
+                        <h5>Balance: {balance}$</h5>
                         <div>
                             <label htmlFor="tradeURL">TradeURL:</label>
                             <input
@@ -107,7 +120,7 @@ function UserProfile() {
                             />
                             <button onClick={handleTradeUpdate}>Update TradeURL</button>
                         </div>
-                        <h5>Balance: {balance}$</h5>
+                        
                         <SteamProfileButton steamID={user.steamid} />
                     </div>
                 </div>
