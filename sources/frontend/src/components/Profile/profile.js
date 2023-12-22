@@ -13,7 +13,6 @@ function UserProfile() {
         // Send Axios request to delete item with the specified ID
         axios.get(`/api/v1/users/steamid`)
             .then(response => {
-                console.log(response.data.DT);
                 setUser(response.data.DT);
                 setTradeURL(response.data.DT?.TradeURL || '');
             })

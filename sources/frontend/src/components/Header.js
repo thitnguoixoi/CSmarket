@@ -11,7 +11,6 @@ function Header() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [userIsMod, setUserIsMod] = useState(false);
-  const [wallet, setWallet] = useState(0);
 
   const setRole = () => {
     //send api to set role for user
@@ -41,11 +40,9 @@ function Header() {
   };
   // Empty dependency array ensures the effect runs only once
   const handleMessage = (event) => {
-
     if (event.origin !== "http://localhost:8080") return;
     const steamData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
-    setUser(steamData);
     setLoggedIn(true);
     //jwt
     if (checkCookieExists('jwt')) {
@@ -75,39 +72,23 @@ function Header() {
     setShowDropdown(false);
   };
 
-
-
-  const handleWallet = (id) => {
-    axios.get('/api/v1/users')
-      .then(response => {
-        const userData = response.data.DT.find(item => item.SteamID === id);
-        setWallet(userData.Wallet);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }
   useEffect(() => {
     //check state log in
-    if (checkCookieExists('jwt')) {
-      setLoggedIn(true);
-      // Retrieve data from sessionStorage
-      const storedUser = sessionStorage.getItem('steamprofile');
-      //parse data from sessionStorage
-      const tmp = JSON.parse(storedUser);
-      setUser(tmp);
-    }
     setLoggedIn(true);
-    console.log(Cookies.get('jwt'));
-
+    setRole();
+    axios.get(`/api/v1/users/steamid`)
+      .then(response => {
+        setUser(response.data.DT);
+      })
+      .catch(error => {
+        console.error('Error deleting item:', error);
+      });
     window.addEventListener("message", handleMessage);
     // Cleanup the event listener when the component is unmounted
-    handleWallet(user.steamid);
-    checkCookieExists('jwt');
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  });
+  }, []);
 
 
   return (
@@ -127,13 +108,13 @@ function Header() {
         >
           <div className='user-wallet'>
             <FontAwesomeIcon icon={faWallet} />
-            <h4>{wallet}$</h4>
+            <h4>{user.Wallet}$</h4>
           </div>
 
           <Link to="/profile">
             <img
               className="avatar"
-              src={user.avatarmedium}
+              src={user.Avatarmedium}
               alt="User Avatar"
             />
           </Link>
