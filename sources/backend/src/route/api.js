@@ -20,8 +20,8 @@ let initApiRoutes = (app) => {
     router.put("/users/update/tradeurl", usersController.updateTradeURL);
     //admin
     router.put("/users/update/wallet", usersController.updateWallet);
-    router.put("/users/update/role", usersController.updateWallet); //ch làm
     router.delete("/users/delete", usersController.deleteUser);
+    router.put("/users/update/role", usersController.updateWallet); //ch làm
 
     // router.get("/skins", skinsController.testAPI);
     // router.post("/skins", skinsController.testAPI);
