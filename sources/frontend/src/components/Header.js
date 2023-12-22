@@ -9,7 +9,7 @@ function Header() {
   const [user, setUser] = useState('');
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [userIsAdmin, setUserIsAdmin] = useState(false);
+  const [userIsMod, setUserIsMod] = useState(false);
   const [wallet, setWallet] = useState(0);
 
 
@@ -33,17 +33,17 @@ function Header() {
     axios.get(`/api/v1/users/steamid`, { params: { steamid: steamData.steamid } })
       .then(response => {
         if (response.data.DT.GroupID === 3) {
-          setUserIsAdmin(true);
+          setUserIsMod(true);
         } else if (response.data.DT.GroupID === 2) {
-          setUserIsAdmin(true);
+          setUserIsMod(true);
         }
       })
       .catch(error => {
         console.error('Error checking user group:', error);
       });
 
-      //jwt
-      axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
+    //jwt
+    axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
       .then(response => {
         console.log(response);
       })
@@ -54,7 +54,7 @@ function Header() {
   const handleLogout = () => {
     sessionStorage.clear();
     setLoggedIn(false);
-    setUserIsAdmin(false);
+    setUserIsMod(false);
     setShowDropdown(false); // Close the dropdown when logging out
   };
 
@@ -118,8 +118,8 @@ function Header() {
           {showDropdown && (
             <ul className="dropdown-menu">
               <Link to="/profile"><li>User Profile</li></Link>
-              {/* Assuming userIsAdmin is a state/prop indicating admin status */}
-              {userIsAdmin && <Link to="/AdminPanel"><li>AdminPanel</li></Link>}
+              {/* Assuming userIsMod is a state/prop indicating Mod status */}
+              {userIsMod && <Link to="/admin"><li>Admin Panel</li></Link>}
               <Link to="/"><li onClick={handleLogout}>Logout</li></Link>
 
             </ul>

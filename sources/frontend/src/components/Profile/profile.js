@@ -9,7 +9,7 @@ import axios from '../../assets/setup/axios';
 function UserProfile() {
     const [user, setUser] = useState({});
     const [tradeURL, setTradeURL] = useState(sessionStorage.getItem('steamprofileURL') || '');
-    const [balance,setBalance] = useState(0);
+    const [balance, setBalance] = useState(0);
     useEffect(() => {
         // Retrieve data from sessionStorage
         const storedUser = sessionStorage.getItem('steamprofile');
@@ -24,9 +24,9 @@ function UserProfile() {
         }
 
         // Send Axios request to delete item with the specified ID
-        axios.get(`/api/v1/user`, { params: { steamid: tmp.steamid } })
+
+        axios.get(`/api/v1/users/steamid`, { params: { steamid: tmp.steamid } })
             .then(response => {
-                // console.log(response);
                 setTradeURL(response.data.DT?.TradeURL || '');
             })
             .catch(error => {
@@ -88,14 +88,14 @@ function UserProfile() {
 
     const handleWallet = (id) => {
         axios.get('http://localhost:8080/api/v1/users')
-          .then(response => {
-            const userData = response.data.DT.find(item => item.SteamID === id);
-            setBalance(userData.Wallet);
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
-      }
+            .then(response => {
+                const userData = response.data.DT.find(item => item.SteamID === id);
+                setBalance(userData.Wallet);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
     return (
 
         //information
@@ -120,7 +120,7 @@ function UserProfile() {
                             />
                             <button onClick={handleTradeUpdate}>Update TradeURL</button>
                         </div>
-                        
+
                         <SteamProfileButton steamID={user.steamid} />
                     </div>
                 </div>

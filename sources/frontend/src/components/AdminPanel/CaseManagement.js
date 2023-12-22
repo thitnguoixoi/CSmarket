@@ -13,7 +13,7 @@ function CaseManagement() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isMod, setIsMod] = useState(false);
+  const [isTrader, setIsTrader] = useState(false);
 
   useEffect(() => {
     // Fetch your data or set it statically
@@ -32,12 +32,12 @@ function CaseManagement() {
     const tmp = JSON.parse(storedUser);
 
     // Send Axios request to check user's group ID
-    axios.get(`/api/v1/user`, { params: { steamid: tmp.steamid } })
+    axios.get(`/api/v1/users/steamid`, { params: { steamid: tmp.steamid } })
       .then(response => {
         if (response.data.DT.GroupID === 3) {
           setIsAdmin(true);
         } else if (response.data.DT.GroupID === 2) {
-          setIsMod(true);
+          setIsTrader(true);
         }
       })
       .catch(error => {
@@ -142,7 +142,7 @@ function CaseManagement() {
           {showAddForm && <AddCaseForm />}
           <div className="back-button">
             <FontAwesomeIcon icon={faBackward} />
-            <Link to="/AdminPanel">  Back to menu</Link>
+            <Link to="/admin">  Back to menu</Link>
           </div>
 
           <h2>Case Management</h2>

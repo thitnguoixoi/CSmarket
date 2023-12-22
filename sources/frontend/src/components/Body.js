@@ -33,9 +33,9 @@ function Body() {
             <Route path='/' exact element={<Slider />} />
             <Route path='/opencase' exact element={<Opencase />} />
             <Route path='/upgrade' exact element={<Inventory />} />
-            <Route path='/profile' exact element={<UserProfile/>} />
+            <Route path='/profile' exact element={<UserProfile />} />
             {/* mod + admin */}
-            <Route path='/adminpanel' exact element={<AdminPanel />} />
+            <Route path='/admin' exact element={<AdminPanel />} />
             {/* mod + admin*/}
             <Route path='/admin/withdraw' exact element={<Withdraw />} />
             {/* admin only */}

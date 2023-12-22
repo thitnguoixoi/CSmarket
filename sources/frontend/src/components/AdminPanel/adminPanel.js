@@ -5,7 +5,7 @@ import axios from "../../assets/setup/axios"
 
 function AdminPanel() {
     const [isAdmin, setIsAdmin] = useState(false);
-    const [isMod, setIsMod] = useState(false);
+    const [isTrader, setIsTrader] = useState(false);
 
     useEffect(() => {
         // Retrieve data from sessionStorage
@@ -14,12 +14,12 @@ function AdminPanel() {
         const tmp = JSON.parse(storedUser);
 
         // Send Axios request to check user's group ID
-        axios.get(`/api/v1/user`, { params: { steamid: tmp.steamid } })
+        axios.get(`/api/v1/users/steamid`, { params: { steamid: tmp.steamid } })
             .then(response => {
                 if (response.data.DT.GroupID === 3) {
                     setIsAdmin(true);
                 } else if (response.data.DT.GroupID === 2) {
-                    setIsMod(true);
+                    setIsTrader(true);
                 }
             })
             .catch(error => {
@@ -50,7 +50,7 @@ function AdminPanel() {
                         </li>
                     </ul>
                 </nav>
-            ) : isMod ? (
+            ) : isTrader ? (
                 <nav>
                     <ul>
                         <li>

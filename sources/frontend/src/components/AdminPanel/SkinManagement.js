@@ -33,7 +33,7 @@ function SkinManagement() {
     const tmp = JSON.parse(storedUser);
 
     // Send Axios request to check user's group ID
-    axios.get(`/api/v1/user`, { params: { steamid: tmp.steamid } })
+    axios.get(`/api/v1/users/steamid`, { params: { steamid: tmp.steamid } })
       .then(response => {
         if (response.data.DT.GroupID === 3) {
           setIsAdmin(true);
@@ -146,7 +146,7 @@ function SkinManagement() {
           {showDelForm}
           <div className="back-button">
             <FontAwesomeIcon icon={faBackward} />
-            <Link to="/AdminPanel">  Back to menu</Link>
+            <Link to="/admin">  Back to menu</Link>
           </div>
           <h2>Skin Management</h2>
           <input
