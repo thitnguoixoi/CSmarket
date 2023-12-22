@@ -87,7 +87,12 @@ function Header() {
       });
   }
   useEffect(() => {
-
+    //check state log in
+    setLoggedIn(true);
+    // Retrieve data from sessionStorage
+    const storedUser = sessionStorage.getItem('steamprofile');
+    //parse data from sessionStorage
+    const tmp = JSON.parse(storedUser);
     window.addEventListener("message", handleMessage);
     // Cleanup the event listener when the component is unmounted
     handleWallet(user.steamid);
