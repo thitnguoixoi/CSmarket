@@ -106,10 +106,10 @@ function UserManagement() {
       id: itemId,
       walletValue: inputValue,
     };
-
+    console.log(dataToSend);
     axios.put('/api/v1/users/update/wallet', dataToSend)
       .then(response => {
-        console.log('Wallet added successfully:');
+        console.log('Wallet added successfully:',response);
 
         // After submitting, you may want to refresh the data
         axios.get('/api/v1/users')
@@ -221,7 +221,6 @@ function UserManagement() {
 
   return (
     <div className="case-management">
-      {console.log(isAdmin)}
       {isAdmin ? (
         <>
           <div className="back-button">
