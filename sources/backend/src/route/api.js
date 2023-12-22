@@ -14,7 +14,6 @@ let initApiRoutes = (app) => {
     router.get('/jwt/steamid', loginController.getJWT);
 
     //user, trader, admin
-    router.get('/logout', loginController.handleLogout)
     router.get("/users", usersController.readUsers);
     router.get("/users/steamid", usersController.readUser);
     router.put("/users/update/tradeurl", usersController.updateTradeURL);

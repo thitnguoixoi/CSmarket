@@ -12,20 +12,32 @@ function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [userIsMod, setUserIsMod] = useState(false);
 
-  const setRole = () => {
-    //send api to set role for user
-    axios.get(`/api/v1/users/steamid`)
-      .then(response => {
-        if (response.data.DT.GroupID === 3) {
-          setUserIsMod(true);
-        } else if (response.data.DT.GroupID === 2) {
-          setUserIsMod(true);
-        }
-      })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
-  }
+  useEffect(() => {
+    if (checkCookieExists("login")) {
+      axios.get(`/api/v1/users/steamid`)
+        .then(response => {
+          setLoggedIn(true);
+          setUser(response.data.DT);
+          if (response.data.DT.GroupID === 3) {
+            setUserIsMod(true);
+          } else if (response.data.DT.GroupID === 2) {
+            setUserIsMod(true);
+          }
+        })
+        .catch(error => {
+          console.error('Error get user profile', error);
+          if (error.response.data.EM === 'User is not authenticate') {
+            handleLogout()
+          }
+        });
+    }
+    window.addEventListener("message", handleMessage);
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
+
   const handleLogin = async () => {
     const popupWindow = window.open(
       "http://localhost:8080/api/v1/auth/steam",
@@ -43,20 +55,17 @@ function Header() {
     if (event.origin !== "http://localhost:8080") return;
     const steamData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
-    setLoggedIn(true);
     //jwt
-    if (checkCookieExists('jwt')) {
-      axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
-        .then(response => {
-        })
-        .catch(error => {
-          console.error('Error jwt:', error);
-        });
-    }
-    setRole();
+    axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
+      .then(response => {
+      })
+      .catch(error => {
+        console.error('Error get jwt:', error);
+      });
+    setLoggedIn(true);
   };
   const handleLogout = () => {
-    sessionStorage.clear();
+    Cookies.remove('login')
     setLoggedIn(false);
     setUserIsMod(false);
     setShowDropdown(false); // Close the dropdown when logging out
@@ -72,23 +81,6 @@ function Header() {
     setShowDropdown(false);
   };
 
-  useEffect(() => {
-    //check state log in
-    setLoggedIn(true);
-    setRole();
-    axios.get(`/api/v1/users/steamid`)
-      .then(response => {
-        setUser(response.data.DT);
-      })
-      .catch(error => {
-        console.error('Error deleting item:', error);
-      });
-    window.addEventListener("message", handleMessage);
-    // Cleanup the event listener when the component is unmounted
-    return () => {
-      window.removeEventListener("message", handleMessage);
-    };
-  }, []);
 
 
   return (

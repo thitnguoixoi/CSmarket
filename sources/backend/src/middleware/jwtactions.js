@@ -36,14 +36,14 @@ const checkUserJWT = (req, res, next) => {
             return res.status(401).json({
                 EC: "-1",
                 DT: "",
-                EM: "User is not authenticates"
+                EM: "User is not authenticate"
             })
         }
     } else {
         return res.status(401).json({
             EC: "-1",
             DT: "",
-            EM: "User is not authenticates"
+            EM: "User is not authenticate"
         })
     }
 }

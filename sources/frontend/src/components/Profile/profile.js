@@ -17,7 +17,7 @@ function UserProfile() {
                 setTradeURL(response.data.DT?.TradeURL || '');
             })
             .catch(error => {
-                console.error('Error deleting item:', error);
+                console.error('Error get user profile:', error);
             });
     }, []);
 
