@@ -13,7 +13,7 @@ const getGroupRoles = async (steamid) => {
             user = user.get({ plain: true })
             let roles = await db.Group_Roles.findAll({
                 where: { GroupID: user.GroupID },
-                attributes: ["RoleID", "GroupID"],
+                attributes: [],
                 include: { model: db.Roles, attributes: ["URL"], }
             })
             let payload = {

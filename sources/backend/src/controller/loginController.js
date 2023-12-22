@@ -12,14 +12,22 @@ const handleSendProfile = (req, res) => {
 }
 const getJWT = async (req, res) => {
     try {
-        let data = await jwtService.getGroupRoles(req.query.steamid);
-
-        res.cookie("jwt", data.DT.access_token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
-        return res.status(200).json({
-            EM: data.EM,
-            EC: data.EC,
-            DT: data.DT
-        })
+        if (!req.cookies.jwt) {
+            let data = await jwtService.getGroupRoles(req.query.steamid);
+            if (data && data.DT && data.DT.access_token)
+                res.cookie("jwt", data.DT.access_token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
+            return res.status(200).json({
+                EM: data.EM,
+                EC: data.EC,
+                DT: data.DT
+            })
+        } else {
+            return res.status(400).json({
+                EM: "User have been logined",
+                EC: "-1",
+                DT: ""
+            })
+        }
     } catch (e) {
         console.log(e)
         return res.status(500).json({
