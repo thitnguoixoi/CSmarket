@@ -37,11 +37,29 @@ const getJWT = async (req, res) => {
         })
     }
 }
+const handleLogout = async (req, res) => {
+    try {
+        res.clearCookie("jwt");
+        return res.status(200).json({
+            EM: "User have been log out",
+            EC: "-1",
+            DT: ""
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
 
+}
 
 module.exports = {
     handleSteamAuth,
     handleSteamReturn,
     handleSendProfile,
-    getJWT
+    getJWT,
+    handleLogout
 }
