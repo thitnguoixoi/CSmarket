@@ -1,12 +1,31 @@
+import { where } from "sequelize";
 import db from "../models/index"
 
-const createUser = async (steamid) => {
+const createUser = async (steamid, personaname, profileurl, avatar, avatarmedium, avatarfull) => {
 
     try {
         const user = await db.Users.findOne({ where: { SteamID: steamid } });
 
         if (!user) {
-            await db.Users.create({ SteamID: steamid });
+            await db.Users.create({
+                SteamID: steamid,
+                Personaname: personaname,
+                Profileurl: profileurl,
+                Avatar: avatar,
+                Avatarmedium: avatarmedium,
+                Avatarfull: avatarfull,
+            });
+        }
+        else {
+            await db.Users.update(
+                {
+                    Personaname: personaname,
+                    Profileurl: profileurl,
+                    Avatar: avatar,
+                    Avatarmedium: avatarmedium,
+                    Avatarfull: avatarfull,
+                },
+                { where: { SteamID: steamid } })
         }
     } catch (error) {
         console.error('Error creating user:', error);

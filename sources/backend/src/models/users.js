@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     GroupID: DataTypes.INTEGER,
     TradeURL: DataTypes.STRING,
     Wallet: DataTypes.STRING,
+    Personaname: DataTypes.STRING,
+    Profileurl: DataTypes.STRING,
+    Avatar: DataTypes.STRING,
+    Avatarmedium: DataTypes.STRING,
+    Avatarfull: DataTypes.STRING,
     CountOpen: DataTypes.INTEGER,
     CountUpgrade: DataTypes.INTEGER
   }, {
