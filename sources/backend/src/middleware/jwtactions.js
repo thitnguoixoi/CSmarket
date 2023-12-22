@@ -5,6 +5,7 @@ const createJWT = (payload) => {
     let token = null
     try {
         token = jwt.sign(payload, key)
+
     } catch (e) {
         console.log("Create token error: ", e)
     }
