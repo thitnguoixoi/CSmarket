@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faPlus, faTimes, faTrash, faRefresh,faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faPlus, faTimes, faTrash, faRefresh, faUser } from '@fortawesome/free-solid-svg-icons';
 import axios from "../../assets/setup/axios"
 
 function UserManagement() {
@@ -106,11 +106,9 @@ function UserManagement() {
       id: itemId,
       walletValue: inputValue,
     };
-    console.log(dataToSend);
     axios.put('/api/v1/users/update/wallet', dataToSend)
       .then(response => {
-        console.log('Wallet added successfully:',response);
-
+        console.log('Wallet added successfully:');
         // After submitting, you may want to refresh the data
         axios.get('/api/v1/users')
           .then(response => {
@@ -129,7 +127,18 @@ function UserManagement() {
         setIsSubmitting(false);
       });
   };
-
+  const handleSetMod = (itemId) => {
+    // Send Axios request to set the user as a moderator
+    axios.put(`/api/v1/users/setmod/${itemId}`)
+      .then(response => {
+        console.log('User set as moderator successfully:', response);
+        // If you need to update the data after setting the user as a moderator, you can call the refresh function
+        refresh();
+      })
+      .catch(error => {
+        console.error('Error setting user as moderator:', error);
+      });
+  };
   const renderTable = () => (
     <table>
       <thead>
@@ -165,7 +174,7 @@ function UserManagement() {
                   <FontAwesomeIcon icon={(clickedItemId === item.id) && isPlus ? faTimes : faPlus} />
                   Wallet
                 </button>
-                <button>
+                <button onClick={() => handleSetMod(item.id)}>
                   <FontAwesomeIcon icon={faUser} />
                   +Mod
                 </button>

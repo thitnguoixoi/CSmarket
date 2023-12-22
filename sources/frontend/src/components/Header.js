@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
-import Cookies from 'js-cookie';
 
 function Header() {
   const [user, setUser] = useState('');
@@ -22,21 +21,27 @@ function Header() {
     );
     if (window.focus) popupWindow.focus();
   };
-
+  const checkCookieExists = (cookieName) => {
+    const cookies = document.cookie.split(';');
+    return cookies.some(cookie => cookie.trim().startsWith(`${cookieName}=`));
+  };
   // Empty dependency array ensures the effect runs only once
   const handleMessage = (event) => {
+
     if (event.origin !== "http://localhost:8080") return;
     const steamData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
     setUser(steamData);
     setLoggedIn(true);
     //jwt
-    axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
-      .then(response => {
-      })
-      .catch(error => {
-        console.error('Error jwt:', error);
-      });
+    if (checkCookieExists('jwt')) {
+      axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
+        .then(response => {
+        })
+        .catch(error => {
+          console.error('Error jwt:', error);
+        });
+    }
     //send api to set role for user
     axios.get(`/api/v1/users/steamid`, { params: { steamid: steamData.steamid } })
       .then(response => {
@@ -69,10 +74,7 @@ function Header() {
     setShowDropdown(false);
   };
 
-  const checkCookieExists = (cookieName) => {
-    // console.log("Check cookie", Cookies.get('jwt'));
-    // return Cookies.get(cookieName) !== undefined;
-  };
+
 
   const handleWallet = (id) => {
     axios.get('/api/v1/users')
