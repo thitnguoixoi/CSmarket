@@ -25,12 +25,12 @@ function Header() {
   // Empty dependency array ensures the effect runs only once
   const handleMessage = (event) => {
     if (event.origin !== "http://localhost:8080") return;
-    const tokenData = JSON.parse(event.data);
-    sessionStorage.setItem("steamprofile", JSON.stringify(tokenData));
-    setUser(tokenData);
+    const steamData = JSON.parse(event.data);
+    sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
+    setUser(steamData);
     setLoggedIn(true);
     //send api to set role for user
-    axios.get(`/api/v1/user`, { params: { steamid: tokenData.steamid } })
+    axios.get(`/api/v1/users/steamid`, { params: { steamid: steamData.steamid } })
       .then(response => {
         if (response.data.DT.GroupID === 3) {
           setUserIsAdmin(true);
@@ -40,6 +40,15 @@ function Header() {
       })
       .catch(error => {
         console.error('Error checking user group:', error);
+      });
+
+      //jwt
+      axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error('Error jwt:', error);
       });
   };
   const handleLogout = () => {
@@ -60,7 +69,7 @@ function Header() {
   };
 
   const handleWallet = (id) => {
-    axios.get('http://localhost:8080/api/v1/users')
+    axios.get('/api/v1/users')
       .then(response => {
         const userData = response.data.DT.find(item => item.SteamID === id);
         setWallet(userData.Wallet);
