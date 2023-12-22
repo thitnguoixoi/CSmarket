@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faPlus, faTimes, faTrash, faRefresh } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faPlus, faTimes, faTrash, faRefresh,faUser } from '@fortawesome/free-solid-svg-icons';
 import axios from "../../assets/setup/axios"
 
 function UserManagement() {
@@ -162,7 +162,12 @@ function UserManagement() {
             <td>
               <div>
                 <button onClick={() => handleClick(item.id)}>
-                  <FontAwesomeIcon icon={(clickedItemId === item.id) && isPlus ? faTimes : faPlus} />Wallet
+                  <FontAwesomeIcon icon={(clickedItemId === item.id) && isPlus ? faTimes : faPlus} />
+                  Wallet
+                </button>
+                <button>
+                  <FontAwesomeIcon icon={faUser} />
+                  +Mod
                 </button>
                 <button onClick={() => handleDel(item.id)}>
                   <FontAwesomeIcon icon={faTrash} />

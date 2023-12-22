@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faPlus, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import AddSkinForm from "./AddSkinForm";
 import axios from "../../assets/setup/axios"
 
@@ -77,7 +77,6 @@ function SkinManagement() {
       <thead>
         <tr>
           <th>ID</th>
-          <th>Type</th>
           <th>Name</th>
           <th>Float</th>
           <th>Tier</th>
@@ -94,7 +93,6 @@ function SkinManagement() {
         {currentItems.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
-            <td>{item.type}</td>
             <td>{item.name}</td>
             <td>{item.float}</td>
             <td>{item.tier}</td>

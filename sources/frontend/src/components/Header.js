@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
 
 function Header() {
   const [user, setUser] = useState('');
@@ -29,6 +30,14 @@ function Header() {
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
     setUser(steamData);
     setLoggedIn(true);
+    //jwt
+    axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
+      .then(response => {
+        // console.log(response);
+      })
+      .catch(error => {
+        console.error('Error jwt:', error);
+      });
     //send api to set role for user
     axios.get(`/api/v1/users/steamid`, { params: { steamid: steamData.steamid } })
       .then(response => {
@@ -42,14 +51,7 @@ function Header() {
         console.error('Error checking user group:', error);
       });
 
-    //jwt
-    axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.error('Error jwt:', error);
-      });
+    
   };
   const handleLogout = () => {
     sessionStorage.clear();
@@ -68,6 +70,11 @@ function Header() {
     setShowDropdown(false);
   };
 
+  const checkCookieExists = (cookieName) => {
+    console.log("Check cookie",Cookies.get('jwt'));
+    return Cookies.get(cookieName) !== undefined;
+  };
+
   const handleWallet = (id) => {
     axios.get('/api/v1/users')
       .then(response => {
@@ -79,14 +86,17 @@ function Header() {
       });
   }
   useEffect(() => {
+    
     window.addEventListener("message", handleMessage);
     // Cleanup the event listener when the component is unmounted
     handleWallet(user.steamid);
+    checkCookieExists('jwt');
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-
   });
+
+
   return (
     <div className="header">
       <Link to="/">
