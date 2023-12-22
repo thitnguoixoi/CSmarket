@@ -21,8 +21,8 @@ const verifyToken = (token) => {
     return data
 }
 const checkUserJWT = (req, res, next) => {
-    let cookie = req.cookie;
-    console.log(cookie)
+    let cookies = req.cookies;
+    console.log(cookies)
     next()
 }
 module.exports = {
