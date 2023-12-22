@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
 
 function Header() {
   const [user, setUser] = useState('');
@@ -12,7 +13,20 @@ function Header() {
   const [userIsMod, setUserIsMod] = useState(false);
   const [wallet, setWallet] = useState(0);
 
-
+  const setRole = () => {
+    //send api to set role for user
+    axios.get(`/api/v1/users/steamid`)
+      .then(response => {
+        if (response.data.DT.GroupID === 3) {
+          setUserIsMod(true);
+        } else if (response.data.DT.GroupID === 2) {
+          setUserIsMod(true);
+        }
+      })
+      .catch(error => {
+        console.error('Error checking user group:', error);
+      });
+  }
   const handleLogin = async () => {
     const popupWindow = window.open(
       "http://localhost:8080/api/v1/auth/steam",
@@ -42,20 +56,7 @@ function Header() {
           console.error('Error jwt:', error);
         });
     }
-    //send api to set role for user
-    axios.get(`/api/v1/users/steamid`, { params: { steamid: steamData.steamid } })
-      .then(response => {
-        if (response.data.DT.GroupID === 3) {
-          setUserIsMod(true);
-        } else if (response.data.DT.GroupID === 2) {
-          setUserIsMod(true);
-        }
-      })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
-
-
+    setRole();
   };
   const handleLogout = () => {
     sessionStorage.clear();
@@ -88,11 +89,17 @@ function Header() {
   }
   useEffect(() => {
     //check state log in
+    if (checkCookieExists('jwt')) {
+      setLoggedIn(true);
+      // Retrieve data from sessionStorage
+      const storedUser = sessionStorage.getItem('steamprofile');
+      //parse data from sessionStorage
+      const tmp = JSON.parse(storedUser);
+      setUser(tmp);
+    }
     setLoggedIn(true);
-    // Retrieve data from sessionStorage
-    const storedUser = sessionStorage.getItem('steamprofile');
-    //parse data from sessionStorage
-    const tmp = JSON.parse(storedUser);
+    console.log(Cookies.get('jwt'));
+
     window.addEventListener("message", handleMessage);
     // Cleanup the event listener when the component is unmounted
     handleWallet(user.steamid);

@@ -9,30 +9,17 @@ import axios from '../../assets/setup/axios';
 function UserProfile() {
     const [user, setUser] = useState({});
     const [tradeURL, setTradeURL] = useState(sessionStorage.getItem('steamprofileURL') || '');
-    const [balance, setBalance] = useState(0);
     useEffect(() => {
-        // Retrieve data from sessionStorage
-        const storedUser = sessionStorage.getItem('steamprofile');
-        //parse data from sessionStorage
-        const tmp = JSON.parse(storedUser);
-        if (storedUser) {
-            setUser(tmp);
-        }
-        const storedTradeURL = sessionStorage.getItem('steamProfileTradeURL');
-        if (storedTradeURL) {
-            setTradeURL(storedTradeURL);
-        }
-
         // Send Axios request to delete item with the specified ID
-
-        axios.get(`/api/v1/users/steamid`, { params: { steamid: tmp.steamid } })
+        axios.get(`/api/v1/users/steamid`)
             .then(response => {
+                console.log(response.data.DT);
+                setUser(response.data.DT);
                 setTradeURL(response.data.DT?.TradeURL || '');
             })
             .catch(error => {
                 console.error('Error deleting item:', error);
             });
-        handleWallet(tmp.steamid);
     }, []);
 
     const userItems = [
@@ -85,17 +72,6 @@ function UserProfile() {
                 console.error('Error updating item:', error);
             });
     }
-
-    const handleWallet = (id) => {
-        axios.get('http://localhost:8080/api/v1/users')
-            .then(response => {
-                const userData = response.data.DT.find(item => item.SteamID === id);
-                setBalance(userData.Wallet);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-    }
     return (
 
         //information
@@ -103,13 +79,13 @@ function UserProfile() {
             <div className="user-profile">
                 <div className="ava-link">
                     <div className="user-avatar">
-                        <img src={user.avatarfull} alt="avatar" />
+                        <img src={user.Avatarfull} alt="avatar" />
                     </div>
 
                     <div className="infor">
-                        <h2>Name: {user.personaname}</h2>
-                        <h5>SteamID64: {user.steamid}</h5>
-                        <h5>Balance: {balance}$</h5>
+                        <h2>Name: {user.Personaname}</h2>
+                        <h5>SteamID64: {user.SteamID}</h5>
+                        <h5>Balance: {user.Wallet}$</h5>
                         <div>
                             <label htmlFor="tradeURL">TradeURL:</label>
                             <input
@@ -121,7 +97,7 @@ function UserProfile() {
                             <button onClick={handleTradeUpdate}>Update TradeURL</button>
                         </div>
 
-                        <SteamProfileButton steamID={user.steamid} />
+                        <SteamProfileButton steamID={user.SteamID} />
                     </div>
                 </div>
 
@@ -131,7 +107,7 @@ function UserProfile() {
                         <h4>Case opened:</h4>
                         <span>
                             <img src={require('../../assets/logo/opencase.png')} alt="case_count" />
-                            <h5>{user.casecount}</h5>
+                            <h5>{user.CountOpen}</h5>
                         </span>
                     </div>
 
@@ -139,7 +115,7 @@ function UserProfile() {
                         <h4>Skin upgraded:</h4>
                         <span>
                             <img src={require('../../assets/logo/upgrade.png')} alt="upgrade_count" />
-                            <h5>{user.upgradecount}</h5>
+                            <h5>{user.CountUpgrade}</h5>
                         </span>
                     </div>
                 </div>
