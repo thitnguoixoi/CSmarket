@@ -12,9 +12,13 @@ module.exports = app => {
     passport.use(
         new Strategy(strategyOptions, (identifier, profile, done) => {
             profile.identifier = identifier;
-            const steamID = profile.id;
-            // Assuming profile.id contains the SteamID
-            userService.createUser(steamID);
+            const steamid = profile._json.steamid;
+            const personaname = profile._json.personaname;
+            const profileurl = profile._json.profileurl;
+            const avatar = profile._json.avatar;
+            const avatarmedium = profile._json.avatarmedium;
+            const avatarfull = profile._json.avatarfull;
+            userService.createUser(steamid, personaname, profileurl, avatar, avatarmedium, avatarfull);
             return done(null, profile);
         }),
     );

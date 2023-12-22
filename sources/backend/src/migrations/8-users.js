@@ -25,8 +25,29 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING
       },
+
       Wallet: {
         defaultValue: 0.00,
+        type: Sequelize.STRING
+      },
+      Personaname: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      Profileurl: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      Avatar: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      Avatarmedium: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      Avatarfull: {
+        allowNull: true,
         type: Sequelize.STRING
       },
       CountOpen: {
