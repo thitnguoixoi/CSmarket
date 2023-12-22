@@ -23,9 +23,9 @@ module.exports = {
           key: 'id'
         },
       },
-      isWithdraw: {
+      Status: {
         defaultValue: 0,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
