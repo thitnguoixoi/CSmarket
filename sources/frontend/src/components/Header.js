@@ -13,26 +13,10 @@ function Header() {
   const [userIsMod, setUserIsMod] = useState(false);
 
   useEffect(() => {
-    if (checkCookieExists("login")) {
-      axios.get(`/api/v1/users/steamid`)
-        .then(response => {
-          setLoggedIn(true);
-          setUser(response.data.DT);
-          if (response.data.DT.GroupID === 3) {
-            setUserIsMod(true);
-          } else if (response.data.DT.GroupID === 2) {
-            setUserIsMod(true);
-          }
-        })
-        .catch(error => {
-          console.error('Error get user profile', error);
-          if (error.response.data.EM === 'User is not authenticate') {
-            handleLogout()
-          }
-        });
-    }
     window.addEventListener("message", handleMessage);
-    // Cleanup the event listener when the component is unmounted
+    if (checkCookieExists("login")) {
+      handleGetProfile()
+    }
     return () => {
       window.removeEventListener("message", handleMessage);
     };
@@ -62,8 +46,26 @@ function Header() {
       .catch(error => {
         console.error('Error get jwt:', error);
       });
-    setLoggedIn(true);
+    handleGetProfile()
   };
+  const handleGetProfile = () => {
+    axios.get(`/api/v1/users/steamid`)
+      .then(response => {
+        setLoggedIn(true);
+        setUser(response.data.DT);
+        if (response.data.DT.GroupID === 3) {
+          setUserIsMod(true);
+        } else if (response.data.DT.GroupID === 2) {
+          setUserIsMod(true);
+        }
+      })
+      .catch(error => {
+        console.error('Error get user profile', error);
+        if (error.response.data.EM === 'User is not authenticate') {
+          handleLogout()
+        }
+      });
+  }
   const handleLogout = () => {
     Cookies.remove('login')
     setLoggedIn(false);

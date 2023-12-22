@@ -180,12 +180,12 @@ const updateUserWallet = async (userid, addWallet) => {
 
 
 }
-const deleteUser = async (userid) => {
+const deleteUser = async (userid, steamid) => {
     try {
         let user = await db.Users.findOne({
             where: { id: userid }
         })
-        if (user) {
+        if (user && user.SteamID !== steamid) {
             await db.Users.destroy({
                 where: {
                     id: userid
@@ -199,7 +199,7 @@ const deleteUser = async (userid) => {
         }
         else {
             return {
-                EM: userid + " does not exist",
+                EM: "Can not delete this user",
                 EC: "-1",
                 DT: ''
             }

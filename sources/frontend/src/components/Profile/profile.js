@@ -58,21 +58,19 @@ function UserProfile() {
 
     }
     const handleTradeUpdate = () => {
-        const key = `steamprofileURL_${user.steamid}`;
+        const key = `steamprofileURL_${user.SteamID}`;
 
         // Set new key with the updated tradeURL
         sessionStorage.setItem(key, tradeURL);
 
-        axios.put(`/api/v1/users/update/tradeurl`, { steamid: user.steamid, url: tradeURL })
+        axios.put(`/api/v1/users/update/tradeurl`, { steamid: user.SteamID, url: tradeURL })
             .then(response => {
-                console.log('Item updated successfully:', response);
             })
             .catch(error => {
-                console.error('Error updating item:', error);
+                console.error('Error updating trade url:', error);
             });
     }
     return (
-
         //information
         <div className="content-user-profile">
             <div className="user-profile">

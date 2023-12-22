@@ -69,7 +69,7 @@ const updateWallet = async (req, res) => {
 }
 const deleteUser = async (req, res) => {
     try {
-        let data = await userService.deleteUser(req.body.id)
+        let data = await userService.deleteUser(req.body.id, req.jwt.steamid)
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,

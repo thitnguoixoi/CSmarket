@@ -64,7 +64,6 @@ function UserManagement() {
     // Send Axios request to delete item with the specified ID
     axios.delete(`/api/v1/users/delete`, { data: { id: itemId } })
       .then(response => {
-        console.log('Item deleted successfully:');
         axios.get('/api/v1/users')
           .then(response => {
             setData(response.data.DT);
@@ -108,7 +107,6 @@ function UserManagement() {
     };
     axios.put('/api/v1/users/update/wallet', dataToSend)
       .then(response => {
-        console.log('Wallet added successfully:');
         // After submitting, you may want to refresh the data
         axios.get('/api/v1/users')
           .then(response => {
