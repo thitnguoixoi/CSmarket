@@ -1,4 +1,6 @@
 import db from "../models/index"
+import { createJWT } from "../middleware/jwtactions"
+require('dotenv').config();
 const getGroupRoles = async (steamid) => {
 
     try {
@@ -14,10 +16,19 @@ const getGroupRoles = async (steamid) => {
                 attributes: ["RoleID", "GroupID"],
                 include: { model: db.Roles, attributes: ["URL"], }
             })
+            let payload = {
+                steamid: steamid,
+                data: roles,
+                expiresIn: process.env.JWT_EX
+            }
+            let token = createJWT(payload)
             return {
                 EM: "Get JWT success",
                 EC: "0",
-                DT: roles
+                DT: {
+                    access_token: token,
+                    data: roles
+                }
             }
         } else {
             return {

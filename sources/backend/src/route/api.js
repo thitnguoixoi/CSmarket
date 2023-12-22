@@ -3,12 +3,15 @@ import loginController from "../controller/loginController"
 import casesController from "../controller/casesController"
 import skinsController from "../controller/skinsController"
 import usersController from "../controller/usersController"
+import { checkUserJWT } from "../middleware/jwtactions"
 let router = express.Router();
+
 let initApiRoutes = (app) => {
 
     router.get('/auth/steam', loginController.handleSteamAuth);//, loginController.redirectHome
     router.get('/auth/steam/return', loginController.handleSteamReturn, loginController.handleSendProfile);
-    router.get('/auth/jwt', loginController.getJWT);
+
+    router.get('/jwt/steamid', checkUserJWT, loginController.getJWT);
 
     router.get("/users", usersController.readUsers);
     router.get("/users/steamid", usersController.readUser);
