@@ -18,7 +18,7 @@ const readUsers = async (req, res) => {
 }
 const readUser = async (req, res) => {
     try {
-        let data = await userService.getUser(req.query.steamid);
+        let data = await userService.getUser(req.jwt.steamid);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
