@@ -16,6 +16,7 @@ const getJWT = async (req, res) => {
             let data = await jwtService.getGroupRoles(req.query.steamid);
             if (data && data.DT && data.DT.access_token) {
                 res.cookie("jwt", data.DT.access_token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
+                res.cookie("csmarket", "", { maxAge: 24 * 60 * 60 * 1000 })
             }
             return res.status(200).json({
                 EM: data.EM,

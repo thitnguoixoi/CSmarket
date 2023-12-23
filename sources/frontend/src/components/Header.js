@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
+import Cookies from 'js-cookie';
 
 function Header() {
   const [user, setUser] = useState('');
@@ -14,7 +15,11 @@ function Header() {
   const navigate = useNavigate();
   useEffect(() => {
     window.addEventListener("message", handleMessage);
-    handleGetProfile()
+    if (checkCookieExists("csmarket")) {
+      handleGetProfile()
+    } else {
+      handleLogout()
+    }
     return () => {
       window.removeEventListener("message", handleMessage);
     };
@@ -45,6 +50,11 @@ function Header() {
     handleGetProfile()
   };
 
+  const checkCookieExists = (cookieName) => {
+    const cookies = document.cookie.split(';');
+    return cookies.some(cookie => cookie.trim().startsWith(`${cookieName}=`));
+  };
+
   const handleGetProfile = () => {
     axios.get(`/api/v1/users/steamid`)
       .then(response => {
@@ -67,7 +77,6 @@ function Header() {
   const handleLogout = () => {
     axios.get(`/api/v1/users/logout`)
       .then(response => {
-        console.log(response)
       })
       .catch(error => {
         console.error('Error user log out', error);
