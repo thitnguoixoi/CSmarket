@@ -76,7 +76,6 @@ function CaseManagement() {
     <table>
       <thead>
         <tr>
-          <th>Group</th>
           <th>ID</th>
           <th>Name</th>
           <th>Price</th>
@@ -90,9 +89,8 @@ function CaseManagement() {
         </tr>
       </thead>
       <tbody>
-        {currentItems.map((item, index) => (
+        {currentItems.map((item) => (
           <tr key={item.id}>
-            <td>{index === 0 || item.group !== currentItems[index - 1].group ? item.group : ''}</td>
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>{item.price}</td>

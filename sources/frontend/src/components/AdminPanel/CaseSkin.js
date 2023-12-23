@@ -67,16 +67,14 @@ function CaseSkin() {
                 <tr>
                     <th>CaseID</th>
                     <th>SkinID</th>
-                    <th>Percent</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                {currentItems.map((item, index) => (
+                {currentItems.map((item) => (
                     <tr key={item.id}>
                         <td>{item.caseid}</td>
                         <td>{item.skinid}</td>
-                        <td>{item.percent}</td>
                         <td>delete</td>
                     </tr>
                 ))}
