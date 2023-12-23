@@ -294,7 +294,9 @@ const updateUserWallet = async (userid, addWallet) => {
         let user = await db.Users.findOne({
             where: { id: userid },
         })
-        if (typeof parseFloat(addWallet) === 'number' && user) {
+        const parsedValue = parseFloat(addWallet);
+        const isFloat = !isNaN(parsedValue) && Number.isFinite(parsedValue) && Number(parsedValue) === parsedValue;
+        if (isFloat && user) {
             let originWallet = user.get({ plain: true }).Wallet
             let wallet = parseFloat(addWallet) + parseFloat(originWallet)
             await db.Users.update(

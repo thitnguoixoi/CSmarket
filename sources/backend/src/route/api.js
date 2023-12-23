@@ -37,7 +37,9 @@ let initApiRoutes = (app) => {
 
     router.put("/users/skins/sell", usersController.sellSkin)
 
-    // router.put("/users/opencase", usersController.openCase) //ch làm
+    router.put("/users/opencase", usersController.openCase) //ch làm
+
+    router.put("/users/upgrade", usersController.upgradeSkin) //ch làm
 
     //admin
     router.put("/users/update/wallet", usersController.updateWallet);
@@ -63,14 +65,21 @@ let initApiRoutes = (app) => {
     Actions affect cases in database
     */
 
+    //user, trader, admin
+
+    router.get("/cases", casesController.readCases);
+
+    router.get("/cases/id", casesController.readCasesSkins);
+
+    router.get("/cases/groupcases", casesController.readGroupCases);
+
     //admin
-    // router.get("/cases", casesController.testAPI);
+    router.post("/cases/create", casesController.createCase);
 
-    // router.post("/cases", casesController.testAPI);
+    router.put("/cases/update", casesController.updateCase);
 
-    // router.put("/cases", casesController.testAPI);
+    router.delete("/cases/delete", casesController.deleteCase);
 
-    // router.delete("/cases", casesController.testAPI);
 
     return app.use("/api/v1", router);
 }
