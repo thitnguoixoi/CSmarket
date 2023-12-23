@@ -36,9 +36,9 @@ const readUser = async (req, res) => {
     }
 }
 
-const readUserSkin = async (req, res) => {
+const readUserSkins = async (req, res) => {
     try {
-        let data = await userService.getUserSkin(req.jwt.steamid);
+        let data = await userService.getUserSkins(req.jwt.steamid);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -188,7 +188,7 @@ module.exports = {
     updateWallet,
     deleteUser,
     updateGroup,
-    readUserSkin,
+    readUserSkins,
     logoutUser,
     withdrawSkin,
     sellSkin

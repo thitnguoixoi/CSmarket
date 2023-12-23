@@ -31,7 +31,7 @@ let initApiRoutes = (app) => {
 
     router.put("/users/tradeurl/update", usersController.updateTradeURL);
 
-    router.get("/users/skins", usersController.readUserSkin)
+    router.get("/users/skins", usersController.readUserSkins)
 
     router.put("/users/skins/withdraw", usersController.withdrawSkin)
 
@@ -51,13 +51,13 @@ let initApiRoutes = (app) => {
     */
 
     //admin
-    // router.get("/skins", skinsController.testAPI);
+    // router.get("/skins", skinsController.readSkins);
 
-    // router.post("/skins/create", skinsController.testAPI);
+    // router.post("/skins/create", skinsController.createSkin);
 
-    // router.put("/skins/update", skinsController.testAPI);
+    // router.put("/skins/update", skinsController.updateSkin);
 
-    // router.delete("/skins/delete", skinsController.testAPI);
+    // router.delete("/skins/delete", skinsController.deleteSkin);
 
     /*
     Actions affect cases in database
