@@ -1,5 +1,7 @@
 import { where } from "sequelize";
 import db from "../models/index"
+const { Op } = require('sequelize');
+
 
 const createUser = async (steamid, personaname, profileurl, avatar, avatarmedium, avatarfull) => {
     try {
