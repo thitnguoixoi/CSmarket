@@ -94,7 +94,7 @@ const getUser = async (steamid) => {
     }
 }
 
-const getUserSkin = async (steamid) => {
+const getUserSkins = async (steamid) => {
     try {
         let skins = []
 
@@ -103,7 +103,7 @@ const getUserSkin = async (steamid) => {
                 SteamID: steamid
             },
         });
-        skins = await db.Users_Skins.findone({
+        skins = await db.Users_Skins.findAll({
             where: {
                 UserID: user.get({ plain: true }).id,
                 Status: {
@@ -398,7 +398,7 @@ module.exports = {
     updateUserTradeURL,
     updateUserWallet,
     updateUserGroup,
-    getUserSkin,
+    getUserSkins,
     withdrawUserSkin,
     sellUserSkin
 }
