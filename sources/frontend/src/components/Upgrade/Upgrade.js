@@ -25,7 +25,6 @@ function Inventory() {
         rateUpgrade();
         axios.get(`/api/v1/users/skins`)
             .then(response => {
-                console.log(response);
                 setUserItems(response.data.DT);
                 setFilteredUserItems(response.data.DT);
                 setServerItems(response.data.DT);
