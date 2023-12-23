@@ -9,13 +9,21 @@ import axios from '../../assets/setup/axios';
 function UserProfile() {
     const [user, setUser] = useState({});
     const [tradeURL, setTradeURL] = useState(sessionStorage.getItem('steamprofileURL') || '');
-    
+
     useEffect(() => {
         // Send Axios request to delete item with the specified ID
         axios.get(`/api/v1/users/steamid`)
             .then(response => {
                 setUser(response.data.DT);
                 setTradeURL(response.data.DT?.TradeURL || '');
+            })
+            .catch(error => {
+                console.error('Error get user profile:', error);
+            });
+
+        axios.get(`/api/v1/users/skins`)
+            .then(response => {
+                console.log(response);
             })
             .catch(error => {
                 console.error('Error get user profile:', error);
