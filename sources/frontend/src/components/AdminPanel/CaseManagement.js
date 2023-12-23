@@ -14,27 +14,19 @@ function CaseManagement() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    // Fetch your data or set it statically
-    // Example data:
-    const exampleData = [
-      { group: "free", id: 1, name: 'John Doe', age: 25 },
-      { group: "free", id: 2, name: 'Jane Doe', age: 30 },
-      { group: "free", id: 1, name: 'John Doe', age: 25 },
-      { group: 2, id: 2, name: 'Jane Doe', age: 30 },
-    ];
-
-    setData(exampleData);
-    setFilteredData(exampleData);
-    const storedUser = sessionStorage.getItem('steamprofile');
-    // Parse data from sessionStorage
-    const tmp = JSON.parse(storedUser);
-
-    // Send Axios request to check user's group ID
-    axios.get(`/api/v1/users/steamid`, { params: { steamid: tmp.steamid } })
+    axios.get(`/api/v1/users/steamid`)
       .then(response => {
         if (response.data.DT.GroupID === 3) {
           setIsAdmin(true);
         }
+      })
+      .catch(error => {
+        console.error('Error checking user group:', error);
+      });
+    axios.get(`/api/v1/cases`)
+      .then(response => {
+        setData(response.data.DT);
+        setFilteredData(response.data.DT);
       })
       .catch(error => {
         console.error('Error checking user group:', error);
@@ -80,7 +72,6 @@ function CaseManagement() {
           <th>Name</th>
           <th>Price</th>
           <th>Image</th>
-          <th>Skins</th>
           <th>
             <button onClick={handleAddCase}>
               <FontAwesomeIcon icon={isPlus ? faPlus : faTimes} />
@@ -89,16 +80,19 @@ function CaseManagement() {
         </tr>
       </thead>
       <tbody>
-        {currentItems.map((item) => (
-          <tr key={item.id}>
-            <td>{item.id}</td>
-            <td>{item.name}</td>
-            <td>{item.price}</td>
-            <td>{item.image}</td>
-            <td>{item.skins}</td>
-            <td></td>
-          </tr>
-        ))}
+        {currentItems.map((item) => {
+          return (
+            <tr key={item.id}>
+              <td>{item.CaseID}</td>
+              <td>{item.Name}</td>
+              <td>{item.Cases[0].Price}</td>
+              <td>
+                <img src={item.Cases[0].Image} alt="" />
+              </td>
+              <td></td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

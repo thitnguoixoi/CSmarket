@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import axios from "../../assets/setup/axios"
 import './styles/CaseOpened.css';
 import Popup from "./popup";
 
@@ -8,6 +8,7 @@ function CaseOpened({ caseData }) {
     const handlePopup = () => {
         setButtonPopup(false);
     }
+
     return (
         <div className="Case_Opened">
             <div className="opencase">
@@ -22,7 +23,6 @@ function CaseOpened({ caseData }) {
                         <h4>{caseData.skins[0].name}</h4>
                     </div>
                 </Popup>
-
             </div>
 
             <div className="image-container">
