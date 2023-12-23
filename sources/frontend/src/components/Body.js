@@ -13,6 +13,7 @@ import CaseManagement from "./AdminPanel/CaseManagement";
 import SkinManagement from "./AdminPanel/SkinManagement";
 import CaseSkin from './AdminPanel/CaseSkin.js';
 import NotFound from './notFound.js';
+import { useEffect } from 'react';
 
 
 function Body() {
@@ -47,7 +48,7 @@ function Body() {
             <Route path='/admin/skins' exact element={<SkinManagement />} />
             <Route path='/admin/cases/skins' exact element={<CaseSkin />} />
             {renderCaseOpened()}
-            <Route path='*' element={<NotFound />} />
+            {/* <Route path='*' element={<NotFound />} /> */}
         </Routes>
     )
 }
