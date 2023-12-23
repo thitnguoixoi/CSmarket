@@ -9,6 +9,7 @@ import axios from '../../assets/setup/axios';
 function UserProfile() {
     const [user, setUser] = useState({});
     const [tradeURL, setTradeURL] = useState(sessionStorage.getItem('steamprofileURL') || '');
+    const [userItems,setUserItems] = useState(null);
 
     useEffect(() => {
         // Send Axios request to delete item with the specified ID
@@ -23,28 +24,16 @@ function UserProfile() {
 
         axios.get(`/api/v1/users/skins`)
             .then(response => {
-                console.log(response);
+                
+                setUserItems(response.data.DT.Skin)
+                console.log(response.data.DT);
             })
             .catch(error => {
                 console.error('Error get user profile:', error);
             });
     }, []);
 
-    const userItems = [
-        // ... your userItems data
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0129 },
-        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0129 },
-        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0129 },
-        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-    ];
+    
     const PopupSell = () => {
         Swal.fire({
             title: "Are you sure?",
@@ -132,7 +121,7 @@ function UserProfile() {
                 <h2>User Inventory</h2>
                 <div className="user-profile-inventory-items">
                     <ul>
-                        {userItems.map((item) => (
+                        {/* {userItems.map((item) => (
                             <li className="list_items">
                                 <Item itemData={item} />
                                 <div className="user-inventory-button">
@@ -140,7 +129,7 @@ function UserProfile() {
                                     <button onClick={PopupSell} id="withdraw">Withdraw</button>
                                 </div>
                             </li>
-                        ))}
+                        ))} */}
                     </ul>
                 </div>
             </div>
