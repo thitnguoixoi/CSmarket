@@ -27,7 +27,7 @@ const createUser = async (steamid, personaname, profileurl, avatar, avatarmedium
                 { where: { SteamID: steamid } })
         }
     } catch (error) {
-        console.error('Error creating user:', error);
+        console.error('Error creating user: ', error);
     }
 }
 
@@ -51,7 +51,7 @@ const getUsers = async () => {
             }
         }
     } catch (e) {
-        console.log(e)
+        console.log("Get users error: ", e)
         return {
             EM: "Get users error",
             EC: "-1",
@@ -83,7 +83,7 @@ const getUser = async (steamid) => {
             }
         }
     } catch (e) {
-        console.log(e)
+        console.log("Get user error: ", e)
         return {
             EM: "Get user error",
             EC: "-1",
@@ -97,7 +97,10 @@ const getUserSkin = async (steamid) => {
         let skins = []
         skins = await db.Users_Skins.findOne({
             where: {
-                SteamID: steamid
+                SteamID: steamid,
+                Status: {
+                    [Op.notIn]: ["Withdraw", "Selled", "Withdrawed"]
+                }
             },
             include: { model: db.Skins }
         });
@@ -136,7 +139,7 @@ const getTradeURL = async (steamid) => {
             DT: data
         }
     } catch (e) {
-        console.log(e)
+        console.log("Get user TradeURL error: ", e)
         return {
             EM: "Get user TradeURL error",
             EC: "-1",
@@ -159,13 +162,13 @@ const updateUserTradeURL = async (steamid, TradeURL) => {
         }
         else {
             return {
-                EM: "Please, enter the number",
+                EM: "Please, enter the string",
                 EC: "-1",
                 DT: ''
             }
         }
     } catch (e) {
-        console.log('Error update trade URL:', e)
+        console.log('Error update trade URL: ', e)
         return {
             EM: "Update trade URL error",
             EC: "-1",
@@ -175,14 +178,106 @@ const updateUserTradeURL = async (steamid, TradeURL) => {
 }
 
 
+const withdrawUserSkin = async (steamid, skinid) => {
+    try {
+        let user = []
+        user = await db.Users.findOne({
+            where: {
+                SteamID: steamid
+            },
+        });
+
+        await db.Users_Skins.update(
+            { Status: "Withdraw" },
+            {
+                where: {
+                    UserID: user.get({ plain: true }).id,
+                    SkinID: skinid
+                }
+            })
+        return {
+            EM: "Waiting for sending to user",
+            EC: "0",
+            DT: ''
+        }
+    } catch (e) {
+        console.log('Withdraw skin error: ', e)
+        return {
+            EM: "Withdraw skin error",
+            EC: "-1",
+            DT: ''
+        }
+    }
+}
+
+const sellUserSkin = async (steamid, skinid) => {
+    try {
+        let user = []
+        user = await db.Users.findOne({
+            where: {
+                SteamID: steamid
+            },
+        });
+
+
+        let originWallet = user.get({ plain: true }).Wallet
+
+        skin = await db.Skins.findOne({
+            where: {
+                id: skinid
+            },
+        });
+
+        let addWallet = skin.get({ plain: true }).Price
+
+        let Wallet = parseFloat(addWallet) + parseFloat(originWallet)
+
+        let countskin = parseInt(skin.get({ plain: true }).Count) + 1
+
+        skin = await db.Skins.update(
+            { Count: countskin },
+            { where: { id: skinid } }
+        );
+
+        await db.Users.update(
+            { Wallet: Wallet.toFixed(2) },
+            { where: { id: userid } }
+        )
+
+
+        await db.Users_Skins.update(
+            { Status: "Selled" },
+            {
+                where: {
+                    UserID: user.id,
+                    SkinID: skinid
+                }
+            }
+        )
+
+        return {
+            EM: "User skin is selled",
+            EC: "0",
+            DT: ''
+        }
+    } catch (e) {
+        console.log('Error sell user skin: ', e)
+        return {
+            EM: "Error sell user skin",
+            EC: "-1",
+            DT: ''
+        }
+    }
+}
+
 const updateUserWallet = async (userid, addWallet) => {
     try {
         if (typeof parseFloat(addWallet) === 'number') {
-            let getWallet = await db.Users.findOne({
+            let user = await db.Users.findOne({
                 where: { id: userid },
                 attributes: ['Wallet'],
             })
-            let originWallet = getWallet.get({ plain: true }).Wallet
+            let originWallet = user.get({ plain: true }).Wallet
             let Wallet = parseFloat(addWallet) + parseFloat(originWallet)
             await db.Users.update(
                 { Wallet: Wallet.toFixed(2) },
@@ -284,5 +379,7 @@ module.exports = {
     updateUserTradeURL,
     updateUserWallet,
     updateUserGroup,
-    getUserSkin
+    getUserSkin,
+    withdrawUserSkin,
+    sellUserSkin
 }
