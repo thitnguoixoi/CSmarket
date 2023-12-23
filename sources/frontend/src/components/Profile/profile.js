@@ -24,15 +24,45 @@ function UserProfile() {
         axios.get(`/api/v1/users/skins`)
             .then(response => {
                 setUserItems(response.data.DT);
-                console.log("response", response.data.DT);
-                console.log(userItems);
             })
             .catch(error => {
                 console.error('Error get skin:', error);
             });
     }, []);
 
-    const PopupWithDraw = () => {
+    const PopupWithDraw = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to withdraw this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, withdraw it!"
+        }).then((result) => {
+            withDraw(id);
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Withdraw!",
+                    text: "Your file has been withdraw.",
+                    icon: "success"
+                });
+            }
+        });
+    }
+    const withDraw = (id) => {
+        const dataWithDraw = {
+            skinid: id
+        }
+        axios.put(`/api/v1/users/skins/withdraw`, dataWithDraw)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error('Error withdraw skin:', error);
+            });
+    }
+    const PopupSell = (id) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -42,7 +72,8 @@ function UserProfile() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
-            console.log(result.value);
+            console.log(result);
+            sell(id);
             if (result.isConfirmed) {
                 Swal.fire({
                     title: "Deleted!",
@@ -52,25 +83,17 @@ function UserProfile() {
             }
         });
     }
-    const PopupSell = () => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            console.log(result.value);
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
-            }
-        });
+    const sell = (id) => {
+        const dataSell = {
+            skinid: id
+        }
+        axios.put(`/api/v1/users/skins/sell`, dataSell)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error('Error sell skin:', error);
+            });
     }
     const handleTradeUpdate = () => {
         const key = `steamprofileURL_${user.SteamID}`;
@@ -137,13 +160,12 @@ function UserProfile() {
                 <h2>User Inventory</h2>
                 <div className="user-profile-inventory-items">
                     <ul>
-                        {console.log(userItems)}
                         {userItems.map((item) => (
                             <li className="list_items">
                                 <Item itemData={item} />
                                 <div className="user-inventory-button">
-                                    <button onClick={PopupSell} id="sell">Sell</button>
-                                    <button onClick={PopupWithDraw} id="withdraw">Withdraw</button>
+                                    <button onClick={() => PopupSell(item.SkinID)} id="sell">Sell</button>
+                                    <button onClick={() => PopupWithDraw(item.SkinID)} id="withdraw">Withdraw</button>
                                 </div>
                             </li>
                         ))}
