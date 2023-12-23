@@ -248,7 +248,7 @@ const sellUserSkin = async (steamid, skinid) => {
 
         let originWallet = user.get({ plain: true }).Wallet
 
-        skin = await db.Skins.findOne({
+        let skin = await db.Skins.findOne({
             where: {
                 id: skinid
             },

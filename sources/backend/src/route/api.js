@@ -51,13 +51,13 @@ let initApiRoutes = (app) => {
     */
 
     //admin
-    // router.get("/skins", skinsController.readSkins);
+    router.get("/skins", skinsController.readSkins);
 
-    // router.post("/skins/create", skinsController.createSkin);
+    router.post("/skins/create", skinsController.createSkin);
 
-    // router.put("/skins/update", skinsController.updateSkin);
+    router.put("/skins/update", skinsController.updateSkin);
 
-    // router.delete("/skins/delete", skinsController.deleteSkin);
+    router.delete("/skins/delete", skinsController.deleteSkin);
 
     /*
     Actions affect cases in database
