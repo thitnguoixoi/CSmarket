@@ -97,9 +97,15 @@ const getUser = async (steamid) => {
 const getUserSkin = async (steamid) => {
     try {
         let skins = []
+
+        let user = await db.Users.findOne({
+            where: {
+                SteamID: steamid
+            },
+        });
         skins = await db.Users_Skins.findOne({
             where: {
-                SteamID: steamid,
+                UserID: user.get({ plain: true }).id,
                 Status: {
                     [Op.notIn]: ["Withdraw", "Selled", "Withdrawed"]
                 }

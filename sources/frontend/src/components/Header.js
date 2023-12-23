@@ -59,10 +59,7 @@ function Header() {
       .catch(error => {
         console.error('Error get user profile', error);
         if (error.response.data.EM === 'User is not authenticate') {
-          setLoggedIn(false);
-          setUserIsMod(false);
-          setShowDropdown(false);
-          navigate('/');
+          handleLogout()
         }
       });
   }
@@ -75,6 +72,7 @@ function Header() {
       .catch(error => {
         console.error('Error user log out', error);
       });
+    navigate('/');
     setLoggedIn(false);
     setUserIsMod(false);
     setShowDropdown(false); // Close the dropdown when logging out
