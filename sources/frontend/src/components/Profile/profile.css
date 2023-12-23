@@ -98,9 +98,12 @@
 .user-case-count span,
 .user-upgrade-count span {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
-
+.user-case-count span h5,
+.user-upgrade-count span h5{
+    font-size: 40px;
+}
 
 /*Inventory CSS*/
 .user-profile-inventory {
@@ -121,6 +124,7 @@
 }
 
 .user-profile-inventory-items li {
+    width: 250px;
     text-decoration: none;
     padding: 10px;
     display: flex;
@@ -129,7 +133,7 @@
 }
 
 .user-profile-inventory-items li img {
-    width: 150px;
+    width: 100%;
     /* Set the desired width for your items */
     margin: 10px;
     /* Adjust margin as needed for spacing */
@@ -165,14 +169,14 @@
     transition: background-color 0.3s, color 0.3s;
     margin-top: 5px;
 }
-.item-details {
-    padding: 10px;
+.list_items{
+    height: 350px;
 }
 
 .user-inventory-button {
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .inputURL{
     height: 50px;
@@ -274,8 +278,16 @@
     .user-case-count span, .user-upgrade-count span {
     display: none;
     }
+    .user-profile-inventory-items li {
+        width: 247.5px;
+    }
+    .list_items{
+        height: 300px;
+    }
 }
 
 @media screen and (max-width: 768px){
-
+    .user-profile-inventory-items li {
+        width: 226px;
+    }
 }
