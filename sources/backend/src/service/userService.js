@@ -103,7 +103,7 @@ const getUserSkin = async (steamid) => {
                 SteamID: steamid
             },
         });
-        skins = await db.Users_Skins.findAll({
+        skins = await db.Users_Skins.findone({
             where: {
                 UserID: user.get({ plain: true }).id,
                 Status: {
@@ -188,25 +188,44 @@ const updateUserTradeURL = async (steamid, TradeURL) => {
 
 const withdrawUserSkin = async (steamid, skinid) => {
     try {
-        let user = []
-        user = await db.Users.findOne({
+
+        let skins = await db.Skins.findOne({
             where: {
-                SteamID: steamid
+                id: skinid
             },
         });
 
-        await db.Users_Skins.update(
-            { Status: "Withdraw" },
-            {
+        if (skins.get({ plain: true }).id != 0) {
+
+            let user = await db.Users.findOne({
                 where: {
-                    UserID: user.get({ plain: true }).id,
-                    SkinID: skinid
-                }
-            })
-        return {
-            EM: "Waiting for sending to user",
-            EC: "0",
-            DT: ''
+                    SteamID: steamid
+                },
+            });
+
+            await db.Users_Skins.update(
+                { Status: "Withdraw" },
+                {
+                    where: {
+                        UserID: user.get({ plain: true }).id,
+                        SkinID: skinid
+                    }
+                })
+
+            return {
+                EM: "Waiting for sending to user",
+                EC: "0",
+                DT: ''
+            }
+
+        } else {
+
+            return {
+                EM: "We didn't have this skin",
+                EC: "-1",
+                DT: ''
+            }
+
         }
     } catch (e) {
         console.log('Withdraw skin error: ', e)
@@ -226,7 +245,6 @@ const sellUserSkin = async (steamid, skinid) => {
                 SteamID: steamid
             },
         });
-
 
         let originWallet = user.get({ plain: true }).Wallet
 
