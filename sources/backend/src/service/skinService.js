@@ -56,7 +56,9 @@ const createaSkin = async (name, float, price, tier, image, count) => {
 const updateaSkin = async (skinid, addcount) => {
     try {
         let skin = await db.Skins.findOne({
-            id: skinid,
+            where: {
+                id: skinid,
+            }
         });
         if (skin && parseInt(addcount) == "number") {
             let originCount = skin.get({ plain: true }).Count
@@ -89,7 +91,9 @@ const updateaSkin = async (skinid, addcount) => {
 const deleteaSkin = async (skinid) => {
     try {
         let skin = await db.Skins.findOne({
-            id: skinid,
+            where: {
+                id: skinid,
+            }
         });
         if (skin) {
             await db.Skins.destroy({
