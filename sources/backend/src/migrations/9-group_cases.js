@@ -12,6 +12,13 @@ module.exports = {
       Name: {
         type: Sequelize.STRING
       },
+      CaseID: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Cases',
+          key: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

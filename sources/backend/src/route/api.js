@@ -51,6 +51,8 @@ let initApiRoutes = (app) => {
     /*
     Actions affect skins in database
     */
+    //trader, admin
+    router.put("/skins/withdraw/update", skinsController.updateSkin);
 
     //admin
     router.get("/skins", skinsController.readSkins);
@@ -71,8 +73,6 @@ let initApiRoutes = (app) => {
 
     router.get("/cases/id", casesController.readCasesSkins);
 
-    router.get("/cases/groupcases", casesController.readGroupCases);
-
     //admin
     router.post("/cases/create", casesController.createCase);
 
@@ -80,6 +80,9 @@ let initApiRoutes = (app) => {
 
     router.delete("/cases/delete", casesController.deleteCase);
 
+    /*
+        Actions affect withdraw skin in database
+    */
 
     return app.use("/api/v1", router);
 }

@@ -18,13 +18,6 @@ module.exports = {
       Image: {
         type: Sequelize.STRING
       },
-      GroupID: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Group_Cases',
-          key: 'id'
-        }
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

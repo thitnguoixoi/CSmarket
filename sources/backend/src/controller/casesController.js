@@ -18,23 +18,6 @@ const readCases = async (req, res) => {
 }
 
 
-const readGroupCases = async (req, res) => {
-    try {
-        let data = await caseService.getGroupCases();
-        return res.status(200).json({
-            EM: data.EM,
-            EC: data.EC,
-            DT: data.DT
-        })
-    } catch (e) {
-        console.log(e)
-        return res.status(500).json({
-            EM: "Error from server",
-            EC: "-1",
-            DT: ""
-        })
-    }
-}
 
 const readCasesSkins = async (req, res) => {
     try {
@@ -112,6 +95,5 @@ module.exports = {
     createCase,
     updateCase,
     deleteCase,
-    readGroupCases,
     readCasesSkins
 }

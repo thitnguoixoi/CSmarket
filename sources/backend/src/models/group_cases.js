@@ -12,9 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Group_Cases.hasMany(models.Cases, { foreignKey: 'id' })
     }
   }
   Group_Cases.init({
+    CaseID: DataTypes.INTEGER,
     Name: DataTypes.STRING,
   }, {
     sequelize,
