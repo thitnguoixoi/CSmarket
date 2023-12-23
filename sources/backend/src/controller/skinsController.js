@@ -55,6 +55,7 @@ const updateSkin = async (req, res) => {
 
 const deleteSkin = async (req, res) => {
     try {
+        console.log(req.body);
         let data = await skinService.deleteaSkin(req.body.skinid);
         return res.status(200).json({
             EM: data.EM,

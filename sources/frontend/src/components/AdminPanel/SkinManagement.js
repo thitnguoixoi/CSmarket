@@ -50,10 +50,13 @@ function SkinManagement() {
     setShowAddForm(!showAddForm);
   };
   const handleDeleteSkin = (id) => {
-    console.log(id);
+    
     const dataDel = {
-      skinid: id
+      data:{
+        skinid: id
+      }
     }
+    console.log(dataDel);
     axios.delete(`/api/v1/skins/delete`,dataDel)
       .then(response => {
         console.log(response);
