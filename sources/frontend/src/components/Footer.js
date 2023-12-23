@@ -7,7 +7,7 @@ import csmarket from '../assets/logo/csmarket.png';
 import fb from '../assets/logo/facebook.webp';
 import dis from '../assets/logo/discord.webp';
 import steam from '../assets/logo/steam.webp';
-import Modal from './Popup';
+import Modal from './Popup.js';
 import { Link } from 'react-router-dom';
 function Footer() {
     return (

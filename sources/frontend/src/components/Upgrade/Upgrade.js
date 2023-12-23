@@ -183,7 +183,7 @@ function Inventory() {
                 {/* Upgrade Section */}
                 <div className="upgrade-section">
                     <h2>Upgrade your item</h2>
-                    <button>Nâng cấp</button>
+                    <button id ="upgrade-button">Upgrade!</button>
                     <p>Rating: {upgradeSuccessRate.toFixed(2)}%</p>
                 </div>
 

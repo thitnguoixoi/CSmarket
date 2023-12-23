@@ -1,7 +1,9 @@
 .inventory-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: rgb(54 57 78 / 49%);
 }
 
 .selected-items {
@@ -24,15 +26,6 @@ h2 {
 }
 
 /* Updated styles for the two inventory sections */
-.user-inventory,
-.server-inventory {
-    max-height: 550px;
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    text-align: center;
-    width: 42%;
-    margin: 0;
-}
 
 .inventory {
     overflow: hidden;
@@ -56,8 +49,18 @@ h2 {
 
 
 /* Centered headers outside the scrollable area */
-.user-inventory h2,
-.server-inventory h2 {
+.user-inventory, .server-inventory {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    max-height: 550px;
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 42%;
+    margin: 0;
+}
+.user-inventory h2, .server-inventory h2 {
     position: sticky;
     top: 0;
     background-color: #6d0606;
@@ -65,8 +68,9 @@ h2 {
     z-index: 1;
 }
 
-.user,
-.server {
+.user, .server {
+    width: 100%;
+    overflow-y: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -123,13 +127,9 @@ button :hover {
     background-color: #ffffff;
 }
 
-.inventory-container {
-    width: 100%;
-    background-color: #0D0448;
-}
-
 .User-select,
 .Server-select {
+    font-size: 20px;
     width: 40%;
     display: flex;
     justify-content: center;
@@ -147,6 +147,42 @@ button :hover {
     justify-content: center;
     flex-direction: column;
 }
+.upgrade-section p{
+    padding-top: 20px;
+    font-size: 20px;
+}
+#upgrade-button{
+    font-size: 16px;
+    width: 150px;
+    height: 40px;
+}
+#upgrade-button:hover{
+    background-image: linear-gradient(
+       to right, 
+       #E7484F,
+       #E7484F 16.65%,
+       #F68B1D 16.65%,
+       #F68B1D 33.3%,
+       #FCED00 33.3%,
+       #FCED00 49.95%,
+       #009E4F 49.95%,
+       #009E4F 66.6%,
+       #00AAC3 66.6%,
+       #00AAC3 83.25%,
+       #732982 83.25%,
+       #732982 100%,
+       #E7484F 100%
+      
+      
+      
+     );
+   animation:slidebg 2s linear infinite;
+ }
+ @keyframes slidebg {
+    to {
+      background-position:20vw;
+    }
+  }
 
 .item {
     flex: 1;
@@ -162,9 +198,9 @@ button :hover {
     background-color: black;
 }
 
-.user ul,
-.server ul {
+.user ul, .server ul {
     display: flex;
+    width: 99%;
 }
 
 .selected-item .item {
@@ -176,13 +212,14 @@ button :hover {
 }
 
 .search-bar{
-    width: 98%;
+    left: 0;
+    position: sticky;
 }
 .search-bar input {
     background-color: black;
     color: white;
     padding: 10px 30px;
-    width: 100%;
+    width: 98%;
 }
 
 
@@ -209,34 +246,50 @@ button :hover {
         height: 100%;
     }
     .user li, .server li {
-        width: 150px;
-    /* Set the desired width for your items */
-        margin: 10px;
-    /* Adjust margin as needed for spacing */
+        margin: 5px;
+        width: 100%;
         text-align: center;
         display: flex;
         flex-wrap: wrap;
     }
     .item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         flex: 1;
-        margin: 0 10px;
-        width: 160px;
-        height: auto;
-        border-left: 10px;
-        border-style: solid;
-        background-color: #161518;
+        margin: 10px;
+        width: 150px;
+        padding: 5px;
+    }
+
+    .selected-item img{
+        width: 200px;
+        height: 200px;
     }
     
     .item-details {
-        background-color: black;
+        font-size: 15px;
+        background-color: #161518;
     }
+    .User-select, .Server-select{
+        font-size: 18px;
+    }
+
     .user li img, .server li img {
-        width: 150px;
-    /* Set the desired width for your items */
-        margin: 10px;
-    /* Adjust margin as needed for spacing */
-        text-align: center;
-        display: flex;
-        flex-wrap: wrap;
+    width: 100px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+}
+
+
+
+
+
+
+@media screen and (max-width: 768px){
+    .User-select, .Server-select{
+        font-size: 16px;
     }
 }
