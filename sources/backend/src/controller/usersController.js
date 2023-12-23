@@ -167,6 +167,7 @@ const deleteUser = async (req, res) => {
 const logoutUser = (req, res) => {
     try {
         res.clearCookie("jwt")
+        res.clearCookie("csmarket")
         return res.status(200).json({
             EM: "User logout",
             EC: "0",
