@@ -103,7 +103,7 @@ const getUserSkin = async (steamid) => {
                 SteamID: steamid
             },
         });
-        skins = await db.Users_Skins.findOne({
+        skins = await db.Users_Skins.findAll({
             where: {
                 UserID: user.get({ plain: true }).id,
                 Status: {
