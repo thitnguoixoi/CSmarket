@@ -8,13 +8,8 @@ function AdminPanel() {
     const [isTrader, setIsTrader] = useState(false);
 
     useEffect(() => {
-        // Retrieve data from sessionStorage
-        const storedUser = sessionStorage.getItem('steamprofile');
-        // Parse data from sessionStorage
-        const tmp = JSON.parse(storedUser);
-
         // Send Axios request to check user's group ID
-        axios.get(`/api/v1/users/steamid`, { params: { steamid: tmp.steamid } })
+        axios.get(`/api/v1/users/steamid`)
             .then(response => {
                 if (response.data.DT.GroupID === 3) {
                     setIsAdmin(true);

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 const AddSkinForm = ({ AddSkin }) => {
   const [formData, setFormData] = useState({
-    id: '',
-    type: '',
     name: '',
     float: '',
     tier: '',
@@ -19,8 +17,6 @@ const AddSkinForm = ({ AddSkin }) => {
   const handleSubmit = () => {
     AddSkin(formData);
     setFormData({
-      id: '',
-      type: '',
       name: '',
       float: '',
       tier: '',
@@ -33,12 +29,6 @@ const AddSkinForm = ({ AddSkin }) => {
     <div className="add-form">
       <h3>Add Skin</h3>
       <form>
-        <label htmlFor="id">ID:</label>
-        <input type="text" id="id" name="id" value={formData.id} onChange={handleChange} required />
-
-        <label htmlFor="type">Type:</label>
-        <input type="text" id="type" name="type" value={formData.type} onChange={handleChange} required />
-
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
 

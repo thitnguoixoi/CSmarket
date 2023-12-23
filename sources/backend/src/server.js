@@ -1,7 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
 import viewEngine from "./config/viewEngine"
-import initWebRoutes from "./route/web"
 import initApiRoutes from "./route/api"
 import passport from "./config/passport";
 import cookieParser from "cookie-parser"
@@ -19,8 +18,6 @@ app.use(cookieParser())
 
 passport(app);
 require("./config/steamapi")(app);
-// require("./config/steam")(app);
-initWebRoutes(app);
 initApiRoutes(app);
 
 

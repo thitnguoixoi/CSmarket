@@ -9,9 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      Type: {
-        type: Sequelize.STRING
-      },
       Name: {
         type: Sequelize.STRING
       },
@@ -21,8 +18,8 @@ module.exports = {
       Price: {
         type: Sequelize.FLOAT
       },
-      Rating: {
-        type: Sequelize.STRING
+      Tier: {
+        type: Sequelize.INTEGER
       },
       Image: {
         type: Sequelize.STRING

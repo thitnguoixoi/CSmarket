@@ -10,8 +10,14 @@ function Header() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [userIsMod, setUserIsMod] = useState(false);
-  const [wallet, setWallet] = useState(0);
 
+  useEffect(() => {
+    window.addEventListener("message", handleMessage);
+    handleGetProfile()
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
 
   const handleLogin = async () => {
     const popupWindow = window.open(
@@ -22,16 +28,27 @@ function Header() {
     if (window.focus) popupWindow.focus();
   };
 
+
   // Empty dependency array ensures the effect runs only once
   const handleMessage = (event) => {
     if (event.origin !== "http://localhost:8080") return;
     const steamData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
-    setUser(steamData);
-    setLoggedIn(true);
-    //send api to set role for user
-    axios.get(`/api/v1/users/steamid`, { params: { steamid: steamData.steamid } })
+    //jwt
+    axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
       .then(response => {
+      })
+      .catch(error => {
+        console.error('Error get jwt:', error);
+      });
+    handleGetProfile()
+  };
+
+  const handleGetProfile = () => {
+    axios.get(`/api/v1/users/steamid`)
+      .then(response => {
+        setLoggedIn(true);
+        setUser(response.data.DT);
         if (response.data.DT.GroupID === 3) {
           setUserIsMod(true);
         } else if (response.data.DT.GroupID === 2) {
@@ -39,20 +56,23 @@ function Header() {
         }
       })
       .catch(error => {
-        console.error('Error checking user group:', error);
+        console.error('Error get user profile', error);
+        if (error.response.data.EM === 'User is not authenticate') {
+          setLoggedIn(false);
+          setUserIsMod(false);
+          setShowDropdown(false);
+        }
       });
+  }
 
-    //jwt
-    axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
+  const handleLogout = () => {
+    axios.get(`/api/v1/users/logout`)
       .then(response => {
-        console.log(response);
+        console.log(response)
       })
       .catch(error => {
-        console.error('Error jwt:', error);
+        console.error('Error user log out', error);
       });
-  };
-  const handleLogout = () => {
-    sessionStorage.clear();
     setLoggedIn(false);
     setUserIsMod(false);
     setShowDropdown(false); // Close the dropdown when logging out
@@ -68,25 +88,8 @@ function Header() {
     setShowDropdown(false);
   };
 
-  const handleWallet = (id) => {
-    axios.get('/api/v1/users')
-      .then(response => {
-        const userData = response.data.DT.find(item => item.SteamID === id);
-        setWallet(userData.Wallet);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }
-  useEffect(() => {
-    window.addEventListener("message", handleMessage);
-    // Cleanup the event listener when the component is unmounted
-    handleWallet(user.steamid);
-    return () => {
-      window.removeEventListener("message", handleMessage);
-    };
 
-  });
+
   return (
     <div className="header">
       <Link to="/">
@@ -104,13 +107,13 @@ function Header() {
         >
           <div className='user-wallet'>
             <FontAwesomeIcon icon={faWallet} />
-            <h4>{wallet}$</h4>
+            <h4>{user.Wallet}$</h4>
           </div>
 
           <Link to="/profile">
             <img
               className="avatar"
-              src={user.avatarmedium}
+              src={user.Avatarmedium}
               alt="User Avatar"
             />
           </Link>

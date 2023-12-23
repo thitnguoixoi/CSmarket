@@ -16,11 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Skins.init({
-    Type: DataTypes.STRING,
     Name: DataTypes.STRING,
     Float: DataTypes.STRING,
     Price: DataTypes.FLOAT,
-    Rating: DataTypes.STRING,
+    Tier: DataTypes.INTEGER,
     Image: DataTypes.STRING,
     Count: DataTypes.INTEGER
   }, {
