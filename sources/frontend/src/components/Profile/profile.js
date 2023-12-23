@@ -9,6 +9,7 @@ import axios from '../../assets/setup/axios';
 function UserProfile() {
     const [user, setUser] = useState({});
     const [tradeURL, setTradeURL] = useState(sessionStorage.getItem('steamprofileURL') || '');
+    
     useEffect(() => {
         // Send Axios request to delete item with the specified ID
         axios.get(`/api/v1/users/steamid`)

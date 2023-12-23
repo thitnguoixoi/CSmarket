@@ -201,9 +201,9 @@ function UserManagement() {
                   {clickedItemId === item.id && showGroupOption && (
                     <div id="submit-set-group">
                       <select value={selectedOption} onChange={(e) => handleDropdownChange(e.target.value)}>
-                        <option value="1">Option 1</option>
-                        <option value="2">Option 2</option>
-                        <option value="3">Option 3</option>
+                        <option value="1">User</option>
+                        <option value="2">Trader</option>
+                        <option value="3">Admin</option>
                       </select>
                       <button onClick={() => handleSetMod(item.id, selectedOption)}>
                         Submit
