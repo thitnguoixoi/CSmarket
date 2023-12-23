@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "../assets/setup/axios"
 import { Link } from 'react-router-dom';
 import './styles/Header.css';
@@ -10,7 +11,7 @@ function Header() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [userIsMod, setUserIsMod] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     window.addEventListener("message", handleMessage);
     handleGetProfile()
@@ -61,6 +62,7 @@ function Header() {
           setLoggedIn(false);
           setUserIsMod(false);
           setShowDropdown(false);
+          navigate('/');
         }
       });
   }
