@@ -7,7 +7,7 @@ function SelectedItem({ selectedItem, fixedSize }) {
             {selectedItem ? (
                 <Item itemData={selectedItem} fixedSize={fixedSize} />
             ) : (
-                <img src="path_to_default_image.jpg" alt="No item selected" width="200" height="200" />
+                <img src="path_to_default_image.jpg" alt="No item selected" width="150" height="200" />
             )}
         </div>
     );

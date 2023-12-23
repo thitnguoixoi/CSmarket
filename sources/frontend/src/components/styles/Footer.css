@@ -91,12 +91,11 @@
     #copyright{
         display: none;
     }
-    #logo_big {
-        display: none;
+    #live_div{
+        padding: 0;
     }
-    #logo_small {
-        width: 100%;
-        padding-left: 30px;
+    #live_div .logo{
+        display: none;
     }
     .footer_terms{
         padding: 5px;
