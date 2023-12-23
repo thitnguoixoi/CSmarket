@@ -256,14 +256,14 @@ const sellUserSkin = async (steamid, skinid) => {
         )
 
         return {
-            EM: "Your trade is update",
+            EM: "User skin is selled",
             EC: "0",
             DT: ''
         }
     } catch (e) {
-        console.log('Error update trade URL: ', e)
+        console.log('Error sell user skin: ', e)
         return {
-            EM: "Update trade URL error",
+            EM: "Error sell user skin",
             EC: "-1",
             DT: ''
         }
