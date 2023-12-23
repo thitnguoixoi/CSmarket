@@ -12,28 +12,15 @@ function SkinManagement() {
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
-  const [showDelForm, setShowDelForm] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-
   useEffect(() => {
-    // Fetch your data or set it statically
-    // Example data:
-    const exampleData = [
-      { id: 1, name: 'John Doe', age: 25 },
-      { id: 2, name: 'Jane Doe', age: 30 },
-      { id: 1, name: 'John Doe', age: 25 },
-      { id: 2, name: 'Jane Doe', age: 30 },
-
-    ];
-
-    setData(exampleData);
-    setFilteredData(exampleData);
-    const storedUser = sessionStorage.getItem('steamprofile');
-    // Parse data from sessionStorage
-    const tmp = JSON.parse(storedUser);
-
+    axios.get(`/api/v1/skins`)
+      .then(response => {
+        setData(response.data.DT);
+        setFilteredData(response.data.DT);
+      })
     // Send Axios request to check user's group ID
-    axios.get(`/api/v1/users/steamid`, { params: { steamid: tmp.steamid } })
+    axios.get(`/api/v1/users/steamid`)
       .then(response => {
         if (response.data.DT.GroupID === 3) {
           setIsAdmin(true);
@@ -62,8 +49,18 @@ function SkinManagement() {
   const handleAddSkin = () => {
     setShowAddForm(!showAddForm);
   };
-  const handleDeleteSkin = () => {
-    setShowDelForm(!showDelForm);
+  const handleDeleteSkin = (id) => {
+    console.log(id);
+    const dataDel = {
+      skinid: id
+    }
+    axios.delete(`/api/v1/skins/delete`,dataDel)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error('Error deleting item:', error);
+      });
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -91,15 +88,15 @@ function SkinManagement() {
       </thead>
       <tbody>
         {currentItems.map((item) => (
-          <tr key={item.id}>
+          <tr key={item.SkinID}>
             <td>{item.id}</td>
-            <td>{item.name}</td>
-            <td>{item.float}</td>
-            <td>{item.tier}</td>
-            <td>{item.image}</td>
-            <td>{item.counts}</td>
+            <td>{item.Name}</td>
+            <td>{item.Float}</td>
+            <td>{item.Tier}</td>
+            <td>{item.Image}</td>
+            <td>{item.Count}</td>
             <td>
-              <button onClick={handleDeleteSkin}>
+              <button onClick={()=>handleDeleteSkin(item.id)}>
                 <FontAwesomeIcon icon={faTrash} />
               </button>
             </td>
@@ -141,7 +138,6 @@ function SkinManagement() {
       {isAdmin ? (
         <>
           {showAddForm && <AddSkinForm />}
-          {showDelForm}
           <div className="back-button">
             <FontAwesomeIcon icon={faBackward} />
             <Link to="/admin">  Back to menu</Link>
