@@ -65,11 +65,11 @@ function UserManagement() {
     setClickedItemId(itemId);
   }
   const handleClickGroup = (itemId) => {
-    setShowGroupOption(true)
+    setShowGroupOption(!showGroupOption)
     handleClick(itemId);
   }
   const handleClickAddWallet = (itemId) => {
-    setShowAddWallet(true)
+    setShowAddWallet(!showAddWallet)
     handleClick(itemId);
   }
   const handleDel = (itemId) => {
@@ -147,7 +147,6 @@ function UserManagement() {
       id: itemId,
       groupid: groupId
     }
-    console.log(dataSetGroup);
     // Send Axios request to set the user as a moderator
     axios.put(`/api/v1/users/update/group`, dataSetGroup)
       .then(response => {
