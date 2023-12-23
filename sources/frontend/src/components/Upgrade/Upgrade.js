@@ -2,33 +2,12 @@ import React, { useEffect, useState } from "react";
 import './styles/Upgrade.css';
 import SelectedItem from './SelectedItem';
 import Item from "./Item";
-import SkinData from "../../assets/SkinData";
+import axios from '../../assets/setup/axios';
 
 function Inventory() {
-    // Sample data for user and server items
-    const userItems = [
-        // ... your userItems data
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0129 },
-        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier4", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier5", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-    ];
+    const [userItems, setUserItems] = useState([]);
+    const [serverItems, setServerItems] = useState([]);
 
-    const serverItems = [
-        // ... your serverItems data
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0119 },
-        { tier: "tier2", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier3", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier4", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier5", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-        { tier: "tier1", context: SkinData.glockOxideBlaze.imgUrl, name: SkinData.glockOxideBlaze.name, price: 10, type: "FT", float: 0.0009 },
-    ];
     // State for selected user and server items
     const [selectedUserItem, setSelectedUserItem] = useState(null);
     const [selectedServerItem, setSelectedServerItem] = useState(null);
@@ -42,9 +21,19 @@ function Inventory() {
     const [filteredUserItems, setFilteredUserItems] = useState(userItems);
     const [filteredServerItems, setFilteredServerItems] = useState(serverItems);
     useEffect(() => {
-        console.log(selectedUserItem?.tier || null, selectedServerItem?.tier || null);
         rateUpgrade();
-    });
+        axios.get(`/api/v1/users/skins`)
+            .then(response => {
+                console.log(response);
+                setUserItems(response.data.DT);
+                setFilteredUserItems(response.data.DT);
+                setServerItems(response.data.DT);
+                setFilteredServerItems(response.data.DT);
+            })
+            .catch(error => {
+                console.error('Error get skin:', error);
+            });
+    }, []);
     // Handler for user item click
     const handleUserItemClick = (item) => {
         setSelectedUserItem(item);
@@ -102,9 +91,6 @@ function Inventory() {
         // Access properties of selected items safely using optional chaining
         const userTier = mapTierToNumber(selectedUserItem?.tier);
         const serverTier = mapTierToNumber(selectedServerItem?.tier);
-        console.log(userTier, serverTier);
-        console.log(selectedServerItem, selectedUserItem);
-
         // Set successRate to 100% if userTier is higher than serverTier
         if (userTier > serverTier) {
             setUpgradeSuccessRate(100);
@@ -190,7 +176,7 @@ function Inventory() {
                 <div className="User-select">
                     <h2>User Selected Item</h2>
                     <div className="items">
-                    <SelectedItem selectedItem={selectedUserItem} fixedSize />
+                        <SelectedItem selectedItem={selectedUserItem} fixedSize />
                     </div>
                 </div>
 
@@ -205,7 +191,7 @@ function Inventory() {
                 <div className="Server-select">
                     <h2>Server Selected Item</h2>
                     <div className="items">
-                    <SelectedItem selectedItem={selectedServerItem} fixedSize />
+                        <SelectedItem selectedItem={selectedServerItem} fixedSize />
                     </div>
                 </div>
             </div>
