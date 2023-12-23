@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './styles/Upgrade.css';
 import SelectedItem from './SelectedItem';
 import Item from "./Item";
@@ -7,7 +8,7 @@ import axios from '../../assets/setup/axios';
 function Inventory() {
     const [userItems, setUserItems] = useState([]);
     const [serverItems, setServerItems] = useState([]);
-
+    const navigate = useNavigate();
     // State for selected user and server items
     const [selectedUserItem, setSelectedUserItem] = useState(null);
     const [selectedServerItem, setSelectedServerItem] = useState(null);
@@ -32,6 +33,9 @@ function Inventory() {
             })
             .catch(error => {
                 console.error('Error get skin:', error);
+                if (error.response.data.EM === 'User is not authenticate') {
+                    navigate('/');
+                }
             });
     }, []);
     // Handler for user item click
@@ -51,9 +55,8 @@ function Inventory() {
 
         // Filter user items based on the search term
         const filteredUser = userItems.filter(
-            (item) => item.name.toLowerCase().includes(term.toLowerCase())
+            (item) => item.Skin.Name.toLowerCase().includes(term.toLowerCase())
         );
-
         // Update filteredUserItems only if there's a search term, otherwise, keep all items
         setFilteredUserItems(term ? filteredUser : userItems);
     };
@@ -65,7 +68,7 @@ function Inventory() {
 
         // Filter server items based on the search term
         const filteredServer = serverItems.filter(
-            (item) => item.name.toLowerCase().includes(term.toLowerCase())
+            (item) => item.Skin.Name.toLowerCase().includes(term.toLowerCase())
         );
 
         // Update filteredServerItems only if there's a search term, otherwise, keep all items
@@ -183,7 +186,7 @@ function Inventory() {
                 {/* Upgrade Section */}
                 <div className="upgrade-section">
                     <h2>Upgrade your item</h2>
-                    <button id ="upgrade-button">Upgrade!</button>
+                    <button id="upgrade-button">Upgrade!</button>
                     <p>Rating: {upgradeSuccessRate.toFixed(2)}%</p>
                 </div>
 
