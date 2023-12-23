@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './profile.css';
 import Item from "../Upgrade/Item";
-import SkinData from "../../assets/SkinData";
 import SteamProfileButton from "./steamprofile";
 import Swal from 'sweetalert2';
 import axios from '../../assets/setup/axios';
@@ -9,7 +8,7 @@ import axios from '../../assets/setup/axios';
 function UserProfile() {
     const [user, setUser] = useState({});
     const [tradeURL, setTradeURL] = useState(sessionStorage.getItem('steamprofileURL') || '');
-    const [userItems,setUserItems] = useState(null);
+    const [userItems,setUserItems] = useState([]);
 
     useEffect(() => {
         // Send Axios request to delete item with the specified ID
@@ -24,9 +23,8 @@ function UserProfile() {
 
         axios.get(`/api/v1/users/skins`)
             .then(response => {
-                
-                setUserItems(response.data.DT.Skin)
-                console.log(response.data.DT);
+                setUserItems(response.data.DT);
+                console.log(userItems);
             })
             .catch(error => {
                 console.error('Error get user profile:', error);
@@ -121,7 +119,7 @@ function UserProfile() {
                 <h2>User Inventory</h2>
                 <div className="user-profile-inventory-items">
                     <ul>
-                        {/* {userItems.map((item) => (
+                        {userItems.map((item) => (
                             <li className="list_items">
                                 <Item itemData={item} />
                                 <div className="user-inventory-button">
@@ -129,7 +127,7 @@ function UserProfile() {
                                     <button onClick={PopupSell} id="withdraw">Withdraw</button>
                                 </div>
                             </li>
-                        ))} */}
+                        ))}
                     </ul>
                 </div>
             </div>

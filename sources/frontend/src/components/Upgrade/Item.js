@@ -2,12 +2,13 @@ import React from "react";
 
 function Item({ itemData }) {
     return (
-        <div className={`item ${itemData.tier}`}>
-            <img src={itemData.context} alt="" />
+        <div className={`item tier${itemData.Skin.Tier}`}>
+            {console.log(itemData)}
+            <img src={itemData.Skin.Image} alt="" />
             <div className="item-details">
-                <p>{itemData.type} / {itemData.float}</p>    
-                <p>{itemData.name}</p>
-                <p>{itemData.price}$</p>
+                <p>{itemData.Skin.Name}</p>    
+                <p>{itemData.Skin.Float}</p>
+                <p>{itemData.Skin.Price}$</p>
             </div>
         </div>
     );
