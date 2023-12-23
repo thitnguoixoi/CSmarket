@@ -31,11 +31,11 @@ let initApiRoutes = (app) => {
 
     router.put("/users/tradeurl/update", usersController.updateTradeURL);
 
-    router.get("/users/skins", usersController.readUserSkin) //k tham số
+    router.get("/users/skins", usersController.readUserSkin)
 
-    router.put("/users/skins/withdraw", usersController.withdrawSkin) //skinid
+    router.put("/users/skins/withdraw", usersController.withdrawSkin)
 
-    router.put("/users/skins/sell", usersController.sellSkin) //skinid
+    router.put("/users/skins/sell", usersController.sellSkin)
 
     // router.put("/users/opencase", usersController.openCase) //ch làm
 
@@ -53,11 +53,11 @@ let initApiRoutes = (app) => {
     //admin
     // router.get("/skins", skinsController.testAPI);
 
-    // router.post("/skins", skinsController.testAPI);
+    // router.post("/skins/create", skinsController.testAPI);
 
-    // router.put("/skins", skinsController.testAPI);
+    // router.put("/skins/update", skinsController.testAPI);
 
-    // router.delete("/skins", skinsController.testAPI);
+    // router.delete("/skins/delete", skinsController.testAPI);
 
     /*
     Actions affect cases in database
