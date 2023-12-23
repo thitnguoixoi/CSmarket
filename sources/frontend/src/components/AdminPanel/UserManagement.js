@@ -11,12 +11,16 @@ function UserManagement() {
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
   const [clickedItemId, setClickedItemId] = useState(null);
-  const [isPlus, setIsPlus] = useState(true);
   const [walletInputValue, setWalletInputValue] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [showAddWallet, setShowAddWallet] = useState(false);
+  const [showGroupOption, setShowGroupOption] = useState(false);
+
 
 
   useEffect(() => {
+
     // Fetch data from the API using Axios
     axios.get('/api/v1/users')
       .then(response => {
@@ -60,6 +64,14 @@ function UserManagement() {
   const handleClick = (itemId) => {
     setClickedItemId(itemId);
   }
+  const handleClickGroup = (itemId) => {
+    setShowGroupOption(true)
+    handleClick(itemId);
+  }
+  const handleClickAddWallet = (itemId) => {
+    setShowAddWallet(true)
+    handleClick(itemId);
+  }
   const handleDel = (itemId) => {
     // Send Axios request to delete item with the specified ID
     axios.delete(`/api/v1/users/delete`, { data: { id: itemId } })
@@ -77,8 +89,8 @@ function UserManagement() {
         console.error('Error deleting item:', error);
       });
   };
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
@@ -125,9 +137,19 @@ function UserManagement() {
         setIsSubmitting(false);
       });
   };
-  const handleSetMod = (itemId) => {
+  const handleDropdownChange = (value) => {
+    setSelectedOption(value);
+  };
+  const handleSetMod = (itemId, selectedOption) => {
+    setShowGroupOption(false);
+    const groupId = parseInt(selectedOption, 10);
+    const dataSetGroup = {
+      id: itemId,
+      groupid: groupId
+    }
+    console.log(dataSetGroup);
     // Send Axios request to set the user as a moderator
-    axios.put(`/api/v1/users/setmod/${itemId}`)
+    axios.put(`/api/v1/users/update/group`, dataSetGroup)
       .then(response => {
         console.log('User set as moderator successfully:', response);
         // If you need to update the data after setting the user as a moderator, you can call the refresh function
@@ -137,6 +159,7 @@ function UserManagement() {
         console.error('Error setting user as moderator:', error);
       });
   };
+
   const renderTable = () => (
     <table>
       <thead>
@@ -168,19 +191,32 @@ function UserManagement() {
             <td>{item.Group_User?.Name ? item.Group_User.Name : ''}</td>
             <td>
               <div>
-                <button onClick={() => handleClick(item.id)}>
-                  <FontAwesomeIcon icon={(clickedItemId === item.id) && isPlus ? faTimes : faPlus} />
+                <button onClick={() => handleClickAddWallet(item.id)}>
+                  <FontAwesomeIcon icon={faPlus} />
                   Wallet
                 </button>
-                <button onClick={() => handleSetMod(item.id)}>
+                <button onClick={() => handleClickGroup(item.id)}>
                   <FontAwesomeIcon icon={faUser} />
                   +Group
+                  {clickedItemId === item.id && showGroupOption && (
+                    <div id="submit-set-group">
+                      <select value={selectedOption} onChange={(e) => handleDropdownChange(e.target.value)}>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                        <option value="3">Option 3</option>
+                      </select>
+                      <button onClick={() => handleSetMod(item.id, selectedOption)}>
+                        Submit
+                      </button>
+                    </div>
+                  )}
                 </button>
+
                 <button onClick={() => handleDel(item.id)}>
                   <FontAwesomeIcon icon={faTrash} />
                   Delete
                 </button>
-                {(clickedItemId === item.id) && (
+                {(clickedItemId === item.id) && showAddWallet && (
                   <div>
                     <input
                       placeholder="Add Wallet"
