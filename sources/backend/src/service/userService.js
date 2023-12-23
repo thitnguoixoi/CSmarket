@@ -1,5 +1,7 @@
 import { where } from "sequelize";
 import db from "../models/index"
+const { Op } = require('sequelize');
+
 
 const createUser = async (steamid, personaname, profileurl, avatar, avatarmedium, avatarfull) => {
     try {
@@ -232,16 +234,9 @@ const sellUserSkin = async (steamid, skinid) => {
 
         let Wallet = parseFloat(addWallet) + parseFloat(originWallet)
 
-        let countskin = parseInt(skin.get({ plain: true }).Count) + 1
-
-        skin = await db.Skins.update(
-            { Count: countskin },
-            { where: { id: skinid } }
-        );
-
         await db.Users.update(
             { Wallet: Wallet.toFixed(2) },
-            { where: { id: userid } }
+            { where: { id: user.get({ plain: true }).id } }
         )
 
 
@@ -249,7 +244,7 @@ const sellUserSkin = async (steamid, skinid) => {
             { Status: "Selled" },
             {
                 where: {
-                    UserID: user.id,
+                    UserID: user.get({ plain: true }).id,
                     SkinID: skinid
                 }
             }
