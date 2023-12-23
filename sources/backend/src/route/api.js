@@ -8,6 +8,7 @@ let router = express.Router();
 let initApiRoutes = (app) => {
 
     router.all("*", checkUserJWT, checkUserPermisson,);
+
     //everyone
     router.get('/auth/steam', loginController.handleSteamAuth);//, loginController.redirectHome
     router.get('/auth/steam/return', loginController.handleSteamReturn, loginController.handleSendProfile);
@@ -15,12 +16,30 @@ let initApiRoutes = (app) => {
 
     //user, trader, admin
     router.get("/users", usersController.readUsers);
+
+    router.get("/users/logout", usersController.logoutUser);
+
     router.get("/users/steamid", usersController.readUser);
+
     router.put("/users/update/tradeurl", usersController.updateTradeURL);
+
+    router.get("/users/skin", usersController.readUserSkin)
+
+    // router.put("/users/skin/withdraw", usersController.withdrawSkin) //ch làm
+
+    // router.put("/users/skin/sell", usersController.sellSkin) //ch làm
+
+    // router.put("/users/opencase", usersController.openCase) //ch làm
+
     //admin
     router.put("/users/update/wallet", usersController.updateWallet);
+
     router.delete("/users/delete", usersController.deleteUser);
-    router.put("/users/update/role", usersController.updateWallet); //ch làm
+
+    router.put("/users/update/group", usersController.updateGroup); // id, groupid
+
+
+
 
     // router.get("/skins", skinsController.testAPI);
     // router.post("/skins", skinsController.testAPI);

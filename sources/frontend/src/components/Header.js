@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
-import Cookies from 'js-cookie';
 
 function Header() {
   const [user, setUser] = useState('');
@@ -14,9 +13,7 @@ function Header() {
 
   useEffect(() => {
     window.addEventListener("message", handleMessage);
-    if (checkCookieExists("login")) {
-      handleGetProfile()
-    }
+    handleGetProfile()
     return () => {
       window.removeEventListener("message", handleMessage);
     };
@@ -30,10 +27,8 @@ function Header() {
     );
     if (window.focus) popupWindow.focus();
   };
-  const checkCookieExists = (cookieName) => {
-    const cookies = document.cookie.split(';');
-    return cookies.some(cookie => cookie.trim().startsWith(`${cookieName}=`));
-  };
+
+
   // Empty dependency array ensures the effect runs only once
   const handleMessage = (event) => {
     if (event.origin !== "http://localhost:8080") return;
@@ -48,6 +43,7 @@ function Header() {
       });
     handleGetProfile()
   };
+
   const handleGetProfile = () => {
     axios.get(`/api/v1/users/steamid`)
       .then(response => {
@@ -62,12 +58,21 @@ function Header() {
       .catch(error => {
         console.error('Error get user profile', error);
         if (error.response.data.EM === 'User is not authenticate') {
-          handleLogout()
+          setLoggedIn(false);
+          setUserIsMod(false);
+          setShowDropdown(false);
         }
       });
   }
+
   const handleLogout = () => {
-    Cookies.remove('login')
+    axios.get(`/api/v1/users/logout`)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.error('Error user log out', error);
+      });
     setLoggedIn(false);
     setUserIsMod(false);
     setShowDropdown(false); // Close the dropdown when logging out

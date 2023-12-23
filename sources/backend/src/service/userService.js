@@ -2,7 +2,6 @@ import { where } from "sequelize";
 import db from "../models/index"
 
 const createUser = async (steamid, personaname, profileurl, avatar, avatarmedium, avatarfull) => {
-
     try {
         const user = await db.Users.findOne({ where: { SteamID: steamid } });
 
@@ -30,8 +29,8 @@ const createUser = async (steamid, personaname, profileurl, avatar, avatarmedium
     } catch (error) {
         console.error('Error creating user:', error);
     }
-
 }
+
 const getUsers = async () => {
     try {
         let users = []
@@ -93,6 +92,38 @@ const getUser = async (steamid) => {
     }
 }
 
+const getUserSkin = async (steamid) => {
+    try {
+        let skins = []
+        skins = await db.Users_Skins.findOne({
+            where: {
+                SteamID: steamid
+            },
+            include: { model: db.Skins }
+        });
+        if (skins) {
+            return {
+                EM: "Get user's skin success",
+                EC: "0",
+                DT: skins
+            }
+        } else {
+            return {
+                EM: "Get user's skin success",
+                EC: "0",
+                DT: []
+            }
+        }
+    } catch (e) {
+        console.log(e)
+        return {
+            EM: "Get user's skin error",
+            EC: "-1",
+            DT: []
+        }
+    }
+}
+
 const getTradeURL = async (steamid) => {
     try {
         let data = await db.Users.findOne({
@@ -115,7 +146,6 @@ const getTradeURL = async (steamid) => {
 }
 
 const updateUserTradeURL = async (steamid, TradeURL) => {
-
     try {
         if (typeof TradeURL === 'string') {
             await db.Users.update(
@@ -144,6 +174,7 @@ const updateUserTradeURL = async (steamid, TradeURL) => {
     }
 }
 
+
 const updateUserWallet = async (userid, addWallet) => {
     try {
         if (typeof parseFloat(addWallet) === 'number') {
@@ -157,7 +188,7 @@ const updateUserWallet = async (userid, addWallet) => {
                 { Wallet: Wallet.toFixed(2) },
                 { where: { id: userid } })
             return {
-                EM: userid + " wallet is update",
+                EM: userid + "'s wallet is update",
                 EC: "0",
                 DT: ''
             }
@@ -177,9 +208,39 @@ const updateUserWallet = async (userid, addWallet) => {
             DT: ''
         }
     }
-
-
 }
+
+const updateUserGroup = async (userid, groupid) => {
+    try {
+        if (groupid == 1 || groupid == 2 || groupid == 3) {
+
+            await db.Users.update(
+                { GroupID: groupid },
+                { where: { id: userid } }
+            )
+            return {
+                EM: userid + "'s group is update",
+                EC: "0",
+                DT: ''
+            }
+        }
+        else {
+            return {
+                EM: "Please, enter the group-id",
+                EC: "-1",
+                DT: ''
+            }
+        }
+    } catch (e) {
+        console.log('Error update wallet:', e)
+        return {
+            EM: "Update user's group error",
+            EC: "-1",
+            DT: ''
+        }
+    }
+}
+
 const deleteUser = async (userid, steamid) => {
     try {
         let user = await db.Users.findOne({
@@ -213,6 +274,7 @@ const deleteUser = async (userid, steamid) => {
         }
     }
 }
+
 module.exports = {
     getUser,
     createUser,
@@ -221,4 +283,6 @@ module.exports = {
     getTradeURL,
     updateUserTradeURL,
     updateUserWallet,
+    updateUserGroup,
+    getUserSkin
 }
