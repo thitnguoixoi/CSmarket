@@ -101,7 +101,7 @@ function UserProfile() {
         // Set new key with the updated tradeURL
         sessionStorage.setItem(key, tradeURL);
 
-        axios.put(`/api/v1/users/update/tradeurl`, { steamid: user.SteamID, url: tradeURL })
+        axios.put(`/api/v1/users/tradeurl/update`, { steamid: user.SteamID, url: tradeURL })
             .then(response => {
             })
             .catch(error => {
