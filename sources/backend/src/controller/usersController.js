@@ -91,6 +91,42 @@ const updateWallet = async (req, res) => {
     }
 }
 
+const withdrawSkin = async (req, res) => {
+    try {
+        let data = await userService.withdrawUserSkin(req.jwt.steamid, req.body.skinid)
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+
+const sellSkin = async (req, res) => {
+    try {
+        let data = await userService.sellUserSkin(req.jwt.steamid, req.body.skinid)
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+
 const updateGroup = async (req, res) => {
     try {
         let data = await userService.updateUserGroup(req.body.id, req.body.groupid)
@@ -153,5 +189,7 @@ module.exports = {
     deleteUser,
     updateGroup,
     readUserSkin,
-    logoutUser
+    logoutUser,
+    withdrawSkin,
+    sellSkin
 }
