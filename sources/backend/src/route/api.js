@@ -78,6 +78,8 @@ let initApiRoutes = (app) => {
 
     router.put("/cases/update", casesController.updateCase);
 
+    router.put("/cases/skins/update", casesController.updateCaseSkins);
+
     router.delete("/cases/delete", casesController.deleteCase);
 
     /*

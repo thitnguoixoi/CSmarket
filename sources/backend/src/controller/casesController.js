@@ -55,9 +55,28 @@ const createCase = async (req, res) => {
     }
 }
 
+
 const updateCase = async (req, res) => {
     try {
-        let data = await caseService.updateaCase(req.body.caseid, req.body.skinid, req.body.percent);
+        let data = await caseService.updateaCase(req.body.caseid, req.body.name, req.body.price, req.body.image, req.body.groupname);
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+
+const updateCaseSkins = async (req, res) => {
+    try {
+        let data = await caseService.updateaCaseSkins(req.body.caseid, req.body.skinid, req.body.percent);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -95,5 +114,7 @@ module.exports = {
     createCase,
     updateCase,
     deleteCase,
-    readCasesSkins
+    readCasesSkins,
+    updateCaseSkins,
+
 }

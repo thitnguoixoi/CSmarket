@@ -33,13 +33,13 @@ const getCasesSkins = async (caseid) => {
     try {
         let skins = []
 
-        let cases = await db.Cases.findOne({
+        let acase = await db.Cases.findOne({
             where: {
                 id: caseid
             },
         });
 
-        if (cases) {
+        if (acase) {
             skins = await db.Cases_Skins.findAll({
                 where: {
                     CaseID: caseid,
@@ -50,7 +50,7 @@ const getCasesSkins = async (caseid) => {
                 EM: "Get case's skin success",
                 EC: "0",
                 DT: {
-                    skins, cases
+                    skins, acase
                 }
 
             }
@@ -72,15 +72,14 @@ const getCasesSkins = async (caseid) => {
 }
 const createaCase = async (name, price, image, groupname) => {
     try {
-        let cases = await db.Cases.create({
+        let acase = await db.Cases.create({
             Name: name,
             Price: price,
             Image: image,
-            GroupID: groupid,
         });
         await db.Group_Cases.create({
             Name: groupname,
-            CaseID: cases.get({ plain: true }).id
+            CaseID: acase.get({ plain: true }).id
         });
         return {
             EM: "Case created",
@@ -98,7 +97,33 @@ const createaCase = async (name, price, image, groupname) => {
     }
 }
 
-const updateaCase = async (caseid, skinid, percent) => {
+const updateaCase = async (caseid, name, price, image, groupname) => {
+    try {
+        await db.Cases.update({
+            Name: name,
+            Price: price,
+            Image: image,
+        });
+        await db.Group_Cases.update({
+            Name: groupname,
+            where: { CaseID: caseid, }
+        });
+        return {
+            EM: "Update case success",
+            EC: "0",
+            DT: []
+        }
+    } catch (e) {
+        console.log("Update case error: ", e)
+        return {
+            EM: "Update case error",
+            EC: "-1",
+            DT: []
+        }
+    }
+}
+
+const updateaCaseSkins = async (caseid, skinid, percent) => {
     try {
         let cases_skins = await db.Cases_Skins.findOne({
             where: {
@@ -114,21 +139,21 @@ const updateaCase = async (caseid, skinid, percent) => {
                 SkinID: skinid
             });
             return {
-                EM: "Update case success",
+                EM: "Update case's skin success",
                 EC: "0",
                 DT: users
             }
         } else {
             return {
-                EM: "Update case error",
+                EM: "Update case's skin error",
                 EC: "0",
                 DT: []
             }
         }
     } catch (e) {
-        console.log("Update case error: ", e)
+        console.log("Update case's skin error: ", e)
         return {
-            EM: "Update case error",
+            EM: "Update case's skin error",
             EC: "-1",
             DT: []
         }
@@ -137,12 +162,12 @@ const updateaCase = async (caseid, skinid, percent) => {
 
 const deleteaCase = async (caseid) => {
     try {
-        let cases = await db.Cases.findOne({
+        let acase = await db.Cases.findOne({
             where: {
                 id: caseid,
             }
         });
-        if (cases) {
+        if (acase) {
             await db.Cases.destroy({
                 where: {
                     id: caseid
@@ -176,6 +201,6 @@ module.exports = {
     createaCase,
     updateaCase,
     deleteaCase,
-
+    updateaCaseSkins,
     getCasesSkins
 }
