@@ -19,7 +19,7 @@ const readSkins = async (req, res) => {
 
 const createSkin = async (req, res) => {
     try {
-        let data = await skinService.createaSkin();
+        let data = await skinService.createaSkin(req.body.name, req.body.float, req.body.price, req.body.tier, req.body.image, req.body.count);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -37,7 +37,7 @@ const createSkin = async (req, res) => {
 
 const updateSkin = async (req, res) => {
     try {
-        let data = await skinService.updateaSkin();
+        let data = await skinService.updateaSkin(req.body.skinid, req.body.addcount);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -55,7 +55,7 @@ const updateSkin = async (req, res) => {
 
 const deleteSkin = async (req, res) => {
     try {
-        let data = await skinService.deleteaSkin();
+        let data = await skinService.deleteaSkin(req.body.skinid);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,

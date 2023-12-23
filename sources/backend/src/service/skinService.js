@@ -28,89 +28,94 @@ const getSkins = async () => {
     }
 }
 
-const createaSkin = async () => {
+const createaSkin = async (name, float, price, tier, image, count) => {
     try {
-        let users = []
-        users = await db.Users.findAll({
-            include: { model: db.Group_Users, attributes: ["Name"] }
+        await db.Skins.create({
+            Name: name,
+            Float: float,
+            Price: price,
+            Tier: tier,
+            Image: image,
+            Count: count,
         });
-        if (users) {
-            return {
-                EM: "Get users success",
-                EC: "0",
-                DT: users
-            }
-        } else {
-            return {
-                EM: "Get users success",
-                EC: "0",
-                DT: []
-            }
+        return {
+            EM: "Skin created",
+            EC: "0",
+            DT: []
         }
     } catch (e) {
-        console.log("Get users error: ", e)
+        console.log("Create skin error: ", e)
         return {
-            EM: "Get users error",
+            EM: "Create skin error",
             EC: "-1",
             DT: []
         }
     }
 }
 
-const updateaSkin = async () => {
+const updateaSkin = async (skinid, addcount) => {
     try {
-        let users = []
-        users = await db.Users.findAll({
-            include: { model: db.Group_Users, attributes: ["Name"] }
+        let skin = await db.Skins.findOne({
+            id: skinid,
         });
-        if (users) {
+        if (skin && parseInt(addcount) == "number") {
+            let originCount = skin.get({ plain: true }).Count
+            let count = parseInt(addWallet) + parseInt(originCount)
+            await db.Users.update(
+                { Count: count },
+                { where: { id: skinid } })
             return {
-                EM: "Get users success",
+                EM: "Update skin success",
                 EC: "0",
                 DT: users
             }
         } else {
             return {
-                EM: "Get users success",
+                EM: "Update skin error",
                 EC: "0",
                 DT: []
             }
         }
     } catch (e) {
-        console.log("Get users error: ", e)
+        console.log("Update skin error: ", e)
         return {
-            EM: "Get users error",
+            EM: "Update skin error",
             EC: "-1",
             DT: []
         }
     }
 }
 
-const deleteaSkin = async () => {
+const deleteaSkin = async (skinid) => {
     try {
-        let users = []
-        users = await db.Users.findAll({
-            include: { model: db.Group_Users, attributes: ["Name"] }
+        let skin = await db.Skins.findOne({
+            id: skinid,
         });
-        if (users) {
+        if (skin) {
+            await db.Skins.destroy({
+                where: {
+                    id: skinid
+                }
+            })
             return {
-                EM: "Get users success",
+                EM: skinid + " deleted",
                 EC: "0",
-                DT: users
+                DT: ''
             }
-        } else {
+        }
+        else {
             return {
-                EM: "Get users success",
-                EC: "0",
-                DT: []
+                EM: "Can not delete this user",
+                EC: "-1",
+                DT: ''
             }
         }
     } catch (e) {
-        console.log("Get users error: ", e)
+        console.log('Error delete user:', e)
         return {
-            EM: "Get users error",
+            EM: "Error delete user",
             EC: "-1",
-            DT: []
+            DT: ''
         }
     }
 }
