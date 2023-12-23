@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './styles/Upgrade.css';
 import SelectedItem from './SelectedItem';
-import Item from "./Item";
+import Item from "./Item.js";
 import axios from '../../assets/setup/axios';
 
 function Inventory() {
@@ -210,7 +210,7 @@ function Inventory() {
                                 <li
                                     key={index}
                                     onClick={() => handleUserItemClick(item)}
-                                    className={selectedUserItem === item ? "selected" : ""}
+                                    className={selectedUserItem === item ? "selected" : "unselected"}
                                 >
                                     <Item itemData={item} />
                                 </li>

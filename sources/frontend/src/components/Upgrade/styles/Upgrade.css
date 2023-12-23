@@ -14,18 +14,13 @@
     margin-bottom: 10px;
     text-align: center;
 }
-
-.upgrade-section {
-    text-align: center;
-    margin-bottom: 10px;
+.selected-item{
+    width: 250px;
+    height: 300px;
 }
-
 h2 {
     margin: 0;
-    /* Remove default margin to avoid extra spacing */
 }
-
-/* Updated styles for the two inventory sections */
 
 .inventory {
     overflow: hidden;
@@ -43,7 +38,6 @@ h2 {
     margin: 0;
     width: 100%;
     display: flex;
-    height: 500px;
     flex-wrap: wrap;
 }
 
@@ -76,23 +70,11 @@ h2 {
     justify-content: space-around;
 }
 
-.user li,
-.server li {
-    width: 150px;
-    /* Set the desired width for your items */
-    margin: 10px;
-    /* Adjust margin as needed for spacing */
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.user li img,
-.server li img {
-    width: 150px;
-    /* Set the desired width for your items */
-    margin: 10px;
-    /* Adjust margin as needed for spacing */
+.user li, .server li {
+    width: 245px;
+    height: 300px;
+    padding: 5px;
+    margin-bottom: 5px;
     text-align: center;
     display: flex;
     flex-wrap: wrap;
@@ -130,9 +112,9 @@ button :hover {
 .User-select,
 .Server-select {
     font-size: 20px;
-    width: 40%;
+    width: 300px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     height: 100%;
@@ -140,6 +122,8 @@ button :hover {
 
 
 .upgrade-section {
+    text-align: center;
+    margin-bottom: 10px;
     width: 20%;
     height: 100%;
     display: flex;
@@ -185,10 +169,6 @@ button :hover {
   }
 
 .item {
-    flex: 1;
-    margin: 0 10px;
-    width: 160px;
-    height: auto;
     border-left: 10px;
     border-style: solid;
     background-color: #161518;
@@ -201,10 +181,6 @@ button :hover {
 .user ul, .server ul {
     display: flex;
     width: 99%;
-}
-
-.selected-item .item {
-    width: auto;
 }
 
 .selected-items h2 {
@@ -228,12 +204,13 @@ button :hover {
 
 
 @media screen and (max-width: 1080px) {
-    .selected-items{
-        height: 350px;
+    .selected-items {
+        min-height: 300px;
+        margin-bottom: 5px;
     }
     .selected-item{
-        width: 250px;
-        height: 300px;
+        width: 200px;
+
     }
     .inventory{
         padding: 15px 0;
@@ -246,41 +223,14 @@ button :hover {
         height: 100%;
     }
     .user li, .server li {
-        margin: 5px;
-        width: 100%;
-        text-align: center;
-        display: flex;
-        flex-wrap: wrap;
-    }
-    .item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex: 1;
-        margin: 10px;
-        width: 150px;
         padding: 5px;
+        width: 218px;
+        min-height: 225px;
     }
 
-    .selected-item img{
-        width: 200px;
-        height: 200px;
-    }
-    
-    .item-details {
-        font-size: 15px;
-        background-color: #161518;
-    }
-    .User-select, .Server-select{
+    .User-select h2, .Server-select h2{
         font-size: 18px;
     }
-
-    .user li img, .server li img {
-    width: 100px;
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-}
 }
 
 
@@ -289,7 +239,37 @@ button :hover {
 
 
 @media screen and (max-width: 768px){
-    .User-select, .Server-select{
+    .selected-items {
+        margin-bottom: 5px;
+        min-height: 150px;
+        height: 300px;
+    }
+    .selected-item{
+        width: 150px;
+        height: 200px;
+    }
+    .user li, .server li {
+        padding: 5px;
+        width: 151px;
+        height: 150px;
+    }
+    
+    .inventory{
+        padding: 10px 0;
+    }
+    .User-select h2, .Server-select h2{
         font-size: 16px;
+    }
+    .upgrade-section{
+
+    }
+    .items{
+        width: 151px;
+        height: 150px;
+    }
+
+    .upgrade-section p{
+        padding-top: 10px;
+        font-size: 12px;
     }
 }
