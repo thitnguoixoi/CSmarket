@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Cases.belongsTo(models.Group_Cases, { foreignKey: 'GroupID' })
       Cases.belongsToMany(models.Skins, { through: models.Cases_Skins, foreignKey: 'CaseID', otherKey: 'SkinID' })
     }
   }
@@ -19,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     Name: DataTypes.STRING,
     Price: DataTypes.FLOAT,
     Image: DataTypes.STRING,
-    GroupID: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Cases',

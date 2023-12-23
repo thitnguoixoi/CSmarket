@@ -60,9 +60,9 @@ const updateaSkin = async (skinid, addcount) => {
                 id: skinid,
             }
         });
-        if (skin && parseInt(addcount) == "number") {
+        if (skin && Number.isInteger(addcount)) {
             let originCount = skin.get({ plain: true }).Count
-            let count = parseInt(addWallet) + parseInt(originCount)
+            let count = parseInt(addcount) + parseInt(originCount)
             await db.Users.update(
                 { Count: count },
                 { where: { id: skinid } })

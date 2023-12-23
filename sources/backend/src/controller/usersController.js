@@ -72,7 +72,12 @@ const updateTradeURL = async (req, res) => {
     }
 }
 
+const openCase = async (req, res) => {
 
+}
+const upgradeSkin = async (req, res) => {
+
+}
 const updateWallet = async (req, res) => {
     try {
         let data = await userService.updateUserWallet(req.body.id, req.body.walletValue)
@@ -192,5 +197,7 @@ module.exports = {
     readUserSkins,
     logoutUser,
     withdrawSkin,
-    sellSkin
+    sellSkin,
+    openCase,
+    upgradeSkin
 }
