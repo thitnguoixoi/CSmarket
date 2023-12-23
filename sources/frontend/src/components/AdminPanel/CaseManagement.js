@@ -13,7 +13,6 @@ function CaseManagement() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isTrader, setIsTrader] = useState(false);
 
   useEffect(() => {
     // Fetch your data or set it statically
@@ -36,8 +35,6 @@ function CaseManagement() {
       .then(response => {
         if (response.data.DT.GroupID === 3) {
           setIsAdmin(true);
-        } else if (response.data.DT.GroupID === 2) {
-          setIsTrader(true);
         }
       })
       .catch(error => {
