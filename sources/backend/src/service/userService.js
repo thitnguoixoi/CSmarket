@@ -291,15 +291,14 @@ const sellUserSkin = async (steamid, skinid) => {
 
 const updateUserWallet = async (userid, addWallet) => {
     try {
-        if (typeof parseFloat(addWallet) === 'number') {
-            let user = await db.Users.findOne({
-                where: { id: userid },
-                attributes: ['Wallet'],
-            })
+        let user = await db.Users.findOne({
+            where: { id: userid },
+        })
+        if (typeof parseFloat(addWallet) === 'number' && user) {
             let originWallet = user.get({ plain: true }).Wallet
-            let Wallet = parseFloat(addWallet) + parseFloat(originWallet)
+            let wallet = parseFloat(addWallet) + parseFloat(originWallet)
             await db.Users.update(
-                { Wallet: Wallet.toFixed(2) },
+                { Wallet: wallet.toFixed(2) },
                 { where: { id: userid } })
             return {
                 EM: userid + "'s wallet is update",

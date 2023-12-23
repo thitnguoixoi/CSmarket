@@ -44,7 +44,7 @@ let initApiRoutes = (app) => {
 
     router.delete("/users/delete", usersController.deleteUser);
 
-    router.put("/users/update/group", usersController.updateGroup); // id, groupid
+    router.put("/users/update/group", usersController.updateGroup);
 
     /*
     Actions affect skins in database
