@@ -5,12 +5,11 @@
 }
 
 .selected-items {
+    width: 100%;
+    height: 400px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-bottom: 10px;
-}
-
-.selected-item {
     text-align: center;
 }
 
@@ -31,21 +30,25 @@ h2 {
     overflow-y: auto;
     border: 1px solid #ddd;
     text-align: center;
-    width: 550px;
-    margin: 0 100px;
+    width: 42%;
+    margin: 0;
 }
 
 .inventory {
     overflow: hidden;
     width: 100%;
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 50px;
+    background-color: #293A4E;
 }
 
 .inventory-container ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    width: 550px;
+    width: 100%;
     display: flex;
     height: 500px;
     flex-wrap: wrap;
@@ -125,28 +128,20 @@ button :hover {
     background-color: #0D0448;
 }
 
-.inventory {
-    width: 100%;
-    background-color: #293A4E;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 100px;
-}
-
 .User-select,
 .Server-select {
-    width: 550px;
+    width: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 500px;
+    height: 100%;
 }
 
 
 .upgrade-section {
-    height: 500px;
+    width: 20%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -188,4 +183,60 @@ button :hover {
     color: white;
     padding: 10px 30px;
     width: 100%;
+}
+
+
+
+
+
+
+@media screen and (max-width: 1080px) {
+    .selected-items{
+        height: 350px;
+    }
+    .selected-item{
+        width: 250px;
+        height: 300px;
+    }
+    .inventory{
+        padding: 15px 0;
+    }
+    .User-select,
+    .Server-select {
+        height: 100%;
+    }
+    .upgrade-section {
+        height: 100%;
+    }
+    .user li, .server li {
+        width: 150px;
+    /* Set the desired width for your items */
+        margin: 10px;
+    /* Adjust margin as needed for spacing */
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .item {
+        flex: 1;
+        margin: 0 10px;
+        width: 160px;
+        height: auto;
+        border-left: 10px;
+        border-style: solid;
+        background-color: #161518;
+    }
+    
+    .item-details {
+        background-color: black;
+    }
+    .user li img, .server li img {
+        width: 150px;
+    /* Set the desired width for your items */
+        margin: 10px;
+    /* Adjust margin as needed for spacing */
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+    }
 }

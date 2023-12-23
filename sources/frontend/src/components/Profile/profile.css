@@ -1,16 +1,50 @@
+
+/* User profile CSS */
 .content-user-profile {
     width: 100%;
 }
-
 .user-profile {
     width: 100%;
     display: flex;
     padding: 40px 50px;
 }
 
+/* Button in profile CSS */
+.infor button {
+    width: 200px;
+    appearance: none;
+    background-color: #ffffff;
+    border: 1px solid black;
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+  }
+  
+  .infor button:hover {
+    background-color: #000000;
+    text-decoration: none;
+    color: #ffffff;
+  }
+/* Avatar CSS */
 .ava-link {
     display: flex;
-    width: 50%;
+    width: 55%;
     border-right: 1px;
     border-color: aliceblue;
     border-style: solid;
@@ -23,44 +57,29 @@
     margin-right: 20px;
 }
 
-.ava-link .infor {
-    padding-right: 10%;
 
+
+/* Information CSS */
+.infor{
+    width: 100%;
 }
-
-
-
-.infor h3 {
+.infor h2 {
     margin-bottom: 30px;
     padding-top: 10px;
 }
 
 .infor h5 {
+    font-size: 16px;
     white-space: nowrap;
-    margin-bottom: 20px;
+    margin: 10px;
 }
-
-.infor button {
-    background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgb(20, 17, 68) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
-    border-radius: 99px;
-    padding: 5px 20px;
-    border-color: white;
-    border: 1px;
-    border-style: solid;
-}
-
-.infor button :hover {
-    background: rgb(145, 20, 89);
-    border-radius: 99px;
-}
-
 
 .properties {
     display: flex;
-    width: 50%;
+    width: 45%;
     justify-content: center;
     align-items: center;
+    justify-content: space-evenly;
 }
 
 .properties img {
@@ -69,7 +88,9 @@
 }
 
 .properties h4 {
-    margin: 0 40px 10px 0px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
     vertical-align: baseline;
     white-space: nowrap;
 }
@@ -78,30 +99,30 @@
 .user-upgrade-count span {
     display: flex;
     justify-content: flex-start;
-    flex-direction: row;
 }
 
 
-/*Inventory*/
+/*Inventory CSS*/
 .user-profile-inventory {
-    padding: 50px;
+    padding: 40px;
 }
 
 .user-profile-inventory h2 {
     margin-bottom: 20px;
 }
-
 .user-profile-inventory-items ul {
+    padding: 0;
     display: flex;
     justify-content: left;
     align-items: center;
     flex-wrap: wrap;
     list-style-type: none;
+    width: 100%;
 }
 
 .user-profile-inventory-items li {
     text-decoration: none;
-    padding-bottom: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -114,20 +135,36 @@
     /* Adjust margin as needed for spacing */
     text-align: center;
 }
-
-.user-profile-inventory-items button {
-    background-color: #010a01;
-    color: #fff;
+.user-profile-inventory-items .list_item{
+    padding: 15px;
+}
+.user-profile-inventory-items #sell {
+    width: 45px;
+    background-color: #ff4a4a;
+    color: #ffffff;
     /* Màu văn bản là trắng để tương phản với nền */
     text-decoration: none;
-    border: 2px solid #3d5afe;
+    border: 1px solid black;
     /* Màu viền xeon green */
     border-radius: 5px;
     /* Đường cong các góc */
     transition: background-color 0.3s, color 0.3s;
     margin-top: 5px;
 }
-
+.user-profile-inventory-items #withdraw {
+    width: 90px;
+    height: 25px;
+    background-color: #4aff71;
+    color: #000000;
+    /* Màu văn bản là trắng để tương phản với nền */
+    text-decoration: none;
+    border: 1px solid black;
+    /* Màu viền xeon green */
+    border-radius: 5px;
+    /* Đường cong các góc */
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 5px;
+}
 .item-details {
     padding: 10px;
 }
@@ -136,4 +173,109 @@
     display: flex;
     width: 100%;
     justify-content: space-around;
+}
+.inputURL{
+    height: 50px;
+    display: flex;
+}
+.inputURL button{
+    height: 30px;
+    margin-top: 5px;
+}
+.inputURL label{
+    margin-top: 10px;
+}
+#tradeURL{
+    margin-left: 5px;
+    margin-right: 15px;
+    height: 30px;
+    width: 55%;
+}
+
+
+
+
+
+
+@media screen and (max-width: 1080px){
+    .user-profile {
+        padding: 10px;
+        height: 250px;
+    }
+    
+    /* Button in profile CSS */
+    .infor button {
+        padding: 4px 12px;
+        width: 175px;
+    }
+    /* Avatar CSS */
+    
+    .user-avatar img {
+        height: 150px;
+        width: 150px;
+        margin-right: 15px;
+    }
+    
+    
+    
+    /* Information CSS */
+    .infor h2 {
+        margin-bottom: 10px;
+        padding-top: 5px;
+    }
+    
+    .infor h5 {
+        font-size: 12px;
+        margin: 6px;
+    }
+    .ava-link{
+        width: 60%;
+    }
+    .properties {
+        width: 40%;
+        padding: 20px;
+    }
+    
+    .properties img {
+        height: 30px;
+        width: 30px;
+    }
+    
+    
+    .user-inventory-button {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+    }
+    .inputURL{
+        height: 110px;
+        flex-direction: column;
+    }
+    .inputURL button{
+        padding-bottom: 10px;
+    }
+    #tradeURL{
+        margin-left: 5px;
+        margin-right: 15px;
+        height: 30px;
+        width: 90%;
+    }
+    .properties {
+        flex-direction: column;
+        align-items: start;
+    }
+    .properties h4 {
+        padding: 10px;
+    }
+
+    .user-case-count, .user-upgrade-count{
+        justify-content: left;
+    }
+    .user-case-count span, .user-upgrade-count span {
+    display: none;
+    }
+}
+
+@media screen and (max-width: 768px){
+
 }

@@ -110,7 +110,7 @@ function UserProfile() {
                         <h2>Name: {user.personaname}</h2>
                         <h5>SteamID64: {user.steamid}</h5>
                         <h5>Balance: {balance}$</h5>
-                        <div>
+                        <div className="inputURL">
                             <label htmlFor="tradeURL">TradeURL:</label>
                             <input
                                 type="text"
@@ -150,11 +150,11 @@ function UserProfile() {
                 <div className="user-profile-inventory-items">
                     <ul>
                         {userItems.map((item) => (
-                            <li>
+                            <li className="list_items">
                                 <Item itemData={item} />
                                 <div className="user-inventory-button">
-                                    <button onClick={PopupSell}>Sell</button>
-                                    <button onClick={PopupSell}>Withdraw</button>
+                                    <button onClick={PopupSell} id="sell">Sell</button>
+                                    <button onClick={PopupSell} id="withdraw">Withdraw</button>
                                 </div>
                             </li>
                         ))}

@@ -189,7 +189,9 @@ function Inventory() {
                 {/* User Selected Item */}
                 <div className="User-select">
                     <h2>User Selected Item</h2>
+                    <div className="items">
                     <SelectedItem selectedItem={selectedUserItem} fixedSize />
+                    </div>
                 </div>
 
                 {/* Upgrade Section */}
@@ -202,7 +204,9 @@ function Inventory() {
                 {/* Server Selected Item */}
                 <div className="Server-select">
                     <h2>Server Selected Item</h2>
+                    <div className="items">
                     <SelectedItem selectedItem={selectedServerItem} fixedSize />
+                    </div>
                 </div>
             </div>
 
