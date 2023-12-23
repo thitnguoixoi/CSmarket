@@ -11,6 +11,7 @@ import Withdraw from "./AdminPanel/WithDraw.js";
 import UsersManagement from "./AdminPanel/UserManagement";
 import CaseManagement from "./AdminPanel/CaseManagement";
 import SkinManagement from "./AdminPanel/SkinManagement";
+import NotFound from './notFound.js';
 
 function Body() {
     const renderCaseOpened = () => {
@@ -43,6 +44,7 @@ function Body() {
             <Route path='/admin/cases' exact element={<CaseManagement />} />
             <Route path='/admin/skins' exact element={<SkinManagement />} />
             {renderCaseOpened()}
+            <Route path='*' element={<NotFound />} />
         </Routes>
     )
 }

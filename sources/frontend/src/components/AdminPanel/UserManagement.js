@@ -147,7 +147,7 @@ function UserManagement() {
           <th>Wallet</th>
           <th>CountOpen</th>
           <th>CountUpgrade</th>
-          <th>Role</th>
+          <th>Group</th>
           <th>
             Action
             <button onClick={() => refresh()}>
@@ -174,7 +174,7 @@ function UserManagement() {
                 </button>
                 <button onClick={() => handleSetMod(item.id)}>
                   <FontAwesomeIcon icon={faUser} />
-                  +Mod
+                  +Group
                 </button>
                 <button onClick={() => handleDel(item.id)}>
                   <FontAwesomeIcon icon={faTrash} />
@@ -185,7 +185,11 @@ function UserManagement() {
                     <input
                       placeholder="Add Wallet"
                       value={walletInputValue}
-                      onChange={(e) => setWalletInputValue(e.target.value)}
+                      onChange={(e) => {
+                        // Use a regular expression to allow only numeric characters and a minus sign
+                        const numericValue = e.target.value.replace(/[^-0-9]/g, '');
+                        setWalletInputValue(numericValue);
+                      }}
                     />
                     <button onClick={() => handleAddWalletSubmit(item.id, walletInputValue)}>
                       Submit
