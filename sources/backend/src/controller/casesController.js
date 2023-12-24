@@ -21,7 +21,7 @@ const readCases = async (req, res) => {
 
 const readCasesSkins = async (req, res) => {
     try {
-        let data = await caseService.getCasesSkins(req.body.caseid);
+        let data = await caseService.getCasesSkins(req.query.caseid);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
