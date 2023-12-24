@@ -68,10 +68,11 @@ let initApiRoutes = (app) => {
     /*
     Actions affect cases in database
     */
+    //everyone
+    router.get("/cases", casesController.readCases);
 
     //user, trader, admin
 
-    router.get("/cases", casesController.readCases);
 
     router.get("/cases/id", casesController.readCasesSkins);
 
