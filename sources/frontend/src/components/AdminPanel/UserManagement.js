@@ -148,7 +148,7 @@ function UserManagement() {
       groupid: groupId
     }
     // Send Axios request to set the user as a moderator
-    axios.put(`/api/v1/users/update/group`, dataSetGroup)
+    axios.put(`/api/v1/users/group/update`, dataSetGroup)
       .then(response => {
         console.log('User set as moderator successfully:', response);
         // If you need to update the data after setting the user as a moderator, you can call the refresh function

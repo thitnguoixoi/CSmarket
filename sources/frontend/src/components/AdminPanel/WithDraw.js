@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faCheck, faRefresh } from '@fortawesome/free-solid-svg-icons';
 import axios from "../../assets/setup/axios"
 
 function Withdraw() {
@@ -12,7 +12,17 @@ function Withdraw() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [isMod, setIsMod] = useState(false);
-
+  const Refresh = () => {
+    //get data
+    axios.get(`/api/v1/skins/withdraw`)
+      .then(response => {
+        setData(response.data.DT);
+        setFilteredData(response.data.DT);
+      })
+      .catch(error => {
+        console.error('Error get data:', error);
+      });
+  }
   useEffect(() => {
     //check role
     axios.get(`/api/v1/users/steamid`)
@@ -27,15 +37,7 @@ function Withdraw() {
         console.error('Error checking user group:', error);
       });
 
-    //get data
-    axios.get(`/api/v1/skins/withdraw`)
-      .then(response => {
-        setData(response.data.DT);
-        setFilteredData(response.data.DT);
-      })
-      .catch(error => {
-        console.error('Error get data:', error);
-      });
+    Refresh();
   }, []);
   const Check = (skinID) => {
     console.log(skinID);
@@ -43,6 +45,7 @@ function Withdraw() {
     axios.put(`/api/v1/skins/withdraw/update`, { skinid: skinID, isAccept: 1 })
       .then(response => {
         console.log(response);
+        Refresh();
       })
       .catch(error => {
         console.error('Error get data:', error);

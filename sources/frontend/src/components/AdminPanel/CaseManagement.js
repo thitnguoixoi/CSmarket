@@ -139,10 +139,11 @@ function CaseManagement() {
       });
   };
   const handleEditCaseSkin = (caseID) => {
+    setShowAddCaseSkinForm(false);
+    setCaseId(caseID);
     //get case skins
     axios.get(`/api/v1/cases/id`, { params: { caseid: caseID } })
       .then(response => {
-        console.log(response.data.DT);
         setCaseSkinData(response.data.DT.skins);
       })
       .catch(error => {
@@ -150,12 +151,11 @@ function CaseManagement() {
       });
     //show caseskin form
     setEditCaseSkinForm(!editCaseSkinForm);
-    console.log(caseSkinData);
   }
   const handleDeleteCase = (caseID) => {
     axios.delete(`/api/v1/cases/delete`, { data: { caseid: caseID } })
       .then(response => {
-        console.log('delete case',response)
+        console.log('delete case', response)
       })
       .catch(error => {
         console.error('Error cases', error);
@@ -163,17 +163,8 @@ function CaseManagement() {
   }
   const renderAddCaseSkinForm = () => (
     <>
+      {console.log(caseid)}
       <h3>Add Case Skin</h3>
-      <input
-        placeholder="Case ID"
-        type="text"
-        value={caseid}
-        onChange={(e) => {
-          const numericValue = e.target.value.replace(/[^-0-9]/g, '');
-          setCaseId(numericValue);
-        }}
-      />
-      <br />
       <input
         placeholder="Skin ID"
         type="text"
@@ -211,14 +202,14 @@ function CaseManagement() {
               <th>Skin Name</th>
               <th>Percent</th>
               <th>
-                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm) }}>
-                  <FontAwesomeIcon icon={faPlus} />
+                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); setName(); }}>
+                  <FontAwesomeIcon icon={faPlus} />Skin
                 </button>
               </th>
             </tr>
           </thead>
           <tbody>
-            {caseSkinData.map((item, index) => {
+            {caseSkinData.map((item) => {
               // console.log(index);
               return (
                 <tr key={item.id}>
@@ -288,8 +279,8 @@ function CaseManagement() {
           <th>Price</th>
           <th>Image</th>
           <th>
-            <button onClick={handleShowAddCase}>
-              <FontAwesomeIcon icon={faPlus} />
+            <button onClick={() => handleShowAddCase()}>
+              <FontAwesomeIcon icon={faPlus} />Case
             </button>
           </th>
         </tr>

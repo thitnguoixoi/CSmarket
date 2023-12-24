@@ -10,7 +10,6 @@ import Withdraw from "./AdminPanel/WithDraw.js";
 import UsersManagement from "./AdminPanel/UserManagement";
 import CaseManagement from "./AdminPanel/CaseManagement";
 import SkinManagement from "./AdminPanel/SkinManagement";
-import CaseSkin from './AdminPanel/CaseSkin.js';
 import NotFound from './notFound.js';
 import axios from '../assets/setup/axios.js';
 import { useEffect, useState } from 'react';
@@ -61,7 +60,6 @@ function Body() {
             <Route path='/admin/users' exact element={<UsersManagement />} />
             <Route path='/admin/cases' exact element={<CaseManagement />} />
             <Route path='/admin/skins' exact element={<SkinManagement />} />
-            <Route path='/admin/cases/skins' exact element={<CaseSkin />} />
             {renderCaseOpened()}
             <Route path='*' element={<NotFound />} />
         </Routes>
