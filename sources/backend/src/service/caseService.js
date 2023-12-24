@@ -47,6 +47,7 @@ const getCasesSkins = async (caseid) => {
                 include: {
                     model: db.Skins,
                 },
+                attributes: ["id", "SkinID", "CaseID"],
                 order: [
                     ['Percent', 'ASC'],
                 ],

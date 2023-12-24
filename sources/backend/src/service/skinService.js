@@ -62,6 +62,7 @@ const getWithdrawSkins = async () => {
             where: {
                 Status: "Withdraw"
             },
+            attributes: ["id", "SkinID", "UserID"],
             include: [
                 { model: db.Users, attributes: ['SteamID', 'TradeURL'] },
                 { model: db.Skins, attributes: ['Name', 'Float'] }
@@ -125,17 +126,11 @@ const updateaSkin = async (skinid, addcount) => {
     }
 }
 
-const updateaWithdrawSkin = async (steamid, skinid, isAccept) => {
+const updateaWithdrawSkin = async (withdrawskinid, isAccept) => {
     try {
-        let user = await db.Users.findOne({
-            where: {
-                SteamID: steamid
-            }
-        })
         let withdraw = await db.Users_Skins.findOne({
             where: {
-                UserID: user.get({ plain: true }).id,
-                SkinID: skinid
+                id: withdrawskinid
             },
             include: [
                 { model: db.Skins, attributes: ['id', 'Count'] }
@@ -146,12 +141,11 @@ const updateaWithdrawSkin = async (steamid, skinid, isAccept) => {
             let count = parseInt(withdraw.get({ plain: true }).Skin.Count) + 1;
             await db.Skins.update(
                 { Count: count },
-                { where: { id: skinid }, }
+                { where: { id: withdraw.get({ plain: true }).Skin.id }, }
             );
             await db.Users_Skins.destroy({
                 where: {
-                    UserID: user.get({ plain: true }).id,
-                    SkinID: skinid
+                    id: withdrawskinid
                 },
             });
             return {
