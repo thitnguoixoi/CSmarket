@@ -200,19 +200,23 @@ const deleteaCase = async (caseid) => {
     }
 }
 
-const deleteaCaseSkins = async (caseskinid) => {
+const deleteaCaseSkins = async (caseid, skinid) => {
     try {
         let case_skin = await db.Cases_Skins.findOne({
             where: {
-                id: caseskinid,
+                CaseID: caseid,
+                SkinID: skinid,
             }
         });
         if (case_skin) {
             await db.Cases_Skins.destroy({
-                where: { id: caseskinid }
+                where: {
+                    CaseID: caseid,
+                    SkinID: skinid,
+                }
             });
             return {
-                EM: caseskinid + " deleted",
+                EM: "Skin in this case deleted",
                 EC: "0",
                 DT: ''
             }
