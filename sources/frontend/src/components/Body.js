@@ -1,10 +1,9 @@
 import './styles/Body.css';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Slider from './Slider.js';
 import Opencase from '../components/opencase/OpencasePage.js';
 import Inventory from './Upgrade/Upgrade.js';
 import CaseOpened from '../components/opencase/CaseOpened.js';
-import caseData from '../assets/caseData';
 import UserProfile from './Profile/profile.js';
 import AdminPanel from './AdminPanel/adminPanel.js';
 import Withdraw from "./AdminPanel/WithDraw.js";
@@ -14,18 +13,33 @@ import SkinManagement from "./AdminPanel/SkinManagement";
 import CaseSkin from './AdminPanel/CaseSkin.js';
 import NotFound from './notFound.js';
 import axios from '../assets/setup/axios.js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 function Body() {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        axios.get(`/api/v1/cases`)
+            .then(response => {
+                setData(response.data.DT)
+            })
+            .catch(error => {
+                console.error('Error checking user group:', error);
+            });
+    }, []);
+
+
+
     const renderCaseOpened = () => {
-        return caseData.map((item) => {
+        return data.map((item) => {
+            //console.log(item.Cases[0].Name.replace(/\s+/g, '').toLowerCase());
+            // console.log(item.Cases[0].id);
             return (
                 <Route
-                    key={item.id}
-                    path={item.to}
+                    path={item.Cases[0].Name.replace(/\s+/g, '').toLowerCase()}
                     element={
-                        <CaseOpened caseData={item} />
+                        <CaseOpened id={item.Cases[0].id} />
                     }
                 />
             )
