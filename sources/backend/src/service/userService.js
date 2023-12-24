@@ -413,7 +413,7 @@ const openaCase = async (steamid, caseid) => {
                 },
                 include: {
                     model: db.Skins,
-                    attributes: ["Image"]
+                    attributes: ["Image", "Name", "Float", "Tier"]
                 },
                 order: [
                     ['Percent', 'ASC'],
