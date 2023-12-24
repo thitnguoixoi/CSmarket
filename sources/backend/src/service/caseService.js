@@ -44,7 +44,15 @@ const getCasesSkins = async (caseid) => {
                 where: {
                     CaseID: caseid,
                 },
-                include: { model: db.Skins }
+                include: {
+                    model: db.Skins,
+                    order: [
+                        ['Tier', 'DESC'],
+                    ],
+                },
+                order: [
+                    ['Percent', 'ASC'],
+                ],
             });
             return {
                 EM: "Get case's skin success",
