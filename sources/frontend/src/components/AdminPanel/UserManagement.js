@@ -13,9 +13,14 @@ function UserManagement() {
   const [clickedItemId, setClickedItemId] = useState(null);
   const [walletInputValue, setWalletInputValue] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
   const [showAddWallet, setShowAddWallet] = useState(false);
   const [showGroupOption, setShowGroupOption] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("1");
+
+  // Add this function to handle radio button changes
+  const handleRadioChange = (value) => {
+    setSelectedOption(value);
+  };
 
 
 
@@ -112,7 +117,7 @@ function UserManagement() {
       id: itemId,
       walletValue: inputValue,
     };
-    axios.put('/api/v1/users/update/wallet', dataToSend)
+    axios.put('/api/v1/users/wallet/update', dataToSend)
       .then(response => {
         // After submitting, you may want to refresh the data
         axios.get('/api/v1/users')
@@ -136,7 +141,7 @@ function UserManagement() {
     setSelectedOption(value);
   };
   const handleSetMod = (itemId, selectedOption) => {
-    setShowGroupOption(false);
+    setClickedItemId(null);
     const groupId = parseInt(selectedOption, 10);
     const dataSetGroup = {
       id: itemId,
@@ -192,19 +197,45 @@ function UserManagement() {
                 <button onClick={() => handleClickGroup(item.id)}>
                   <FontAwesomeIcon icon={faUser} />
                   +Group
-                  {clickedItemId === item.id && showGroupOption && (
-                    <div id="submit-set-group">
-                      <select value={selectedOption} onChange={(e) => handleDropdownChange(e.target.value)}>
-                        <option value="1">User</option>
-                        <option value="2">Trader</option>
-                        <option value="3">Admin</option>
-                      </select>
-                      <button onClick={() => handleSetMod(item.id, selectedOption)}>
-                        Submit
-                      </button>
-                    </div>
-                  )}
                 </button>
+                {clickedItemId === item.id && (
+                  <div id="submit-set-group">
+                    <label>
+                      <input
+                        type="radio"
+                        value="1"
+                        checked={selectedOption === "1"}
+                        onChange={() => handleRadioChange("1")}
+                      />
+                      User
+                    </label>
+
+                    <label>
+                      <input
+                        type="radio"
+                        value="2"
+                        checked={selectedOption === "2"}
+                        onChange={() => handleRadioChange("2")}
+                      />
+                      Trader
+                    </label>
+
+                    <label>
+                      <input
+                        type="radio"
+                        value="3"
+                        checked={selectedOption === "3"}
+                        onChange={() => handleRadioChange("3")}
+                      />
+                      Admin
+                    </label>
+
+                    <button onClick={() => handleSetMod(item.id, selectedOption)}>
+                      Submit
+                    </button>
+                  </div>
+                )}
+
 
                 <button onClick={() => handleDel(item.id)}>
                   <FontAwesomeIcon icon={faTrash} />

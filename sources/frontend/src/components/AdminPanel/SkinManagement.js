@@ -35,11 +35,12 @@ function SkinManagement() {
 
     const dataUpdate = {
       skinid: id,
-      count: countInputValue
+      addcount: parseInt(countInputValue, 10)
     }
     console.log(dataUpdate);
     axios.put(`/api/v1/skins/update`, dataUpdate)
       .then(response => {
+        console.log(response);
         setData(response.data.DT);
         setFilteredData(response.data.DT);
       })
