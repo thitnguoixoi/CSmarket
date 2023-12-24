@@ -13,7 +13,7 @@ function Case({ caseData }) {
           <img src={caseData.Image} alt="" />
         </div>
       </Link>
-      <h3>{caseData.Price}</h3>
+      <h3>{caseData.Price}$</h3>
     </div>
   );
 }
