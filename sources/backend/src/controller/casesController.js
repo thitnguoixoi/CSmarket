@@ -110,7 +110,6 @@ const deleteCase = async (req, res) => {
 
 const deleteCaseSkins = async (req, res) => {
     try {
-        console.log(req.body);
         let data = await caseService.deleteaCaseSkins(req.body.caseskinid);
         return res.status(200).json({
             EM: data.EM,
