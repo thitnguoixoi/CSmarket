@@ -485,9 +485,26 @@ const openaCase = async (steamid, caseid) => {
         }
     }
 }
-const upgradeUserSkin = async (userskinid, serverskinid) => {
+const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
     try {
-        if (userskin && serverskin) {
+        user = await db.User.findOne(
+            { SteamID: steamid },
+        )
+        let userskin = await db.Users_Skins.findOne({
+            where: {
+                UserID: user.get({ plain: true }).id,
+                SkinID: userskinid,
+            },
+            include: {
+                model: db.Skins, attributes: ["Price"]
+            }
+        })
+        let serverskin = await db.Skins.findOne({
+            where: {
+                id: serverskinid
+            }
+        })
+        if (userskin && serverskin && userskin.get({ plain: true }).Skin.Price < serverskin.get({ plain: true }).Price) {
             await db.Users.destroy({
                 where: {
                     id: userid

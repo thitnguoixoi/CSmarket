@@ -151,6 +151,11 @@ const updateaWithdrawSkin = async (steamid, skinid, isAccept) => {
                 { Count: count },
                 { where: { id: withdraw.Skin.id }, }
             );
+            return {
+                EM: "Update withdraw skin success",
+                EC: "0",
+                DT: []
+            }
         } else if (withdraw && isAccept == 0) {
             return {
                 EM: "Update withdraw skin success",
