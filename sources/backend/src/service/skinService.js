@@ -63,8 +63,8 @@ const getWithdrawSkins = async () => {
                 Status: "Withdraw"
             },
             include: [
-                { model: Users, attributes: ['SteamID', 'TradeURL'] },
-                { model: Skins, attributes: ['Name', 'Float'] }
+                { model: db.Users, attributes: ['SteamID', 'TradeURL'] },
+                { model: db.Skins, attributes: ['Name', 'Float'] }
             ]
         });
         if (withdraws) {
@@ -132,7 +132,7 @@ const updateaWithdrawSkin = async (withdrawid, isAccept) => {
                 id: withdrawid
             },
             include: [
-                { model: Skins, attributes: ['id', 'Count'] }
+                { model: db.Skins, attributes: ['id', 'Count'] }
             ]
         });
 
