@@ -493,13 +493,14 @@ const openaCase = async (steamid, caseid) => {
 }
 const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
     try {
-        user = await db.User.findOne(
-            { SteamID: steamid },
+        let user = await db.Users.findOne({
+            where:
+                { SteamID: steamid },
+        }
         )
         let userskin = await db.Users_Skins.findOne({
             where: {
-                UserID: user.get({ plain: true }).id,
-                SkinID: userskinid,
+                id: userskinid
             },
             include: {
                 model: db.Skins, attributes: ["Price"]
@@ -515,13 +516,17 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
         if (userskin && serverskin && userskinprice < serverskinprice) {
             let percent = userskinprice / serverskinprice
             const randomValue = Math.random();
+            console.log(percent)
+            console.log(randomValue)
             if (randomValue <= percent) {
-                await db.Users_Skins.update({
-                    SkinID: serverskinid,
-                    where: {
-                        id: userskin.get({ plain: true }).id,
+                await db.Users_Skins.update(
+                    { SkinID: serverskinid },
+                    {
+                        where: {
+                            id: userskinid,
+                        }
                     },
-                })
+                )
                 return {
                     EM: "Skin upgraded success",
                     EC: "0",
@@ -531,7 +536,7 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
             else if (randomValue > percent) {
                 await db.Users_Skins.destroy({
                     where: {
-                        id: userskin.get({ plain: true }).id,
+                        id: userskinid,
                     },
                 })
                 return {
