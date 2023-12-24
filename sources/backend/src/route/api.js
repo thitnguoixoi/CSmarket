@@ -34,7 +34,7 @@ let initApiRoutes = (app) => {
     router.put("/users/upgrade", usersController.upgradeSkin) //ch làm
 
     //admin
-    router.put("/users/update/wallet", usersController.updateWallet);
+    router.put("/users/wallet/update", usersController.updateWallet);
     router.delete("/users/delete", usersController.deleteUser);
     router.put("/users/update/group", usersController.updateGroup);
 
