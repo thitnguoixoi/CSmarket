@@ -20,7 +20,7 @@ function CaseOpened(id) {
                 console.error('Error checking user group:', error);
             });
     }, []);
-    // console.log(caseData);
+    console.log(skinData);
     // console.log(skinData);
     return (
         <div className="Case_Opened">

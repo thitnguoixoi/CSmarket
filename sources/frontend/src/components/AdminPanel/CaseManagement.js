@@ -38,10 +38,13 @@ function CaseManagement() {
         console.error('Error Add', error);
       });
   }
-  const handleDelCaseSkin = (index) => {
+  const handleDelCaseSkin = (CaseID, SkinID) => {
     // Add your logic for the action here
-    console.log(index);
-    axios.delete(`/api/v1/cases/skins/delete`, { data: { caseskinid: index } })
+    const dataToDel = {
+      caseid: CaseID,
+      skinid: SkinID
+    }
+    axios.delete(`/api/v1/cases/skins/delete`, { data: dataToDel })
       .then(response => {
         console.log(response);
       })
@@ -199,7 +202,7 @@ function CaseManagement() {
                   <td>{item.Skin.Name}</td>
                   <td>{item.Percent}</td>
                   <td>
-                    <button onClick={() => handleDelCaseSkin(index)}>
+                    <button onClick={() => handleDelCaseSkin(item.CaseID, item.SkinID)}>
                       <FontAwesomeIcon icon={faTrash} />
                       Delete
                     </button>
