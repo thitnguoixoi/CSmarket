@@ -516,8 +516,6 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
         if (userskin && serverskin && userskinprice < serverskinprice) {
             let percent = userskinprice / serverskinprice
             const randomValue = Math.random();
-            console.log(percent)
-            console.log(randomValue)
             if (randomValue <= percent) {
                 await db.Users_Skins.update(
                     { SkinID: serverskinid },
