@@ -74,7 +74,7 @@ const readCasesSkins = async (req, res) => {
 
 const updateCase = async (req, res) => {
     try {
-        let data = await caseService.updateaCase(req.query.caseid, req.query.price);
+        let data = await caseService.updateaCase(req.body.caseid, req.body.price);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
