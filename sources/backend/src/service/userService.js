@@ -402,10 +402,11 @@ const deleteUser = async (userid, steamid) => {
 
 const openaCase = async (steamid, caseid) => {
     try {
-
+        console.log(caseid);
         let acase = await db.Cases.findOne({
             where: { id: caseid }
         })
+
         if (acase) {
             let skins = await db.Cases_Skins.findAll({
                 where: {
