@@ -128,7 +128,9 @@ const updateaSkin = async (skinid, addcount) => {
 const updateaWithdrawSkin = async (steamid, skinid, isAccept) => {
     try {
         let user = await db.Users.findOne({
-            SteamID: steamid
+            where: {
+                SteamID: steamid
+            }
         })
         let withdraw = await db.Users_Skins.findOne({
             where: {
