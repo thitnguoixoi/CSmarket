@@ -125,7 +125,7 @@ const updateWallet = async (req, res) => {
 
 const withdrawSkin = async (req, res) => {
     try {
-        let data = await userService.withdrawUserSkin(req.jwt.steamid, req.body.skinid)
+        let data = await userService.withdrawUserSkin(req.jwt.steamid, req.body.userskinid)
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
