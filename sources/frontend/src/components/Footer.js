@@ -56,11 +56,11 @@ function Footer() {
             <div className="footer_terms">
                 <ul>
                     <li id="copyright">© No copyright</li>
-                    <li><Modal text={"Giới thiệu về CSMarket"}/></li>
-                    <li><Modal text={"Câu hỏi thường gặp"}/></li>
-                    <li><Modal text={"Điều khoản dịch vụ"}/></li>
-                    <li><Modal text={"Chính sách bảo mật"}/></li>
-                    <li><Modal text={"Chính sách Cookie"}/></li>
+                    <li><Modal text={"About us"}/></li>
+                    <li><Modal text={"Usual question"}/></li>
+                    <li><Modal text={"Terms and services"}/></li>
+                    <li><Modal text={"Policies"}/></li>
+                    <li><Modal text={"Cookie policies"}/></li>
                 </ul>
             </div>
         </div>
