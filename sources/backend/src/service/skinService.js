@@ -139,12 +139,10 @@ const updateaWithdrawSkin = async (withdrawid, isAccept) => {
                 },
             });
             count = parentINT(withdraw.get({ plain: true }).Skin.Count) + 1;
-            await db.Skins.update({
-                Count: count,
-                where: {
-                    id: withdraw.Skin.id
-                },
-            });
+            await db.Skins.update(
+                { Count: count },
+                { where: { id: withdraw.Skin.id }, }
+            );
         } else if (withdraw && isAccept == 0) {
             return {
                 EM: "Update withdraw skin success",

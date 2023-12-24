@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
 require("dotenv").config();
 
-const nonSecurePath = ["/auth/steam", "/auth/steam/return", "/jwt/steamid", "/cases"]
+const nonSecurePath = ["/auth/steam", "/auth/steam/return", "/jwt/steamid", "/cases", "/cases/update"]
 
 const createJWT = (payload) => {
     let key = process.env.JWT_KEY
