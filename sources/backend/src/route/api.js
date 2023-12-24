@@ -17,14 +17,14 @@ let initApiRoutes = (app) => {
     router.get('/auth/steam', loginController.handleSteamAuth);//, loginController.redirectHome
     router.get('/auth/steam/return', loginController.handleSteamReturn, loginController.handleSendProfile);
     router.get('/jwt/steamid', loginController.getJWT);
+    router.get("/users/logout", usersController.logoutUser);
 
     /*
     Actions affect users
     */
 
-    //user, trader, admin
+    //user, trader, admin - 8
     router.get("/users", usersController.readUsers);
-    router.get("/users/logout", usersController.logoutUser);
     router.get("/users/steamid", usersController.readUser);
     router.put("/users/tradeurl/update", usersController.updateTradeURL);
     router.get("/users/skins", usersController.readUserSkins)
@@ -33,21 +33,23 @@ let initApiRoutes = (app) => {
     router.get("/users/cases/open", usersController.openCase) // caseid
     router.put("/users/skins/upgrade", usersController.upgradeSkin) //userskinid, serverskinid
 
-    //admin
+    //admin - 3
     router.put("/users/wallet/update", usersController.updateWallet);
     router.delete("/users/delete", usersController.deleteUser);
-    router.put("/users/update/group", usersController.updateGroup);
+    router.put("/users/group/update", usersController.updateGroup);
 
     /*
     Actions affect skins in database
     */
 
-    //trader, admin
+    //trader, admin - 2
     router.get("/skins/withdraw", skinsController.readWithdrawSkins);
     router.put("/skins/withdraw/update", skinsController.updateWithdrawSkin); //withdrawid, isAccept
 
-    //admin
+    //user, trader, admin 
     router.get("/skins", skinsController.readSkins);
+
+    //admin - 3
     router.post("/skins/create", skinsController.createSkin);
     router.put("/skins/update", skinsController.updateSkin);
     router.delete("/skins/delete", skinsController.deleteSkin);
@@ -58,11 +60,9 @@ let initApiRoutes = (app) => {
 
     //everyone
     router.get("/cases", casesController.readCases);
-
-    //user, trader, admin
     router.get("/cases/id", casesController.readCasesSkins); //caseid
 
-    //admin
+    //admin - 5
     router.post("/cases/create", casesController.createCase); //name, price, image, groupname
     router.put("/cases/update", casesController.updateCase); //caseid, price
     router.post("/cases/skins/create", casesController.createCaseSkins); //caseid, skinid, percent
