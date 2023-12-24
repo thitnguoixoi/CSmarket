@@ -23,6 +23,7 @@ function UserProfile() {
 
         axios.get(`/api/v1/users/skins`)
             .then(response => {
+                console.log(response);
                 setUserItems(response.data.DT);
             })
             .catch(error => {
