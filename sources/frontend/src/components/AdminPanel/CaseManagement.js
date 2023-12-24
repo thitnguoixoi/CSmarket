@@ -54,7 +54,7 @@ function CaseManagement() {
       skinid: parseInt(SkinID, 10),
       percent: parseFloat(Percent)
     }
-    console.log(caseSkinData);
+
     axios.post(`/api/v1/cases/skins/create`, dataToAdd)
       .then(response => {
         console.log('Add success');
@@ -224,7 +224,7 @@ function CaseManagement() {
           </thead>
           <tbody>
             {caseSkinData.map((item) => {
-              // console.log(index);
+              console.log(item);
               return (
                 <tr key={item.id}>
                   <td>{item.CaseID}</td>
