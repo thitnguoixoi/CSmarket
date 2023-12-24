@@ -413,7 +413,7 @@ const openaCase = async (steamid, caseid) => {
                 },
                 include: {
                     model: db.Skins,
-                    attributes: ["Image"]
+                    attributes: ["Image", "Name", "Float", "Tier"]
                 },
                 order: [
                     ['Percent', 'ASC'],
@@ -421,8 +421,8 @@ const openaCase = async (steamid, caseid) => {
             });
             if (skins) {
                 const numberOfSkins = skins.length;
-                let index = 0;
                 const randomValue = Math.random();
+                let index = 0;
                 let skinopened = []
                 skins.every((skin) => {
                     index += 1
@@ -459,7 +459,7 @@ const openaCase = async (steamid, caseid) => {
                 return {
                     EM: "Case opened",
                     EC: "0",
-                    DT: ""
+                    DT: skinopened
                 }
             } else {
                 return {
@@ -504,29 +504,48 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
                 id: serverskinid
             }
         })
-        if (userskin && serverskin && userskin.get({ plain: true }).Skin.Price < serverskin.get({ plain: true }).Price) {
-            await db.Users.destroy({
-                where: {
-                    id: userid
+        let userskinprice = parseFloat(userskin.get({ plain: true }).Skin.Price)
+        let serverskinprice = parseFloat(serverskin.get({ plain: true }).Price)
+        if (userskin && serverskin && userskinprice < serverskinprice) {
+            let percent = userskinprice / serverskinprice
+            const randomValue = Math.random();
+            if (randomValue <= percent) {
+                await db.Users_Skins.update({
+                    SkinID: serverskinid,
+                    where: {
+                        id: userskin.get({ plain: true }).id,
+                    },
+                })
+                return {
+                    EM: "Skin upgraded success",
+                    EC: "0",
+                    DT: ""
                 }
-            })
-            return {
-                EM: userid + " deleted",
-                EC: "0",
-                DT: ''
+            }
+            else if (randomValue > percent) {
+                await db.Users_Skins.destroy({
+                    where: {
+                        id: userskin.get({ plain: true }).id,
+                    },
+                })
+                return {
+                    EM: "Skin upgraded fail",
+                    EC: "0",
+                    DT: ""
+                }
             }
         }
         else {
             return {
-                EM: "Can not delete this user",
+                EM: "Can not upgrade this skin",
                 EC: "-1",
                 DT: ''
             }
         }
     } catch (e) {
-        console.log('Error delete user:', e)
+        console.log('Can not upgrade this skin:', e)
         return {
-            EM: "Error delete user",
+            EM: "Can not upgrade this skin",
             EC: "-1",
             DT: ''
         }

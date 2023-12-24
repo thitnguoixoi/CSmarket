@@ -143,17 +143,17 @@ const updateaWithdrawSkin = async (steamid, skinid, isAccept) => {
         });
 
         if (withdraw && isAccept == 1) {
+            let count = parseInt(withdraw.get({ plain: true }).Skin.Count) + 1;
+            await db.Skins.update(
+                { Count: count },
+                { where: { id: skinid }, }
+            );
             await db.Users_Skins.destroy({
                 where: {
                     UserID: user.get({ plain: true }).id,
                     SkinID: skinid
                 },
             });
-            count = parseInt(withdraw.get({ plain: true }).Skin.Count) + 1;
-            await db.Skins.update(
-                { Count: count },
-                { where: { id: withdraw.Skin.id }, }
-            );
             return {
                 EM: "Update withdraw skin success",
                 EC: "0",
