@@ -26,6 +26,8 @@ const verifyToken = (token) => {
 const checkUserJWT = (req, res, next) => {
     if (nonSecurePath.includes(req.path)) return next();
     let cookies = req.cookies;
+    console.log(req.path)
+    console.log(cookies.jwt)
     if (cookies && cookies.jwt) {
         let token = cookies.jwt
         let decoded = verifyToken(token)
