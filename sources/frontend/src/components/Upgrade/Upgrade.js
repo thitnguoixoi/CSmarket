@@ -61,14 +61,30 @@ function Inventory() {
     // Handler for user item click
     const handleUserItemClick = (item) => {
         setSelectedUserItem(item);
+        filterServerItemsByPrice(item.Skin.Price);
         calculateRate();
     };
-
+    const filterServerItemsByPrice = (userItemPrice) => {
+        // Filter server items based on the price of the selected user item
+        const filteredServer = serverItems.filter(
+            (serverItem) => serverItem.Price >= userItemPrice
+        );
+        // Update filteredServerItems
+        setFilteredServerItems(filteredServer);
+    };
     // Handler for server item click
     const handleServerItemClick = (item) => {
         setSelectedServerItem(item);
         filterUserItemsByPrice(item.Price);
         calculateRate();
+    };
+    const filterUserItemsByPrice = (serverItemPrice) => {
+        // Filter user items based on the price of the selected server item
+        const filteredUser = userItems.filter(
+            (userItem) => userItem.Skin.Price <= serverItemPrice
+        );
+        // Update filteredUserItems
+        setFilteredUserItems(filteredUser);
     };
     const handleUserSearchChange = (event) => {
         const term = event.target.value;
@@ -92,15 +108,6 @@ function Inventory() {
         rate = Math.min(rate, 100);
 
         setUpgradeSuccessRate(rate);
-    };
-
-    const filterUserItemsByPrice = (serverItemPrice) => {
-        // Filter user items based on the price of the selected server item
-        const filteredUser = userItems.filter(
-            (userItem) => userItem.Skin.Price < serverItemPrice
-        );
-        // Update filteredUserItems
-        setFilteredServerItems(filteredUser);
     };
 
     // Handler for server inventory search term change
