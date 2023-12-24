@@ -58,6 +58,9 @@ button {
     flex-direction: column;
     align-items: center;
 }
+.case h1{
+    padding-bottom: 15px;
+}
 .case h3{
     width: 20%;
     font-size: 16px;
@@ -75,8 +78,15 @@ button {
     align-items: center;
 }
 
+
 @media screen and (max-width: 768px){
     .case h1{
         font-size: 30px;
     }
+    .case-container{
+        padding-bottom: 25px;
+    }
+}
+@media screen and (max-width: 1080px){
+    
 }
