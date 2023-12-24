@@ -125,11 +125,15 @@ const updateaSkin = async (skinid, addcount) => {
     }
 }
 
-const updateaWithdrawSkin = async (withdrawid, isAccept) => {
+const updateaWithdrawSkin = async (steamid, skinid, isAccept) => {
     try {
+        let user = await db.Users.findOne({
+            SteamID: steamid
+        })
         let withdraw = await db.Users_Skins.findAll({
             where: {
-                id: withdrawid
+                UserID: user.get({ plain: true }).id,
+                SkinID: skinid
             },
             include: [
                 { model: db.Skins, attributes: ['id', 'Count'] }
@@ -156,7 +160,7 @@ const updateaWithdrawSkin = async (withdrawid, isAccept) => {
         } else if (!withdraw) {
             return {
                 EM: "Update withdraw skin error",
-                EC: "0",
+                EC: "-1",
                 DT: []
             }
         }

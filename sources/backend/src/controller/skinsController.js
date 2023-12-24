@@ -74,7 +74,7 @@ const updateSkin = async (req, res) => {
 
 const updateWithdrawSkin = async (req, res) => {
     try {
-        let data = await skinService.updateaWithdrawSkin(req.body.withdrawid, req.body.isAccept);
+        let data = await skinService.updateaWithdrawSkin(req.jwt.steamid, req.body.skinid, req.body.isAccept);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
