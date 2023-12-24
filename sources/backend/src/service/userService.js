@@ -187,50 +187,52 @@ const updateUserTradeURL = async (steamid, TradeURL) => {
 }
 
 
-const withdrawUserSkin = async (userskinid) => {
+const withdrawUserSkin = async (steamid, userskinid) => {
     try {
         let userskin = await db.Users_Skins.findOne({
             where: {
                 id: userskinid
             },
         });
-        let skins = await db.Skins.findOne({
-            where: {
-                id: userskin.get({ plain: true }).SkinID
-            },
-        });
+        if (userskin) {
 
-        if (skins.get({ plain: true }).Count != 0 && userskin) {
-
-            let user = await db.Users.findOne({
+            let skins = await db.Skins.findOne({
                 where: {
-                    SteamID: steamid
+                    id: userskin.get({ plain: true }).SkinID
                 },
             });
 
-            await db.Users_Skins.update(
-                { Status: "Withdraw" },
-                {
+            if (skins.get({ plain: true }).Count != 0) {
+
+                let user = await db.Users.findOne({
                     where: {
-                        UserID: user.get({ plain: true }).id,
-                        SkinID: skinid
-                    }
-                })
+                        SteamID: steamid
+                    },
+                });
 
-            return {
-                EM: "Waiting for sending to user",
-                EC: "0",
-                DT: ''
+                await db.Users_Skins.update(
+                    { Status: "Withdraw" },
+                    {
+                        where: {
+                            id: userskinid
+                        }
+                    })
+
+                return {
+                    EM: "Waiting for sending to user",
+                    EC: "0",
+                    DT: ''
+                }
+
+            } else {
+
+                return {
+                    EM: "We didn't have this skin",
+                    EC: "-1",
+                    DT: ''
+                }
+
             }
-
-        } else {
-
-            return {
-                EM: "We didn't have this skin",
-                EC: "-1",
-                DT: ''
-            }
-
         }
     } catch (e) {
         console.log('Withdraw skin error: ', e)
