@@ -389,10 +389,84 @@ const deleteUser = async (userid, steamid) => {
     }
 }
 
-const openaCase = async () => {
+const openaCase = async (steamid, caseid) => {
+    try {
+        let acase = await db.Cases.findOne({
+            where: { id: caseid }
+        })
+        if (acase) {
+            skins = await db.Cases_Skins.findAll({
+                where: {
+                    CaseID: caseid,
+                },
+                include: {
+                    model: db.Skins,
+                },
+                order: [
+                    ['Percent', 'ASC'],
+                ],
+            });
+            if (skins) {
 
+                return {
+                    EM: "Case opened",
+                    EC: "0",
+                    DT: ''
+                }
+            } else {
+                return {
+                    EM: "Can not open this case",
+                    EC: "-1",
+                    DT: ''
+                }
+            }
+        }
+        else {
+            return {
+                EM: "Can not open this case",
+                EC: "-1",
+                DT: ''
+            }
+        }
+    } catch (e) {
+        console.log('Error open case:', e)
+        return {
+            EM: "Error open case",
+            EC: "-1",
+            DT: ''
+        }
+    }
 }
-
+const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
+    try {
+        if (userskin && serverskin) {
+            await db.Users.destroy({
+                where: {
+                    id: userid
+                }
+            })
+            return {
+                EM: userid + " deleted",
+                EC: "0",
+                DT: ''
+            }
+        }
+        else {
+            return {
+                EM: "Can not delete this user",
+                EC: "-1",
+                DT: ''
+            }
+        }
+    } catch (e) {
+        console.log('Error delete user:', e)
+        return {
+            EM: "Error delete user",
+            EC: "-1",
+            DT: ''
+        }
+    }
+}
 module.exports = {
     getUser,
     createUser,
@@ -406,5 +480,5 @@ module.exports = {
     withdrawUserSkin,
     sellUserSkin,
     openaCase,
-    updateUserSkin,
+    upgradeUserSkin,
 }

@@ -74,7 +74,7 @@ const updateTradeURL = async (req, res) => {
 
 const openCase = async (req, res) => {
     try {
-        let data = await userService.openaCase(req.body.caseid)
+        let data = await userService.openaCase(req.jwt.steamid, req.query.caseid)
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -91,7 +91,7 @@ const openCase = async (req, res) => {
 }
 const upgradeSkin = async (req, res) => {
     try {
-        let data = await userService.updateUserSkin(req.body.userskinid, req.body.url)
+        let data = await userService.upgradeUserSkin(req.jwt.steamid, req.body.userskinid, req.body.serverskinid)
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
