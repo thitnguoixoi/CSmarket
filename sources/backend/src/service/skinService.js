@@ -147,7 +147,7 @@ const updateaWithdrawSkin = async (steamid, skinid, isAccept) => {
                     SkinID: skinid
                 },
             });
-            count = parentINT(withdraw.get({ plain: true }).Skin.Count) + 1;
+            count = parseINT(withdraw.get({ plain: true }).Skin.Count) + 1;
             await db.Skins.update(
                 { Count: count },
                 { where: { id: withdraw.Skin.id }, }
