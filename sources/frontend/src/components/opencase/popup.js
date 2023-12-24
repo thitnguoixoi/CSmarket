@@ -1,24 +1,32 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import './styles/popup.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';  // Correct icon name
 
 function Popup({ trigger, children, setTrigger }) {
-    return (trigger) ? (
+    const navigate = useNavigate();
+
+    const handleViewInventory = () => {
+        // Navigate to /profile or your desired route
+        navigate("/profile");
+    };
+
+    return trigger ? (
         <div className="popup">
             <div className="popup-inner">
                 <button className="close-btn" onClick={() => setTrigger(false)}>
-                    <FontAwesomeIcon icon={faXmark} style={{ color: "#ffffff", }} />
+                    <FontAwesomeIcon icon={faTimes} style={{ color: "#ffffff" }} />
                 </button>
                 {children}
 
                 <div className="popup-nav-btn">
-                    <button>View in inventory</button>
+                    <button onClick={handleViewInventory}>View in inventory</button>
                     <button onClick={() => setTrigger(false)}>Open more</button>
                 </div>
             </div>
         </div>
-    ) : "";
+    ) : null;
 }
 
 export default Popup;
