@@ -107,7 +107,7 @@ const getUserSkins = async (steamid) => {
             where: {
                 UserID: user.get({ plain: true }).id,
                 Status: {
-                    [Op.notIn]: ["Withdraw", "Selled", "Withdrawed"]
+                    [Op.notIn]: ["Withdraw"]
                 }
             },
             include: { model: db.Skins }
@@ -195,7 +195,7 @@ const withdrawUserSkin = async (steamid, skinid) => {
             },
         });
 
-        if (skins.get({ plain: true }).id != 0) {
+        if (skins.get({ plain: true }).Count != 0) {
 
             let user = await db.Users.findOne({
                 where: {
@@ -264,8 +264,7 @@ const sellUserSkin = async (steamid, skinid) => {
         )
 
 
-        await db.Users_Skins.update(
-            { Status: "Selled" },
+        await db.Users_Skins.detroy(
             {
                 where: {
                     UserID: user.get({ plain: true }).id,
