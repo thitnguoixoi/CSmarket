@@ -38,14 +38,16 @@ function CaseManagement() {
         console.error('Error Add', error);
       });
   }
-  const handleDelCaseSkin = (CaseID, SkinID) => {
+  const handleDelCaseSkin = (index) => {
     // Add your logic for the action here
-
-    const dataToDel = {
-      caseid: CaseID,
-      skinid: SkinID
-    }
-    console.log(dataToDel);
+    console.log(index);
+    axios.delete(`/api/v1/cases/skins/delete`, { data: { caseskinid: index } })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error('Error Add', error);
+      });
   };
   useEffect(() => {
     //set role
@@ -117,7 +119,7 @@ function CaseManagement() {
     //get case skins
     axios.get(`/api/v1/cases/id`, { params: { caseid: caseID } })
       .then(response => {
-        // console.log(response);
+        console.log(response.data.DT);
         setCaseSkinData(response.data.DT.skins);
       })
       .catch(error => {
@@ -188,21 +190,24 @@ function CaseManagement() {
             </tr>
           </thead>
           <tbody>
-            {/* Add logic to map through your data and render rows */}
-            {caseSkinData.map((item) => (
-              <tr key={item.id}>
-                <td>{item.CaseID}</td>
-                <td>{item.SkinID}</td>
-                <td>{item.Skin.Name}</td>
-                <td>{item.Percent}</td>
-                <td>
-                  <button onClick={() => handleDelCaseSkin(item.CaseID, item.SkinID)}>
-                    <FontAwesomeIcon icon={faTrash} />
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {caseSkinData.map((item, index) => {
+              // console.log(index);
+              return (
+                <tr key={item.id}>
+                  <td>{item.CaseID}</td>
+                  <td>{item.SkinID}</td>
+                  <td>{item.Skin.Name}</td>
+                  <td>{item.Percent}</td>
+                  <td>
+                    <button onClick={() => handleDelCaseSkin(index)}>
+                      <FontAwesomeIcon icon={faTrash} />
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+
           </tbody>
         </table>
       </>

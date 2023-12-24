@@ -48,7 +48,6 @@ function Header() {
         console.error('Error get jwt:', error);
       });
     handleGetProfile()
-
   };
 
   const checkCookieExists = (cookieName) => {
@@ -68,7 +67,6 @@ function Header() {
         }
       })
       .catch(error => {
-        console.error('Error get user profile', error);
         handleGetProfileAgain()
       });
   }
