@@ -405,7 +405,6 @@ const openaCase = async (steamid, caseid) => {
         let acase = await db.Cases.findOne({
             where: { id: caseid }
         })
-
         if (acase) {
             let skins = await db.Cases_Skins.findAll({
                 where: {
@@ -437,9 +436,11 @@ const openaCase = async (steamid, caseid) => {
                     return true;
                 });
 
-                user = await db.User.findOne(
-                    { SteamID: steamid },
-                )
+                let user = await db.Users.findOne({
+                    where:
+                        { SteamID: steamid },
+                })
+
 
                 await db.Users_Skins.create(
                     {
@@ -454,7 +455,7 @@ const openaCase = async (steamid, caseid) => {
 
                 await db.Users.update(
                     { Wallet: wallet.toFixed(2) },
-                    { where: { id: userid } })
+                    { where: { id: user.get({ plain: true }).id, } })
 
                 return {
                     EM: "Case opened",
