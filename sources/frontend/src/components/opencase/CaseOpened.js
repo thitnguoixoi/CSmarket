@@ -10,6 +10,14 @@ function CaseOpened(id) {
     const handlePopup = () => {
         setButtonPopup(false);
     }
+    const randomSkin = () => {
+        setButtonPopup(true);
+        console.log(id.id);
+        axios.get(`/api/v1/users/cases/open`, { params: { caseid: id.id } })
+            .then(response => {
+                console.log(response);
+            })
+    }
     useEffect(() => {
         axios.get(`/api/v1/cases/id`, { params: { caseid: id.id } })
             .then(response => {
@@ -20,14 +28,13 @@ function CaseOpened(id) {
                 console.error('Error checking user group:', error);
             });
     }, []);
-    console.log(skinData);
     // console.log(skinData);
     return (
         <div className="Case_Opened">
             <div className="opencase">
                 <h3>{caseData.Name}</h3>
                 <img src={caseData.Image} alt="Case" />
-                <button className="opencase-btn" onClick={() => setButtonPopup(true)}>Open {caseData.Price}$ </button>
+                <button className="opencase-btn" onClick={() => randomSkin()}>Open {caseData.Price}$ </button>
                 <Popup trigger={buttonPopup} setTrigger={handlePopup}>
                     <h3>Congratulation</h3>
                     <h4>You got</h4>

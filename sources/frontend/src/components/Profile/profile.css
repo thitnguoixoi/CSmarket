@@ -48,6 +48,7 @@
     border-right: 1px;
     border-color: aliceblue;
     border-style: solid;
+    padding-right: 20px;
 }
 
 .user-avatar img {
@@ -271,12 +272,12 @@
     .properties h4 {
         padding: 10px;
     }
-
+    
     .user-case-count, .user-upgrade-count{
         justify-content: left;
     }
     .user-case-count span, .user-upgrade-count span {
-    display: none;
+        display: none;
     }
     .user-profile-inventory-items li {
         width: 247.5px;

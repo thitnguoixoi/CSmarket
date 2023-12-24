@@ -405,6 +405,7 @@ const openaCase = async (steamid, caseid) => {
         let acase = await db.Cases.findOne({
             where: { id: caseid }
         })
+
         if (acase) {
             let skins = await db.Cases_Skins.findAll({
                 where: {

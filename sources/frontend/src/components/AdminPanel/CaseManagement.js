@@ -25,13 +25,37 @@ function CaseManagement() {
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
 
+
+  const Refresh = () => {
+    //get case data
+    axios.get(`/api/v1/cases`)
+      .then(response => {
+        setData(response.data.DT);
+        setFilteredData(response.data.DT);
+      })
+      .catch(error => {
+        console.error('Error checking user group:', error);
+      });
+  }
+  const ReFreshEditSkinForm = () => {
+    //get case skins
+    axios.get(`/api/v1/cases/id`, { params: { caseid: caseid } })
+      .then(response => {
+        setCaseSkinData(response.data.DT.skins);
+      })
+      .catch(error => {
+        console.error('Error cases', error);
+      });
+  }
   const handleAddCaseSkin = (CaseID, SkinID, Percent) => {
+    setShowAddCaseSkinForm(false);
+    console.log(CaseID, SkinID, Percent);
     const dataToAdd = {
       caseid: parseInt(CaseID, 10),
       skinid: parseInt(SkinID, 10),
       percent: parseFloat(Percent)
     }
-    console.log(dataToAdd);
+    console.log(caseSkinData);
     axios.post(`/api/v1/cases/skins/create`, dataToAdd)
       .then(response => {
         console.log('Add success');
@@ -40,6 +64,7 @@ function CaseManagement() {
       .catch(error => {
         console.error('Error Add', error);
       });
+    ReFreshEditSkinForm();
   }
   const handleDelCaseSkin = (CaseID, SkinID) => {
     // Add your logic for the action here
@@ -54,6 +79,7 @@ function CaseManagement() {
       .catch(error => {
         console.error('Error Add', error);
       });
+    ReFreshEditSkinForm();
   };
   useEffect(() => {
     //set role
@@ -67,15 +93,7 @@ function CaseManagement() {
         console.error('Error checking user group:', error);
       });
 
-    //get case data
-    axios.get(`/api/v1/cases`)
-      .then(response => {
-        setData(response.data.DT);
-        setFilteredData(response.data.DT);
-      })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
+    Refresh();
   }, []);
 
   const handleSearch = (e) => {
@@ -139,10 +157,11 @@ function CaseManagement() {
       });
   };
   const handleEditCaseSkin = (caseID) => {
+    setShowAddCaseSkinForm(false);
+    setCaseId(caseID);
     //get case skins
     axios.get(`/api/v1/cases/id`, { params: { caseid: caseID } })
       .then(response => {
-        console.log(response.data.DT);
         setCaseSkinData(response.data.DT.skins);
       })
       .catch(error => {
@@ -150,12 +169,11 @@ function CaseManagement() {
       });
     //show caseskin form
     setEditCaseSkinForm(!editCaseSkinForm);
-    console.log(caseSkinData);
   }
   const handleDeleteCase = (caseID) => {
     axios.delete(`/api/v1/cases/delete`, { data: { caseid: caseID } })
       .then(response => {
-        console.log('delete case',response)
+        console.log('delete case', response)
       })
       .catch(error => {
         console.error('Error cases', error);
@@ -164,16 +182,6 @@ function CaseManagement() {
   const renderAddCaseSkinForm = () => (
     <>
       <h3>Add Case Skin</h3>
-      <input
-        placeholder="Case ID"
-        type="text"
-        value={caseid}
-        onChange={(e) => {
-          const numericValue = e.target.value.replace(/[^-0-9]/g, '');
-          setCaseId(numericValue);
-        }}
-      />
-      <br />
       <input
         placeholder="Skin ID"
         type="text"
@@ -194,7 +202,7 @@ function CaseManagement() {
         }}
       />
       <br />
-      <button onClick={() => handleAddCaseSkin(caseid, skinid, percent)}>
+      <button onClick={() => { handleAddCaseSkin(caseid, skinid, percent); ReFreshEditSkinForm(); }}>
         Submit
       </button>
     </>
@@ -211,14 +219,14 @@ function CaseManagement() {
               <th>Skin Name</th>
               <th>Percent</th>
               <th>
-                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm) }}>
-                  <FontAwesomeIcon icon={faPlus} />
+                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); setName(); }}>
+                  <FontAwesomeIcon icon={faPlus} />Skin
                 </button>
               </th>
             </tr>
           </thead>
           <tbody>
-            {caseSkinData.map((item, index) => {
+            {caseSkinData.map((item) => {
               // console.log(index);
               return (
                 <tr key={item.id}>
@@ -288,8 +296,8 @@ function CaseManagement() {
           <th>Price</th>
           <th>Image</th>
           <th>
-            <button onClick={handleShowAddCase}>
-              <FontAwesomeIcon icon={faPlus} />
+            <button onClick={() => handleShowAddCase()}>
+              <FontAwesomeIcon icon={faPlus} />Case
             </button>
           </th>
         </tr>
