@@ -143,7 +143,7 @@ const withdrawSkin = async (req, res) => {
 
 const sellSkin = async (req, res) => {
     try {
-        let data = await userService.sellUserSkin(req.body.userskinid)
+        let data = await userService.sellUserSkin(req.jwt.steamid, req.body.userskinid)
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
