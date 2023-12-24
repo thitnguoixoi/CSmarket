@@ -517,7 +517,7 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
                     },
                 })
             }
-            else (randomValue > percent) {
+            else if (randomValue > percent) {
                 await db.Users_Skins.destroy({
                     where: {
                         id: userskin.get({ plain: true }).id,
