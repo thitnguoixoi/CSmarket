@@ -276,7 +276,7 @@ const sellUserSkin = async (steamid, userskinid) => {
             await db.Users_Skins.destroy(
                 {
                     where: {
-                        id: userskin.SkinID
+                        id: userskinid
                     }
                 }
             )
