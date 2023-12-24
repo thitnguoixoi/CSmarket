@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faCheck } from '@fortawesome/free-solid-svg-icons';
 import axios from "../../assets/setup/axios"
 
 function Withdraw() {
@@ -30,13 +30,25 @@ function Withdraw() {
     //get data
     axios.get(`/api/v1/skins/withdraw`)
       .then(response => {
-        console.log(response);
+        setData(response.data.DT);
+        setFilteredData(response.data.DT);
       })
       .catch(error => {
         console.error('Error get data:', error);
       });
   }, []);
-
+  const Check = (skinID) => {
+    console.log(skinID);
+    //change status
+    axios.put(`/api/v1/skins/withdraw/update`)
+      .then(response => {
+        setData(response.data.DT);
+        setFilteredData(response.data.DT);
+      })
+      .catch(error => {
+        console.error('Error get data:', error);
+      });
+  }
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
@@ -70,12 +82,22 @@ function Withdraw() {
         </tr>
       </thead>
       <tbody>
-        {/* {currentItems.map((item) => (
-          <tr key={item.id}>
-            <td>{item.content}</td>
-            <td>{item.time}</td>
-          </tr>
-        ))} */}
+        {currentItems.map((item) => {
+          // console.log(item);
+          return (
+            <tr key={item.id}>
+              <td>{item.User.SteamID}</td>
+              <td>{item.User.TradeURL}</td>
+              <td>{item.Skin.Name}</td>
+              <td>{item.Skin.Float}</td>
+              <td>
+                <button onClick={() => Check(item.SkinID)}>
+                  <FontAwesomeIcon icon={faCheck} />
+                </button>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
