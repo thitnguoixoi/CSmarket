@@ -38,14 +38,14 @@ function CaseManagement() {
         console.error('Error checking user group:', error);
       });
 
-    //get case skins
-    axios.get(`/api/v1/cases/id`)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
+    // //get case skins
+    // axios.get(`/api/v1/cases/id`)
+    //   .then(response => {
+    //     console.log(response);
+    //   })
+    //   .catch(error => {
+    //     console.error('Error cases', error);
+    //   });
   }, []);
 
   const handleSearch = (e) => {
@@ -139,7 +139,9 @@ function CaseManagement() {
               <td>
                 <img src={item.Cases[0].Image} alt="" />
               </td>
-              <td></td>
+              <td>
+                <button>Edit skin</button>
+              </td>
             </tr>
           );
         })}
