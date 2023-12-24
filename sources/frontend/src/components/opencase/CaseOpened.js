@@ -6,7 +6,9 @@ import Popup from "./popup";
 function CaseOpened(id) {
     const [caseData, setCaseData] = useState([]);
     const [skinData, setSkinData] = useState([]);
+    const [gachaData, setGachaData] = useState([]);
     const [buttonPopup, setButtonPopup] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
     const handlePopup = () => {
         setButtonPopup(false);
     }
@@ -15,7 +17,13 @@ function CaseOpened(id) {
         console.log(id.id);
         axios.get(`/api/v1/users/cases/open`, { params: { caseid: id.id } })
             .then(response => {
-                console.log(response);
+                console.log(typeof response.data.EM);
+                if (response.data.EM === 'Case opened') setShowPopup(true);
+                setGachaData(response.data.DT.Skin);
+            })
+            .catch(error => {
+                setShowPopup(false);
+                alert('please login');
             })
     }
     useEffect(() => {
@@ -35,14 +43,17 @@ function CaseOpened(id) {
                 <h3>{caseData.Name}</h3>
                 <img src={caseData.Image} alt="Case" />
                 <button className="opencase-btn" onClick={() => randomSkin()}>Open {caseData.Price}$ </button>
-                <Popup trigger={buttonPopup} setTrigger={handlePopup}>
-                    <h3>Congratulation</h3>
-                    <h4>You got</h4>
-                    {/* <div className={`tierskin tier${caseData.skins[0].tier}`}>
-                        <img src={caseData.skins[0].imgUrl} alt="skin" />
-                        <h4>{caseData.skins[0].name}</h4>
-                    </div> */}
-                </Popup>
+                {showPopup && (
+                    <Popup trigger={buttonPopup} setTrigger={handlePopup}>
+                        <h3>Congratulation</h3>
+                        <h4>You got</h4>
+                        <div className={`tierskin tier${gachaData.Tier}`}>
+                            <img src={gachaData.Image} alt="skin" />
+                            <h4>{gachaData.Name}</h4>
+                        </div>
+                    </Popup>
+                )}
+
             </div>
 
             <div className="image-container">
