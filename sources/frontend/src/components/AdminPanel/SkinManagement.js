@@ -73,7 +73,7 @@ function SkinManagement() {
     // Gọi API hoặc xử lý khác theo yêu cầu của bạn
     axios.post(`/api/v1/skins/create`, addData)
       .then(response => {
-        console.log(addData);
+        console.log('Add success');
       })
       .catch(error => {
         console.error('Error Add', error);
