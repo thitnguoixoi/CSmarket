@@ -40,10 +40,9 @@ function Withdraw() {
   const Check = (skinID) => {
     console.log(skinID);
     //change status
-    axios.put(`/api/v1/skins/withdraw/update`)
+    axios.put(`/api/v1/skins/withdraw/update`, { skinid: skinID, isAccept: 1 })
       .then(response => {
-        setData(response.data.DT);
-        setFilteredData(response.data.DT);
+        console.log(response);
       })
       .catch(error => {
         console.error('Error get data:', error);
