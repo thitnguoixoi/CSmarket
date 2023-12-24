@@ -55,7 +55,7 @@ function UserProfile() {
     }
     const withDraw = (id) => {
         const dataWithDraw = {
-            skinid: id
+            userskinid: id
         }
         axios.put(`/api/v1/users/skins/withdraw`, dataWithDraw)
             .then(response => {
@@ -84,12 +84,13 @@ function UserProfile() {
                     text: "Your file has been deleted.",
                     icon: "success"
                 });
+                refreshInventory();
             }
         });
     }
     const sell = (id) => {
         const dataSell = {
-            skinid: id
+            userskinid: id
         }
         axios.put(`/api/v1/users/skins/sell`, dataSell)
             .then(response => {
@@ -168,8 +169,8 @@ function UserProfile() {
                             <li className="list_items">
                                 <Item itemData={item} />
                                 <div className="user-inventory-button">
-                                    <button onClick={() => PopupSell(item.SkinID)} id="sell">Sell</button>
-                                    <button onClick={() => PopupWithDraw(item.SkinID)} id="withdraw">Withdraw</button>
+                                    <button onClick={() => PopupSell(item.id)} id="sell">Sell</button>
+                                    <button onClick={() => PopupWithDraw(item.id)} id="withdraw">Withdraw</button>
                                 </div>
                             </li>
                         ))}
