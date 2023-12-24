@@ -264,7 +264,7 @@ const sellUserSkin = async (steamid, skinid) => {
         )
 
 
-        await db.Users_Skins.detroy(
+        await db.Users_Skins.destroy(
             {
                 where: {
                     UserID: user.get({ plain: true }).id,
@@ -389,6 +389,10 @@ const deleteUser = async (userid, steamid) => {
     }
 }
 
+const openaCase = async () => {
+
+}
+
 module.exports = {
     getUser,
     createUser,
@@ -400,5 +404,7 @@ module.exports = {
     updateUserGroup,
     getUserSkins,
     withdrawUserSkin,
-    sellUserSkin
+    sellUserSkin,
+    openaCase,
+    updateUserSkin,
 }
