@@ -459,7 +459,7 @@ const openaCase = async (steamid, caseid) => {
                 return {
                     EM: "Case opened",
                     EC: "0",
-                    DT: ""
+                    DT: skinopened
                 }
             } else {
                 return {
@@ -516,6 +516,11 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
                         id: userskin.get({ plain: true }).id,
                     },
                 })
+                return {
+                    EM: "Skin upgraded success",
+                    EC: "0",
+                    DT: ""
+                }
             }
             else if (randomValue > percent) {
                 await db.Users_Skins.destroy({
@@ -523,11 +528,11 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
                         id: userskin.get({ plain: true }).id,
                     },
                 })
-            }
-            return {
-                EM: "Skin upgraded",
-                EC: "0",
-                DT: ""
+                return {
+                    EM: "Skin upgraded fail",
+                    EC: "0",
+                    DT: ""
+                }
             }
         }
         else {
