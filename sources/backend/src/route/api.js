@@ -46,7 +46,7 @@ let initApiRoutes = (app) => {
     router.get("/skins/withdraw", skinsController.readWithdrawSkins);
     router.put("/skins/withdraw/update", skinsController.updateWithdrawSkin); //withdrawid, isAccept
 
-    //user, trader, admin 
+    //user, trader, admin - 3
     router.get("/skins", skinsController.readSkins);
 
     //admin - 3

@@ -402,7 +402,6 @@ const deleteUser = async (userid, steamid) => {
 
 const openaCase = async (steamid, caseid) => {
     try {
-
         let acase = await db.Cases.findOne({
             where: { id: caseid }
         })
