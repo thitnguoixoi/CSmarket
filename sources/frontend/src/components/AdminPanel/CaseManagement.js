@@ -21,6 +21,9 @@ function CaseManagement() {
   const [caseid, setCaseId] = useState('');
   const [skinid, setSkinId] = useState('');
   const [percent, setPercent] = useState('');
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState('');
 
   const handleAddCaseSkin = (CaseID, SkinID, Percent) => {
     const dataToAdd = {
@@ -95,10 +98,27 @@ function CaseManagement() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handleAddCase = () => {
-    handleClickAddButton();
+  const handleShowAddCase = () => {
     setShowAddForm(!showAddForm);
   };
+  const handleAddCase = (name, price, image) => {
+    setShowAddForm(false);
+    const caseAdd = {
+      name: name,
+      price: price,
+      image: image
+    }
+
+    axios.post(`/api/v1/cases/create`, caseAdd)
+      .then(response => {
+        console.log('add case', response);
+
+      })
+      .catch(error => {
+        console.error('Error update case price:', error);
+      });
+
+  }
   const handleEditPrice = (itemId, price) => {
     setShowEditPrice(!showEditPrice);
     setSelectedItemId(itemId);
@@ -132,10 +152,15 @@ function CaseManagement() {
     setEditCaseSkinForm(!editCaseSkinForm);
     console.log(caseSkinData);
   }
-  const [isPlus, setIsPlus] = useState(true);
-  const handleClickAddButton = () => {
-    setIsPlus((prevIsPlus) => !prevIsPlus);
-  };
+  const handleDeleteCase = (caseID) => {
+    axios.delete(`/api/v1/cases/delete`, { data: { caseid: caseID } })
+      .then(response => {
+        console.log('delete case',response)
+      })
+      .catch(error => {
+        console.error('Error cases', error);
+      });
+  }
   const renderAddCaseSkinForm = () => (
     <>
       <h3>Add Case Skin</h3>
@@ -216,6 +241,43 @@ function CaseManagement() {
       </>
     );
   };
+  const renderAddCaseForm = () => (
+    <>
+      <h3>Add Case</h3>
+      <div>
+        <label>Name:</label>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
+      <div>
+        <label>Price:</label>
+        <input
+          type="text"
+          placeholder="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+      </div>
+      <div>
+        <label>Image:</label>
+        <input
+          type="text"
+          placeholder="Image URL"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+        />
+      </div>
+      <div>
+        <button onClick={() => handleAddCase(name, price, image)}>
+          Submit
+        </button>
+      </div>
+    </>
+  );
 
   const renderTable = () => (
     <table>
@@ -226,19 +288,19 @@ function CaseManagement() {
           <th>Price</th>
           <th>Image</th>
           <th>
-            <button onClick={handleAddCase}>
-              <FontAwesomeIcon icon={isPlus ? faPlus : faTimes} />
+            <button onClick={handleShowAddCase}>
+              <FontAwesomeIcon icon={faPlus} />
             </button>
           </th>
         </tr>
       </thead>
       <tbody>
         {currentItems.map((item) => {
-          // console.log(item);
+          // console.log(item.CaseID);
           return (
             <tr key={item.id}>
               <td>{item.CaseID}</td>
-              <td>{item.Name}</td>
+              <td>{item.Cases[0].Name}</td>
               <td>
                 {selectedItemId === item.id ? (
                   <div>
@@ -261,6 +323,10 @@ function CaseManagement() {
               </td>
               <td>
                 <button onClick={() => handleEditCaseSkin(item.id)}>Edit skin</button>
+                <button onClick={() => handleDeleteCase(item.CaseID)}>
+                  <FontAwesomeIcon icon={faTrash} />
+                  Delete
+                </button>
               </td>
             </tr>
           );
@@ -300,6 +366,7 @@ function CaseManagement() {
         <>
           {showAddCaseSkinForm && renderAddCaseSkinForm()}
           {editCaseSkinForm && renderEditCaseSkinTable()}
+          {showAddForm && renderAddCaseForm()}
           <div className="back-button">
             <FontAwesomeIcon icon={faBackward} />
             <Link to="/admin">  Back to menu</Link>

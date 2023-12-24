@@ -41,10 +41,7 @@ function SkinManagement() {
     axios.put(`/api/v1/skins/update`, dataUpdate)
       .then(response => {
         console.log(response);
-        setData(response.data.DT);
-        setFilteredData(response.data.DT);
       })
-
     refresh();
   };
   useEffect(() => {
@@ -131,6 +128,7 @@ function SkinManagement() {
           <th>ID</th>
           <th>Name</th>
           <th>Float</th>
+          <th>Price</th>
           <th>Tier</th>
           <th>Image</th>
           <th>Count</th>
@@ -147,6 +145,7 @@ function SkinManagement() {
             <td>{item.id}</td>
             <td>{item.Name}</td>
             <td>{item.Float}</td>
+            <td>{item.Price}$</td>
             <td>{item.Tier}</td>
             <td>{item.Image}</td>
             <td>{item.Count}

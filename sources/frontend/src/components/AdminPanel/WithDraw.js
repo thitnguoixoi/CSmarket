@@ -14,47 +14,8 @@ function Withdraw() {
   const [isMod, setIsMod] = useState(false);
 
   useEffect(() => {
-    // Fetch your data or set it statically
-    // Example data:
-    const recentActivities = [
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      { content: "User John Doe registered.", time: "10 minutes ago" },
-      { content: "Case #123 created.", time: "20 minutes ago" },
-      // Add other activities as needed
-    ];
-
-    setData(recentActivities);
-    setFilteredData(recentActivities);
-
-    const storedUser = sessionStorage.getItem('steamprofile');
-    // Parse data from sessionStorage
-    const tmp = JSON.parse(storedUser);
-
-    // Send Axios request to check user's group ID
-    axios.get(`/api/v1/users/steamid`, { params: { steamid: tmp.steamid } })
+    //check role
+    axios.get(`/api/v1/users/steamid`)
       .then(response => {
         if (response.data.DT.GroupID === 3) {
           setIsAdmin(true);
@@ -64,6 +25,15 @@ function Withdraw() {
       })
       .catch(error => {
         console.error('Error checking user group:', error);
+      });
+
+    //get data
+    axios.get(`/api/v1/skins/withdraw`)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error('Error get data:', error);
       });
   }, []);
 
@@ -92,17 +62,20 @@ function Withdraw() {
     <table>
       <thead>
         <tr>
-          <th>Content</th>
-          <th>Time</th>
+          <th>SteamID</th>
+          <th>TradeURL</th>
+          <th>Skin</th>
+          <th>Float</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {currentItems.map((item) => (
+        {/* {currentItems.map((item) => (
           <tr key={item.id}>
             <td>{item.content}</td>
             <td>{item.time}</td>
           </tr>
-        ))}
+        ))} */}
       </tbody>
     </table>
   );
@@ -135,7 +108,7 @@ function Withdraw() {
 
   return (
     <div className="skin-management">
-      
+
       {(isAdmin || isMod) ? (
         <>
           <div className="back-button">
