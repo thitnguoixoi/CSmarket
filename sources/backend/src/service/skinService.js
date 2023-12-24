@@ -143,7 +143,8 @@ const updateaWithdrawSkin = async (steamid, skinid, isAccept) => {
         if (withdraw && isAccept == 1) {
             await db.Users_Skins.destroy({
                 where: {
-                    id: withdrawid
+                    UserID: user.get({ plain: true }).id,
+                    SkinID: skinid
                 },
             });
             count = parentINT(withdraw.get({ plain: true }).Skin.Count) + 1;
