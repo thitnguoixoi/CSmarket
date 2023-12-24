@@ -65,8 +65,8 @@ let initApiRoutes = (app) => {
     //admin - 5
     router.post("/cases/create", casesController.createCase); //name, price, image, groupname
     router.put("/cases/update", casesController.updateCase); //caseid, price
-    router.post("/cases/skins/create", casesController.createCaseSkins); //caseid, skinid, percent
-    router.delete("/cases/skins/delete", casesController.deleteCaseSkins); //caseid, skinid
+    router.post("/cases/skins/create", casesController.createCaseSkins); //caseskinid, percent
+    router.delete("/cases/skins/delete", casesController.deleteCaseSkins); //caseskinid
     router.delete("/cases/delete", casesController.deleteCase); //caseid
 
     return app.use("/api/v1", router);

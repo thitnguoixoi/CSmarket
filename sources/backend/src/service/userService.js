@@ -110,6 +110,7 @@ const getUserSkins = async (steamid) => {
                     [Op.notIn]: ["Withdraw"]
                 }
             },
+            attributes: ["id", "SkinID", "UserID"],
             include: { model: db.Skins }
         });
         if (skins) {
@@ -186,16 +187,20 @@ const updateUserTradeURL = async (steamid, TradeURL) => {
 }
 
 
-const withdrawUserSkin = async (steamid, skinid) => {
+const withdrawUserSkin = async (userskinid) => {
     try {
-
+        let userskin = await db.Users_Skins.findOne({
+            where: {
+                id: userskinid
+            },
+        });
         let skins = await db.Skins.findOne({
             where: {
-                id: skinid
+                id: userskin.get({ plain: true }).SkinID
             },
         });
 
-        if (skins.get({ plain: true }).Count != 0) {
+        if (skins.get({ plain: true }).Count != 0 && userskin) {
 
             let user = await db.Users.findOne({
                 where: {
@@ -237,7 +242,7 @@ const withdrawUserSkin = async (steamid, skinid) => {
     }
 }
 
-const sellUserSkin = async (steamid, skinid) => {
+const sellUserSkin = async (steamid, userskinid) => {
     try {
         let user = await db.Users.findOne({
             where: {
@@ -246,8 +251,7 @@ const sellUserSkin = async (steamid, skinid) => {
         });
         let userskin = await db.Users_Skins.findOne({
             where: {
-                UserID: user.get({ plain: true }).id,
-                SkinID: skinid
+                id: userskinid
             },
         });
         if (userskin) {
@@ -255,7 +259,7 @@ const sellUserSkin = async (steamid, skinid) => {
 
             let skin = await db.Skins.findOne({
                 where: {
-                    id: skinid
+                    id: userskin.SkinID
                 },
             });
 
@@ -272,8 +276,7 @@ const sellUserSkin = async (steamid, skinid) => {
             await db.Users_Skins.destroy(
                 {
                     where: {
-                        UserID: user.get({ plain: true }).id,
-                        SkinID: skinid
+                        id: userskin.SkinID
                     }
                 }
             )
