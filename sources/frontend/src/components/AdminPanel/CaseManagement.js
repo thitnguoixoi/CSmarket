@@ -25,7 +25,6 @@ function CaseManagement() {
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
 
-
   const Refresh = () => {
     //get case data
     axios.get(`/api/v1/cases`)
@@ -92,10 +91,8 @@ function CaseManagement() {
       .catch(error => {
         console.error('Error checking user group:', error);
       });
-
     Refresh();
   }, []);
-
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
@@ -191,7 +188,6 @@ function CaseManagement() {
           setSkinId(numericValue);
         }}
       />
-      {/* <h4>Skin Name: {name}</h4> */}
       <br />
       <input
         placeholder="Percent"
@@ -220,7 +216,7 @@ function CaseManagement() {
               <th>Skin Name</th>
               <th>Percent</th>
               <th>
-                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); setName(); }}>
+                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); }}>
                   <FontAwesomeIcon icon={faPlus} />Skin
                 </button>
               </th>

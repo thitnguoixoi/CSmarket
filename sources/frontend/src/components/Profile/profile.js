@@ -43,14 +43,16 @@ function UserProfile() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, withdraw it!"
         }).then((result) => {
-            withDraw(id); refreshInventory();
+            
             if (result.isConfirmed) {
+                withDraw(id); refreshInventory();
                 Swal.fire({
                     title: "Withdraw!",
                     text: "Your file has been withdraw.",
                     icon: "success"
                 });
             }
+            refreshInventory();
         });
     }
     const withDraw = (id) => {
@@ -77,15 +79,16 @@ function UserProfile() {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             console.log(result);
-            sell(id); refreshInventory();
             if (result.isConfirmed) {
+                sell(id);
                 Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
+                    title: "Sold!",
+                    text: "Your skin has been sold.",
                     icon: "success"
                 });
                 refreshInventory();
             }
+            refreshInventory();
         });
     }
     const sell = (id) => {
