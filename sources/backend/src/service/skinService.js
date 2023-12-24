@@ -28,7 +28,11 @@ const createaSkin = async (name, float, price, tier, image, count) => {
 const getSkins = async () => {
     try {
 
-        let skins = await db.Skins.findAll();
+        let skins = await db.Skins.findAll({
+            order: [
+                ['Price', 'ASC'],
+            ],
+        });
         if (skins) {
             return {
                 EM: "Get skins success",

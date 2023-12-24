@@ -73,10 +73,38 @@ const updateTradeURL = async (req, res) => {
 }
 
 const openCase = async (req, res) => {
-
+    try {
+        let data = await userService.openCase(req.body.steamid, req.body.url)
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
 }
 const upgradeSkin = async (req, res) => {
-
+    try {
+        let data = await userService.updateUserTradeURL(req.body.steamid, req.body.url)
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
 }
 const updateWallet = async (req, res) => {
     try {
