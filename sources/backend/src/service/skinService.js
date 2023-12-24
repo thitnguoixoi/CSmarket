@@ -1,6 +1,30 @@
 import { where } from "sequelize";
 import db from "../models/index"
 const { Op } = require('sequelize');
+const createaSkin = async (name, float, price, tier, image, count) => {
+    try {
+        await db.Skins.create({
+            Name: name,
+            Float: float,
+            Price: price,
+            Tier: tier,
+            Image: image,
+            Count: count,
+        });
+        return {
+            EM: "Skin created",
+            EC: "0",
+            DT: []
+        }
+    } catch (e) {
+        console.log("Create skin error: ", e)
+        return {
+            EM: "Create skin error",
+            EC: "-1",
+            DT: []
+        }
+    }
+}
 const getSkins = async () => {
     try {
 
@@ -28,25 +52,34 @@ const getSkins = async () => {
     }
 }
 
-const createaSkin = async (name, float, price, tier, image, count) => {
+const getWithdrawSkins = async () => {
     try {
-        await db.Skins.create({
-            Name: name,
-            Float: float,
-            Price: price,
-            Tier: tier,
-            Image: image,
-            Count: count,
+        let withdraws = await db.Users_Skins.findAll({
+            where: {
+                Status: "Withdraw"
+            },
+            include: [
+                { model: Users, attributes: ['SteamID', 'TradeURL'] },
+                { model: Skins, attributes: ['Name', 'Float'] }
+            ]
         });
-        return {
-            EM: "Skin created",
-            EC: "0",
-            DT: []
+        if (withdraws) {
+            return {
+                EM: "Get withdraw skins success",
+                EC: "0",
+                DT: withdraws
+            }
+        } else {
+            return {
+                EM: "Get withdraw skins success",
+                EC: "0",
+                DT: []
+            }
         }
     } catch (e) {
-        console.log("Create skin error: ", e)
+        console.log("Get withdraw skins error: ", e)
         return {
-            EM: "Create skin error",
+            EM: "Get withdraw skins error",
             EC: "-1",
             DT: []
         }
@@ -88,6 +121,53 @@ const updateaSkin = async (skinid, addcount) => {
     }
 }
 
+const updateaWithdrawSkin = async (withdrawid, isAccept) => {
+    try {
+        let withdraw = await db.Users_Skins.findAll({
+            where: {
+                id: withdrawid
+            },
+            include: [
+                { model: Skins, attributes: ['id', 'Count'] }
+            ]
+        });
+
+        if (withdraw && isAccept == 1) {
+            await db.Users_Skins.destroy({
+                where: {
+                    id: withdrawid
+                },
+            });
+            count = parentINT(withdraw.get({ plain: true }).Skin.Count) + 1;
+            await db.Skins.update({
+                Count: count,
+                where: {
+                    id: withdraw.Skin.id
+                },
+            });
+        } else if (withdraw && isAccept == 0) {
+            return {
+                EM: "Update withdraw skin success",
+                EC: "0",
+                DT: []
+            }
+        } else if (!withdraw) {
+            return {
+                EM: "Update withdraw skin error",
+                EC: "0",
+                DT: []
+            }
+        }
+    } catch (e) {
+        console.log("Update withdraw skin error: ", e)
+        return {
+            EM: "Update withdraw skin error",
+            EC: "-1",
+            DT: []
+        }
+    }
+}
+
 const deleteaSkin = async (skinid) => {
     try {
         let skin = await db.Skins.findOne({
@@ -96,6 +176,11 @@ const deleteaSkin = async (skinid) => {
             }
         });
         if (skin) {
+            await db.Cases_Skins.destroy({
+                where: {
+                    SkinID: skinid
+                }
+            })
             await db.Skins.destroy({
                 where: {
                     id: skinid
@@ -128,5 +213,7 @@ module.exports = {
     getSkins,
     createaSkin,
     updateaSkin,
-    deleteaSkin
+    deleteaSkin,
+    updateaWithdrawSkin,
+    getWithdrawSkins
 }

@@ -97,16 +97,11 @@ const createaCase = async (name, price, image, groupname) => {
     }
 }
 
-const updateaCase = async (caseid, name, price, image, groupname) => {
+const updateaCase = async (caseid, price) => {
     try {
         await db.Cases.update({
-            Name: name,
             Price: price,
-            Image: image,
-        });
-        await db.Group_Cases.update({
-            Name: groupname,
-            where: { CaseID: caseid, }
+            where: { id: caseid, }
         });
         return {
             EM: "Update case success",
@@ -136,7 +131,8 @@ const updateaCaseSkins = async (caseid, skinid, percent) => {
         if (!cases_skins && Number.isInteger(skinid) && isFloat) {
             await db.Cases_Skins.create({
                 CaseID: caseid,
-                SkinID: skinid
+                SkinID: skinid,
+                Percent: percent
             });
             return {
                 EM: "Update case's skin success",
@@ -168,6 +164,12 @@ const deleteaCase = async (caseid) => {
             }
         });
         if (acase) {
+            await db.Group_Cases.destroy({
+                where: { CaseID: caseid, }
+            });
+            await db.Cases_Skins.destroy({
+                where: { CaseID: caseid, }
+            });
             await db.Cases.destroy({
                 where: {
                     id: caseid

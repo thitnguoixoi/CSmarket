@@ -1,4 +1,21 @@
 import skinService from "../service/skinService"
+const createSkin = async (req, res) => {
+    try {
+        let data = await skinService.createaSkin(req.body.name, req.body.float, req.body.price, req.body.tier, req.body.image, req.body.count);
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
 const readSkins = async (req, res) => {
     try {
         let data = await skinService.getSkins();
@@ -17,9 +34,9 @@ const readSkins = async (req, res) => {
     }
 }
 
-const createSkin = async (req, res) => {
+const readWithdrawSkins = async (req, res) => {
     try {
-        let data = await skinService.createaSkin(req.body.name, req.body.float, req.body.price, req.body.tier, req.body.image, req.body.count);
+        let data = await skinService.getWithdrawSkins();
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -34,6 +51,8 @@ const createSkin = async (req, res) => {
         })
     }
 }
+
+
 
 const updateSkin = async (req, res) => {
     try {
@@ -52,6 +71,25 @@ const updateSkin = async (req, res) => {
         })
     }
 }
+
+const updateWithdrawSkin = async (req, res) => {
+    try {
+        let data = await skinService.updateaWithdrawSkin(req.body.withdrawid, req.body.isAccept);
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+
 
 const deleteSkin = async (req, res) => {
     try {
@@ -75,5 +113,7 @@ module.exports = {
     readSkins,
     createSkin,
     updateSkin,
-    deleteSkin
+    deleteSkin,
+    readWithdrawSkins,
+    updateWithdrawSkin
 }
