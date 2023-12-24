@@ -30,6 +30,7 @@ function UserProfile() {
             .catch(error => {
                 console.error('Error get user profile:', error);
             });
+        refreshInventory();
     }, []);
 
     const PopupWithDraw = (id) => {
