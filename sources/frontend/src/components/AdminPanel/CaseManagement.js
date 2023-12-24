@@ -191,6 +191,7 @@ function CaseManagement() {
           setSkinId(numericValue);
         }}
       />
+      {/* <h4>Skin Name: {name}</h4> */}
       <br />
       <input
         placeholder="Percent"
@@ -208,7 +209,6 @@ function CaseManagement() {
     </>
   );
   const renderEditCaseSkinTable = () => {
-    console.log(caseSkinData);
     return (
       <>
         <h2>Case Skins</h2>
