@@ -43,10 +43,6 @@ function AdminPanel() {
                             <img src={require("../../assets/logo/skins.png")} alt="skins" />
                             <Link to="/admin/skins">Skins</Link>
                         </li>
-                        <li>
-                            <img src={require("../../assets/logo/skins.png")} alt="skins" />
-                            <Link to="/admin/cases/skins">Case Skins</Link>
-                        </li>
                     </ul>
                 </nav>
             ) : isTrader ? (
