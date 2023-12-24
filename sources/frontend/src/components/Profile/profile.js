@@ -10,6 +10,16 @@ function UserProfile() {
     const [tradeURL, setTradeURL] = useState(sessionStorage.getItem('steamprofileURL') || '');
     const [userItems, setUserItems] = useState([]);
 
+
+    const refreshInventory = () => {
+        axios.get(`/api/v1/users/skins`)
+            .then(response => {
+                setUserItems(response.data.DT);
+            })
+            .catch(error => {
+                console.error('Error get skin:', error);
+            });
+    }
     useEffect(() => {
         // Send Axios request to delete item with the specified ID
         axios.get(`/api/v1/users/steamid`)
@@ -19,15 +29,6 @@ function UserProfile() {
             })
             .catch(error => {
                 console.error('Error get user profile:', error);
-            });
-
-        axios.get(`/api/v1/users/skins`)
-            .then(response => {
-                console.log(response);
-                setUserItems(response.data.DT);
-            })
-            .catch(error => {
-                console.error('Error get skin:', error);
             });
     }, []);
 
@@ -41,7 +42,7 @@ function UserProfile() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, withdraw it!"
         }).then((result) => {
-            withDraw(id);
+            withDraw(id); refreshInventory();
             if (result.isConfirmed) {
                 Swal.fire({
                     title: "Withdraw!",
@@ -62,6 +63,7 @@ function UserProfile() {
             .catch(error => {
                 console.error('Error withdraw skin:', error);
             });
+        refreshInventory();
     }
     const PopupSell = (id) => {
         Swal.fire({
@@ -74,7 +76,7 @@ function UserProfile() {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             console.log(result);
-            sell(id);
+            sell(id); refreshInventory();
             if (result.isConfirmed) {
                 Swal.fire({
                     title: "Deleted!",
