@@ -101,8 +101,10 @@ const updateaCase = async (caseid, price) => {
     try {
         await db.Cases.update({
             Price: price,
+        }, {
             where: { id: caseid, }
-        });
+        }
+        );
         return {
             EM: "Update case success",
             EC: "0",
@@ -118,7 +120,7 @@ const updateaCase = async (caseid, price) => {
     }
 }
 
-const updateaCaseSkins = async (caseid, skinid, percent) => {
+const createaCaseSkins = async (caseid, skinid, percent) => {
     try {
         let cases_skins = await db.Cases_Skins.findOne({
             where: {
@@ -183,15 +185,49 @@ const deleteaCase = async (caseid) => {
         }
         else {
             return {
-                EM: "Can not delete this user",
+                EM: "Can not delete this case",
                 EC: "-1",
                 DT: ''
             }
         }
     } catch (e) {
-        console.log('Error delete user:', e)
+        console.log('Error delete case:', e)
         return {
-            EM: "Error delete user",
+            EM: "Error delete case",
+            EC: "-1",
+            DT: ''
+        }
+    }
+}
+
+const deleteaCaseSkins = async (caseskinid) => {
+    try {
+        let case_skin = await db.Cases_Skins.findOne({
+            where: {
+                id: caseskinid,
+            }
+        });
+        if (case_skin) {
+            await db.Cases_Skins.destroy({
+                where: { id: caseskinid }
+            });
+            return {
+                EM: caseskinid + " deleted",
+                EC: "0",
+                DT: ''
+            }
+        }
+        else {
+            return {
+                EM: "Can not delete this skin",
+                EC: "-1",
+                DT: ''
+            }
+        }
+    } catch (e) {
+        console.log('Error delete skin:', e)
+        return {
+            EM: "Error delete skin",
             EC: "-1",
             DT: ''
         }
@@ -203,6 +239,7 @@ module.exports = {
     createaCase,
     updateaCase,
     deleteaCase,
-    updateaCaseSkins,
-    getCasesSkins
+    createaCaseSkins,
+    getCasesSkins,
+    deleteaCaseSkins
 }

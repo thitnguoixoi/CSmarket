@@ -1,41 +1,4 @@
 import caseService from "../service/caseService"
-const readCases = async (req, res) => {
-    try {
-        let data = await caseService.getCases();
-        return res.status(200).json({
-            EM: data.EM,
-            EC: data.EC,
-            DT: data.DT
-        })
-    } catch (e) {
-        console.log(e)
-        return res.status(500).json({
-            EM: "Error from server",
-            EC: "-1",
-            DT: ""
-        })
-    }
-}
-
-
-
-const readCasesSkins = async (req, res) => {
-    try {
-        let data = await caseService.getCasesSkins(req.query.caseid);
-        return res.status(200).json({
-            EM: data.EM,
-            EC: data.EC,
-            DT: data.DT
-        })
-    } catch (e) {
-        console.log(e)
-        return res.status(500).json({
-            EM: "Error from server",
-            EC: "-1",
-            DT: ""
-        })
-    }
-}
 
 const createCase = async (req, res) => {
     try {
@@ -55,10 +18,9 @@ const createCase = async (req, res) => {
     }
 }
 
-
-const updateCase = async (req, res) => {
+const createCaseSkins = async (req, res) => {
     try {
-        let data = await caseService.updateaCase(req.body.caseid, req.body.price);
+        let data = await caseService.createaCaseSkins(req.body.caseid, req.body.skinid, req.body.percent);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -74,9 +36,45 @@ const updateCase = async (req, res) => {
     }
 }
 
-const updateCaseSkins = async (req, res) => {
+const readCases = async (req, res) => {
     try {
-        let data = await caseService.updateaCaseSkins(req.body.caseid, req.body.skinid, req.body.percent);
+        let data = await caseService.getCases();
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+
+const readCasesSkins = async (req, res) => {
+    try {
+        let data = await caseService.getCasesSkins(req.query.caseid);
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+
+const updateCase = async (req, res) => {
+    try {
+        let data = await caseService.updateaCase(req.query.caseid, req.query.price);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -94,7 +92,7 @@ const updateCaseSkins = async (req, res) => {
 
 const deleteCase = async (req, res) => {
     try {
-        let data = await caseService.deleteaCase(req.body.caseid);
+        let data = await caseService.deleteaCase(req.query.caseid);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -109,12 +107,31 @@ const deleteCase = async (req, res) => {
         })
     }
 }
+
+const deleteCaseSkins = async (req, res) => {
+    try {
+        let data = await caseService.deleteaCaseSkins(req.query.caseskinid);
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+
 module.exports = {
     readCases,
     createCase,
     updateCase,
     deleteCase,
     readCasesSkins,
-    updateCaseSkins,
-
+    createCaseSkins,
+    deleteCaseSkins
 }
