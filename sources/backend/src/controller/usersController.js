@@ -74,7 +74,7 @@ const updateTradeURL = async (req, res) => {
 
 const openCase = async (req, res) => {
     try {
-        let data = await userService.openaCase(req.query.caseid)
+        let data = await userService.openaCase(req.jwt.steamid, req.query.caseid)
         console.log(data)
         return res.status(200).json({
             EM: data.EM,

@@ -156,7 +156,7 @@ const updateaWithdrawSkin = async (withdrawid, isAccept) => {
         } else if (!withdraw) {
             return {
                 EM: "Update withdraw skin error",
-                EC: "0",
+                EC: "-1",
                 DT: []
             }
         }

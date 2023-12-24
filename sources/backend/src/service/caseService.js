@@ -149,7 +149,7 @@ const createaCaseSkins = async (caseid, skinid, percent) => {
         } else {
             return {
                 EM: "Update case's skin error",
-                EC: "0",
+                EC: "-1",
                 DT: []
             }
         }

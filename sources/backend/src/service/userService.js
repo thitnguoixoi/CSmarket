@@ -400,7 +400,7 @@ const deleteUser = async (userid, steamid) => {
     }
 }
 
-const openaCase = async (caseid) => {
+const openaCase = async (steamid, caseid) => {
     try {
 
         let acase = await db.Cases.findOne({
@@ -421,15 +421,41 @@ const openaCase = async (caseid) => {
             });
             if (skins) {
                 const numberOfSkins = skins.length;
-                const randomValue = 0.1
+                let index = 0;
+                const randomValue = Math.random();
+                let skinopened = []
                 skins.every((skin) => {
-                    console.log(index)
-                    if (index + 1 == numberOfSkins) {
-
+                    index += 1
+                    if (index == numberOfSkins) {
+                        skinopened = skin.get({ plain: true })
+                        return false;
                     }
                     else if (randomValue <= skin.get({ plain: true }).Percent) {
+                        skinopened = skin.get({ plain: true })
+                        return false;
                     }
+                    return true;
                 });
+
+                user = await db.User.findOne(
+                    { SteamID: steamid },
+                )
+
+                await db.Users_Skins.create(
+                    {
+                        UserID: user.get({ plain: true }).id,
+                        SkinID: skinopened.SkinID,
+                        Status: "Inventory"
+                    },
+                )
+                let originWallet = user.get({ plain: true }).Wallet
+                let caseprice = acase.get({ plain: true }).Price
+                let wallet = parseFloat(originWallet) - parseFloat(caseprice)
+
+                await db.Users.update(
+                    { Wallet: wallet.toFixed(2) },
+                    { where: { id: userid } })
+
                 return {
                     EM: "Case opened",
                     EC: "0",
