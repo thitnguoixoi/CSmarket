@@ -421,8 +421,8 @@ const openaCase = async (steamid, caseid) => {
             });
             if (skins) {
                 const numberOfSkins = skins.length;
-                let index = 0;
                 const randomValue = Math.random();
+                let index = 0;
                 let skinopened = []
                 skins.every((skin) => {
                     index += 1
@@ -504,29 +504,43 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
                 id: serverskinid
             }
         })
-        if (userskin && serverskin && userskin.get({ plain: true }).Skin.Price < serverskin.get({ plain: true }).Price) {
-            await db.Users.destroy({
-                where: {
-                    id: userid
-                }
-            })
+        let userskinprice = parseFloat(userskin.get({ plain: true }).Skin.Price)
+        let serverskinprice = parseFloat(serverskin.get({ plain: true }).Price)
+        if (userskin && serverskin && userskinprice < serverskinprice) {
+            let percent = userskinprice / serverskinprice
+            const randomValue = Math.random();
+            if (randomValue <= percent) {
+                await db.Users_Skins.update({
+                    SkinID: serverskinid,
+                    where: {
+                        id: userskin.get({ plain: true }).id,
+                    },
+                })
+            }
+            else (randomValue > percent) {
+                await db.Users_Skins.destroy({
+                    where: {
+                        id: userskin.get({ plain: true }).id,
+                    },
+                })
+            }
             return {
-                EM: userid + " deleted",
+                EM: "Skin upgraded",
                 EC: "0",
-                DT: ''
+                DT: ""
             }
         }
         else {
             return {
-                EM: "Can not delete this user",
+                EM: "Can not upgrade this skin",
                 EC: "-1",
                 DT: ''
             }
         }
     } catch (e) {
-        console.log('Error delete user:', e)
+        console.log('Can not upgrade this skin:', e)
         return {
-            EM: "Error delete user",
+            EM: "Can not upgrade this skin",
             EC: "-1",
             DT: ''
         }
