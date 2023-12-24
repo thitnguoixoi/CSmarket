@@ -30,8 +30,8 @@ let initApiRoutes = (app) => {
     router.get("/users/skins", usersController.readUserSkins)
     router.put("/users/skins/withdraw", usersController.withdrawSkin)
     router.put("/users/skins/sell", usersController.sellSkin)
-    router.put("/users/opencase", usersController.openCase) //ch làm
-    router.put("/users/upgrade", usersController.upgradeSkin) //ch làm
+    router.get("/users/opencase", usersController.openCase) // caseid
+    router.put("/users/upgrade", usersController.upgradeSkin) //userskinid, serverskinid
 
     //admin
     router.put("/users/wallet/update", usersController.updateWallet);

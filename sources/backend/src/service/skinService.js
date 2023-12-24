@@ -28,7 +28,11 @@ const createaSkin = async (name, float, price, tier, image, count) => {
 const getSkins = async () => {
     try {
 
-        let skins = await db.Skins.findAll();
+        let skins = await db.Skins.findAll({
+            order: [
+                ['Price', 'ASC'],
+            ],
+        });
         if (skins) {
             return {
                 EM: "Get skins success",
@@ -71,8 +75,8 @@ const getWithdrawSkins = async () => {
             }
         } else {
             return {
-                EM: "Get withdraw skins success",
-                EC: "0",
+                EM: "Get withdraw skins error",
+                EC: "-1",
                 DT: []
             }
         }
@@ -96,18 +100,18 @@ const updateaSkin = async (skinid, addcount) => {
         if (skin && Number.isInteger(addcount)) {
             let originCount = skin.get({ plain: true }).Count
             let count = parseInt(addcount) + parseInt(originCount)
-            await db.Users.update(
+            await db.Skins.update(
                 { Count: count },
                 { where: { id: skinid } })
             return {
                 EM: "Update skin success",
                 EC: "0",
-                DT: users
+                DT: []
             }
         } else {
             return {
                 EM: "Update skin error",
-                EC: "0",
+                EC: "-1",
                 DT: []
             }
         }
