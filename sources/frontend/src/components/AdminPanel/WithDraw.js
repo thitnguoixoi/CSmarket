@@ -16,6 +16,7 @@ function Withdraw() {
     //get data
     axios.get(`/api/v1/skins/withdraw`)
       .then(response => {
+        console.log(response.data.DT);
         setData(response.data.DT);
         setFilteredData(response.data.DT);
       })
@@ -39,10 +40,10 @@ function Withdraw() {
 
     Refresh();
   }, []);
-  const Check = (skinID) => {
-    console.log(skinID);
+  const Check = (id) => {
+    console.log(id);
     //change status
-    axios.put(`/api/v1/skins/withdraw/update`, { skinid: skinID, isAccept: 1 })
+    axios.put(`/api/v1/skins/withdraw/update`, { withdrawskinid: id, isAccept: 1 })
       .then(response => {
         console.log(response);
         Refresh();
@@ -93,7 +94,7 @@ function Withdraw() {
               <td>{item.Skin.Name}</td>
               <td>{item.Skin.Float}</td>
               <td>
-                <button onClick={() => Check(item.SkinID)}>
+                <button onClick={() => Check(item.id)}>
                   <FontAwesomeIcon icon={faCheck} />
                 </button>
               </td>

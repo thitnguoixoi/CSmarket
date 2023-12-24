@@ -66,12 +66,12 @@ function CaseManagement() {
       });
     ReFreshEditSkinForm();
   }
-  const handleDelCaseSkin = (CaseID, SkinID) => {
+  const handleDelCaseSkin = (id) => {
     // Add your logic for the action here
     const dataToDel = {
-      caseid: CaseID,
-      skinid: SkinID
+      caseskinid: id,
     }
+    console.log(id);
     axios.delete(`/api/v1/cases/skins/delete`, { data: dataToDel })
       .then(response => {
         console.log(response);
@@ -208,6 +208,7 @@ function CaseManagement() {
     </>
   );
   const renderEditCaseSkinTable = () => {
+    console.log(caseSkinData);
     return (
       <>
         <h2>Case Skins</h2>
@@ -235,7 +236,7 @@ function CaseManagement() {
                   <td>{item.Skin.Name}</td>
                   <td>{item.Percent}</td>
                   <td>
-                    <button onClick={() => handleDelCaseSkin(item.CaseID, item.SkinID)}>
+                    <button onClick={() => handleDelCaseSkin(item.id)}>
                       <FontAwesomeIcon icon={faTrash} />
                       Delete
                     </button>
