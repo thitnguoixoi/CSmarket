@@ -239,44 +239,55 @@ const withdrawUserSkin = async (steamid, skinid) => {
 
 const sellUserSkin = async (steamid, skinid) => {
     try {
-        let user = []
-        user = await db.Users.findOne({
+        let user = await db.Users.findOne({
             where: {
                 SteamID: steamid
             },
         });
-
-        let originWallet = user.get({ plain: true }).Wallet
-
-        let skin = await db.Skins.findOne({
+        let userskin = await db.Users_Skins.findOne({
             where: {
-                id: skinid
+                UserID: user.get({ plain: true }).id,
+                SkinID: skinid
             },
         });
+        if (userskin) {
+            let originWallet = user.get({ plain: true }).Wallet
 
-        let addWallet = skin.get({ plain: true }).Price
-
-        let Wallet = parseFloat(addWallet) + parseFloat(originWallet)
-
-        await db.Users.update(
-            { Wallet: Wallet.toFixed(2) },
-            { where: { id: user.get({ plain: true }).id } }
-        )
-
-
-        await db.Users_Skins.destroy(
-            {
+            let skin = await db.Skins.findOne({
                 where: {
-                    UserID: user.get({ plain: true }).id,
-                    SkinID: skinid
-                }
-            }
-        )
+                    id: skinid
+                },
+            });
 
-        return {
-            EM: "User skin is selled",
-            EC: "0",
-            DT: ''
+            let addWallet = skin.get({ plain: true }).Price
+
+            let Wallet = parseFloat(addWallet) + parseFloat(originWallet)
+
+            await db.Users.update(
+                { Wallet: Wallet.toFixed(2) },
+                { where: { id: user.get({ plain: true }).id } }
+            )
+
+
+            await db.Users_Skins.destroy(
+                {
+                    where: {
+                        UserID: user.get({ plain: true }).id,
+                        SkinID: skinid
+                    }
+                }
+            )
+            return {
+                EM: "User skin is selled",
+                EC: "0",
+                DT: ''
+            }
+        } else {
+            return {
+                EM: "Error sell user skin",
+                EC: "-1",
+                DT: ''
+            }
         }
     } catch (e) {
         console.log('Error sell user skin: ', e)
@@ -389,29 +400,40 @@ const deleteUser = async (userid, steamid) => {
     }
 }
 
-const openaCase = async (steamid, caseid) => {
+const openaCase = async (caseid) => {
     try {
+
         let acase = await db.Cases.findOne({
             where: { id: caseid }
         })
         if (acase) {
-            skins = await db.Cases_Skins.findAll({
+            let skins = await db.Cases_Skins.findAll({
                 where: {
                     CaseID: caseid,
                 },
                 include: {
                     model: db.Skins,
+                    attributes: ["Image"]
                 },
                 order: [
                     ['Percent', 'ASC'],
                 ],
             });
             if (skins) {
+                const numberOfSkins = skins.length;
+                const randomValue = 0.1
+                skins.every((skin) => {
+                    console.log(index)
+                    if (index + 1 == numberOfSkins) {
 
+                    }
+                    else if (randomValue <= skin.get({ plain: true }).Percent) {
+                    }
+                });
                 return {
                     EM: "Case opened",
                     EC: "0",
-                    DT: ''
+                    DT: ""
                 }
             } else {
                 return {
@@ -437,7 +459,7 @@ const openaCase = async (steamid, caseid) => {
         }
     }
 }
-const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
+const upgradeUserSkin = async (userskinid, serverskinid) => {
     try {
         if (userskin && serverskin) {
             await db.Users.destroy({
