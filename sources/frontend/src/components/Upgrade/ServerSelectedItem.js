@@ -2,7 +2,6 @@ import React from "react";
 import ServerItem from './ServerItem.js';
 
 function SelectedServerItem({ selectedItem }) {
-    console.log(selectedItem);
     return (
         <>
             <div className={`selected-item ${selectedItem ? 'selected' : ''}`}>

@@ -23,7 +23,9 @@ function Inventory() {
     const [serverSearchTerm, setServerSearchTerm] = useState("");
     const [filteredUserItems, setFilteredUserItems] = useState(userItems);
     const [filteredServerItems, setFilteredServerItems] = useState(serverItems);
+
     useEffect(() => {
+        calculateRate();
         //get userskins
         axios.get(`/api/v1/users/skins`)
             .then(response => {
@@ -50,14 +52,23 @@ function Inventory() {
                 }
             });
     }, []);
+
+    useEffect(() => {
+        // Calculate rate whenever selectedUserItem or selectedServerItem changes
+        calculateRate();
+    }, [selectedUserItem, selectedServerItem]);
+
     // Handler for user item click
     const handleUserItemClick = (item) => {
         setSelectedUserItem(item);
+        calculateRate();
     };
 
     // Handler for server item click
     const handleServerItemClick = (item) => {
         setSelectedServerItem(item);
+        filterUserItemsByPrice(item.Price);
+        calculateRate();
     };
     const handleUserSearchChange = (event) => {
         const term = event.target.value;
@@ -70,19 +81,41 @@ function Inventory() {
         // Update filteredUserItems only if there's a search term, otherwise, keep all items
         setFilteredUserItems(term ? filteredUser : userItems);
     };
+    const calculateRate = () => {
+        const userPrice = selectedUserItem?.Skin.Price || 0;
+        const serverPrice = selectedServerItem?.Price || 0;
+
+        // Replace this with your actual calculation logic
+        let rate = userPrice > 0 && serverPrice > 0 ? (userPrice / serverPrice) * 100 : 0;
+
+        // Ensure rate does not exceed 100
+        rate = Math.min(rate, 100);
+
+        setUpgradeSuccessRate(rate);
+    };
+
+    const filterUserItemsByPrice = (serverItemPrice) => {
+        // Filter user items based on the price of the selected server item
+        const filteredUser = userItems.filter(
+            (userItem) => userItem.Skin.Price < serverItemPrice
+        );
+        // Update filteredUserItems
+        setFilteredServerItems(filteredUser);
+    };
 
     // Handler for server inventory search term change
     const handleServerSearchChange = (event) => {
-        // const term = event.target.value;
-        // setServerSearchTerm(term);
+        const term = event.target.value;
+        setServerSearchTerm(term);
 
-        // // Filter server items based on the search term
-        // const filteredServer = serverItems.filter(
-        //     (item) => item.Skin.Name.toLowerCase().includes(term.toLowerCase())
-        // );
-
-        // // Update filteredServerItems only if there's a search term, otherwise, keep all items
-        // setFilteredServerItems(term ? filteredServer : serverItems);
+        // Filter server items based on the search term
+        const filteredServer = serverItems.filter(
+            (item) => {
+                return item.Name.toLowerCase().includes(term.toLowerCase());
+            }
+        );
+        // Update filteredServerItems only if there's a search term, otherwise, keep all items
+        setFilteredServerItems(term ? filteredServer : serverItems);
     };
 
     const userSearchBar = (
@@ -105,9 +138,21 @@ function Inventory() {
             />
         </div>
     );
+    const sendUpdate = () => {
+        console.log(selectedUserItem.id, selectedServerItem.id);
+        const dataUpgrade = {
+            userskinid: selectedUserItem.id,
+            serverskinid: selectedServerItem.id
+        }
+        axios.put(`/api/v1/users/skins/upgrade`, dataUpgrade)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log('error upgrade', error);
+            })
 
-
-
+    }
     return (
         <div className="inventory-container">
             <div className="selected-items">
@@ -122,7 +167,7 @@ function Inventory() {
                 {/* Upgrade Section */}
                 <div className="upgrade-section">
                     <h2>Upgrade your item</h2>
-                    <button id="upgrade-button">Upgrade!</button>
+                    <button id="upgrade-button" onClick={() => sendUpdate()}>Upgrade!</button>
                     <p>Rating: {upgradeSuccessRate.toFixed(2)}%</p>
                 </div>
 
@@ -146,7 +191,9 @@ function Inventory() {
                             {filteredUserItems.map((item, index) => (
                                 <li
                                     key={index}
-                                    onClick={() => handleUserItemClick(item)}
+                                    onClick={() => {
+                                        handleUserItemClick(item)
+                                    }}
                                     className={selectedUserItem === item ? "selected" : "unselected"}
                                 >
                                     <Item itemData={item} />
@@ -167,7 +214,9 @@ function Inventory() {
                                 return (
                                     <li
                                         key={index}
-                                        onClick={() => handleServerItemClick(item)}
+                                        onClick={() => {
+                                            handleServerItemClick(item);
+                                        }}
                                         className={selectedServerItem === item ? "selected" : ""}
                                     >
                                         <ServerItem data={item} />
