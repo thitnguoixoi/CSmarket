@@ -92,7 +92,7 @@ const updateCase = async (req, res) => {
 
 const deleteCase = async (req, res) => {
     try {
-        let data = await caseService.deleteaCase(req.query.caseid);
+        let data = await caseService.deleteaCase(req.body.caseid);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,
@@ -110,7 +110,7 @@ const deleteCase = async (req, res) => {
 
 const deleteCaseSkins = async (req, res) => {
     try {
-        let data = await caseService.deleteaCaseSkins(req.query.caseskinid);
+        let data = await caseService.deleteaCaseSkins(req.body.caseskinid);
         return res.status(200).json({
             EM: data.EM,
             EC: data.EC,

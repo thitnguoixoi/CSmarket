@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
-import Cookies from 'js-cookie';
 
 function Header() {
   const [user, setUser] = useState('');
@@ -16,7 +15,7 @@ function Header() {
   useEffect(() => {
     window.addEventListener("message", handleMessage);
     if (checkCookieExists("csmarket")) {
-      handleGetProfile()
+      handleGetProfileAgain()
     } else {
       handleLogout()
     }
@@ -43,11 +42,13 @@ function Header() {
     //jwt
     axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
       .then(response => {
+        console.log(response)
       })
       .catch(error => {
         console.error('Error get jwt:', error);
       });
     handleGetProfile()
+
   };
 
   const checkCookieExists = (cookieName) => {
@@ -68,12 +69,29 @@ function Header() {
       })
       .catch(error => {
         console.error('Error get user profile', error);
+        handleGetProfileAgain()
+      });
+  }
+
+
+  const handleGetProfileAgain = () => {
+    axios.get(`/api/v1/users/steamid`)
+      .then(response => {
+        setLoggedIn(true);
+        setUser(response.data.DT);
+        if (response.data.DT.GroupID === 3) {
+          setUserIsMod(true);
+        } else if (response.data.DT.GroupID === 2) {
+          setUserIsMod(true);
+        }
+      })
+      .catch(error => {
+        console.error('Error get user profile', error);
         if (error.response.data.EM === 'User is not authenticate') {
           handleLogout()
         }
       });
   }
-
   const handleLogout = () => {
     axios.get(`/api/v1/users/logout`)
       .then(response => {
