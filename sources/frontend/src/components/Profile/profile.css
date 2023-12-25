@@ -276,9 +276,6 @@
     .user-case-count, .user-upgrade-count{
         justify-content: left;
     }
-    .user-case-count span, .user-upgrade-count span {
-        display: none;
-    }
     .user-profile-inventory-items li {
         width: 247.5px;
     }

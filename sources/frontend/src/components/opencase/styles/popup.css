@@ -12,15 +12,6 @@
     z-index: 999;
 }
 
-.popup-inner {
-    position: fixed;
-    top: 0px;
-    padding: 32px;
-    max-width: 640px;
-    width: auto;
-    background-color: #2f3030;
-}
-
 .popup-inner .close-btn {
     position: absolute;
     top: 16px;
@@ -38,11 +29,33 @@
 }
 
 .popup-nav-btn{
-    display: inline;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .popup-nav-btn button{
+    border: 1px solid green;
+    border-radius: 15px;
     display: inline;
     padding: 10px;
     margin: 0px 30px;
+}
+.popup-nav-btn button:hover{
+    border: 1px solid black;
+    color: green;
+    background-color: white;
+}
+.popup-inner {
+    position: fixed;
+    z-index: 20;
+    width: 420px;
+    height: 420px;
+    background-color: #2f3030;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #FBFFFF;
+    border-radius: 10px;
 }
