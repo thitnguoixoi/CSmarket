@@ -7,6 +7,7 @@ const getCases = async () => {
             include: { model: db.Cases },
             attributes: ["id", "Name", "CaseID"]
         });
+        console.log(cases);
         if (cases) {
             return {
                 EM: "Get cases success",

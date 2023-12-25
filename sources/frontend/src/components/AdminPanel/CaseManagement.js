@@ -21,6 +21,7 @@ function CaseManagement() {
   const [caseid, setCaseId] = useState('');
   const [skinid, setSkinId] = useState('');
   const [percent, setPercent] = useState('');
+  const [groupname, setGroupname] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
@@ -29,6 +30,7 @@ function CaseManagement() {
     //get case data
     axios.get(`/api/v1/cases`)
       .then(response => {
+        console.log(response.data.DT);
         setData(response.data.DT);
         setFilteredData(response.data.DT);
       })
@@ -116,14 +118,15 @@ function CaseManagement() {
   const handleShowAddCase = () => {
     setShowAddForm(!showAddForm);
   };
-  const handleAddCase = (name, price, image) => {
+  const handleAddCase = (name, price, image, groupname) => {
     setShowAddForm(false);
     const caseAdd = {
       name: name,
       price: price,
-      image: image
+      image: image,
+      groupname: groupname
     }
-
+    // console.log(caseAdd);
     axios.post(`/api/v1/cases/create`, caseAdd)
       .then(response => {
         console.log('add case', response);
@@ -198,6 +201,7 @@ function CaseManagement() {
         }}
       />
       <br />
+      <br />
       <button onClick={() => { handleAddCaseSkin(caseid, skinid, percent); ReFreshEditSkinForm(); }}>
         Submit
       </button>
@@ -223,7 +227,7 @@ function CaseManagement() {
           </thead>
           <tbody>
             {caseSkinData.map((item) => {
-              console.log(item);
+              // console.log(item);
               return (
                 <tr key={item.id}>
                   <td>{item.CaseID}</td>
@@ -258,9 +262,18 @@ function CaseManagement() {
         />
       </div>
       <div>
-        <label>Price:</label>
+        <label>Group:</label>
         <input
           type="text"
+          placeholder="Groupname"
+          value={groupname}
+          onChange={(e) => setGroupname(e.target.value)}
+        />
+      </div>
+      <div>
+        <label>Price:</label>
+        <input
+          type="number"
           placeholder="Price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
@@ -276,7 +289,7 @@ function CaseManagement() {
         />
       </div>
       <div>
-        <button onClick={() => handleAddCase(name, price, image)}>
+        <button onClick={() => handleAddCase(name, price, image, groupname)}>
           Submit
         </button>
       </div>
