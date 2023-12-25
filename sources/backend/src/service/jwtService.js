@@ -10,7 +10,7 @@ const getGroupRoles = async (steamid) => {  // json web token service
             },
         });
         if (user) {
-            user = user.get({ plain: true })
+            // user = user.get({ plain: true })
             let roles = await db.Group_Roles.findAll({
                 where: { GroupID: user.GroupID },
                 attributes: [],
