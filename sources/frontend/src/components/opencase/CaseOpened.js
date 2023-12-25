@@ -48,9 +48,9 @@ function CaseOpened(id) {
                         <h3>Congratulation</h3>
                         <h4>You got</h4>
                         <div className="image-container">
-                            <div className={`tierskin tier${gachaData.Tier}`}>
-                                <img src={gachaData.Image} alt="skin" />
-                                <h4>{gachaData.Name}</h4>
+                            <div className={`tierskin tier${gachaData?.Tier}`}>
+                                <img src={gachaData?.Image} alt="skin" />
+                                <h4>{gachaData?.Name}</h4>
                             </div>
                         </div>
                     </Popup>
