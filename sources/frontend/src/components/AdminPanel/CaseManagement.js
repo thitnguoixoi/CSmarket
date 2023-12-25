@@ -131,6 +131,7 @@ function CaseManagement() {
     axios.post(`/api/v1/cases/create`, caseAdd)
       .then(response => {
         console.log('add case', response);
+        Refresh();
       })
       .catch(error => {
         console.error('Error update case price:', error);
