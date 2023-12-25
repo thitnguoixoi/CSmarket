@@ -36,9 +36,9 @@ function Body() {
             // console.log(item.Cases[0].id);
             return (
                 <Route
-                    path={item.Cases[0].Name.replace(/\s+/g, '').toLowerCase()}
+                    path={item.Cases[0]?.Name.replace(/\s+/g, '').toLowerCase()}
                     element={
-                        <CaseOpened id={item.Cases[0].id} />
+                        <CaseOpened id={item.Cases[0]?.id} />
                     }
                 />
             )
