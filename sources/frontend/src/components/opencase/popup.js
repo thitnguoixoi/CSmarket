@@ -15,9 +15,6 @@ function Popup({ trigger, children, setTrigger }) {
     return trigger ? (
         <div className="popup">
             <div className="popup-inner">
-                <button className="close-btn" onClick={() => setTrigger(false)}>
-                    <FontAwesomeIcon icon={faTimes} style={{ color: "#ffffff" }} />
-                </button>
                 {children}
 
                 <div className="popup-nav-btn">
