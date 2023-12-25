@@ -61,9 +61,6 @@ function Header() {
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
     //jwt
     axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
-      .then(response => {
-        console.log(response)
-      })
       .catch(error => {
         console.error('Error get jwt:', error);
       });
