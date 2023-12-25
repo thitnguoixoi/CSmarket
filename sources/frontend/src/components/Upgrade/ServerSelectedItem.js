@@ -8,7 +8,7 @@ function SelectedServerItem({ selectedItem }) {
                 {selectedItem ? (
                     <ServerItem data={selectedItem} />
                 ) : (
-                    <img src="path_to_default_image.jpg" alt="No Item selected" />
+                    <p>No image selected!</p>
                 )}
             </div>
         </>

@@ -7,7 +7,7 @@ function SelectedItem({ selectedItem }) {
             {selectedItem ? (
                 <Item itemData={selectedItem} />
             ) : (
-                <img src="path_to_default_image.jpg" alt="No item selected" />
+                <p>No image selected!</p>
             )}
         </div>
     );
