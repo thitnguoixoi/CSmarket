@@ -20,7 +20,8 @@
     background-image: none;
 }
 
-.popup h3,h4 {
+.popup h3,
+h4 {
     position: relative;
     display: flex;
     width: 100%;
@@ -28,24 +29,26 @@
     justify-content: center;
 }
 
-.popup-nav-btn{
+.popup-nav-btn {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.popup-nav-btn button{
+.popup-nav-btn button {
     border: 1px solid green;
     border-radius: 15px;
     display: inline;
     padding: 10px;
     margin: 0px 30px;
 }
-.popup-nav-btn button:hover{
+
+.popup-nav-btn button:hover {
     border: 1px solid black;
     color: green;
     background-color: white;
 }
+
 .popup-inner {
     position: fixed;
     z-index: 20;
@@ -58,4 +61,15 @@
     align-items: center;
     border: 2px solid #FBFFFF;
     border-radius: 10px;
+}
+
+#QR img {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.QR-btn {
+    justify-content: center;
 }

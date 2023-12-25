@@ -1,6 +1,6 @@
 import caseService from "../service/caseService"
 
-const createCase = async (req, res) => {
+const createCase = async (req, res) => {  // create a case controller
     try {
         let data = await caseService.createaCase(req.body.name, req.body.price, req.body.image, req.body.groupname);
         return res.status(200).json({
@@ -18,7 +18,7 @@ const createCase = async (req, res) => {
     }
 }
 
-const createCaseSkins = async (req, res) => {
+const createCaseSkins = async (req, res) => {  // create a skin controller 
     try {
         let data = await caseService.createaCaseSkins(req.body.caseid, req.body.skinid, req.body.percent);
         return res.status(200).json({
@@ -36,7 +36,7 @@ const createCaseSkins = async (req, res) => {
     }
 }
 
-const readCases = async (req, res) => {
+const readCases = async (req, res) => {  // read cases informaton controller
     try {
         let data = await caseService.getCases();
         return res.status(200).json({
@@ -54,7 +54,7 @@ const readCases = async (req, res) => {
     }
 }
 
-const readCasesSkins = async (req, res) => {
+const readCasesSkins = async (req, res) => {  // read case's skins controller
     try {
         let data = await caseService.getCasesSkins(req.query.caseid);
         return res.status(200).json({
@@ -72,7 +72,7 @@ const readCasesSkins = async (req, res) => {
     }
 }
 
-const updateCase = async (req, res) => {
+const updateCase = async (req, res) => {  // update case controller
     try {
         let data = await caseService.updateaCase(req.body.caseid, req.body.price);
         return res.status(200).json({
@@ -90,7 +90,7 @@ const updateCase = async (req, res) => {
     }
 }
 
-const deleteCase = async (req, res) => {
+const deleteCase = async (req, res) => {  // delete case controller
     try {
         let data = await caseService.deleteaCase(req.body.caseid);
         return res.status(200).json({
@@ -108,7 +108,7 @@ const deleteCase = async (req, res) => {
     }
 }
 
-const deleteCaseSkins = async (req, res) => {
+const deleteCaseSkins = async (req, res) => {  // delete case skins
     try {
         let data = await caseService.deleteaCaseSkins(req.body.caseskinid);
         return res.status(200).json({

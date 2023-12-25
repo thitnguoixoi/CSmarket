@@ -12,9 +12,9 @@ const handleSendProfile = (req, res) => {
 }
 const getJWT = async (req, res) => {
     try {
-        if (!req.cookies.jwt || !req.cookies.login) {
+        if (!req.cookies.jwt || !req.cookies.login) {  // cookie did not exist
             let data = await jwtService.getGroupRoles(req.query.steamid);
-            if (data && data.DT && data.DT.access_token) {
+            if (data && data.DT && data.DT.access_token) {  // set cookie
                 res.cookie("jwt", data.DT.access_token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
                 res.cookie("csmarket", "", { maxAge: 24 * 60 * 60 * 1000 })
             }
