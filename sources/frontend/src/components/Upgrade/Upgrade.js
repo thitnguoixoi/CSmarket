@@ -187,7 +187,7 @@ function Inventory() {
                 if ((response.data.EM) === "Skin upgraded success") {
                     Swal.fire({
                         title: "Success",
-                        text: "Your skin has been upgrade.",
+                        text: "Your skin has been upgraded.",
                         icon: "success"
                     });
                 }
