@@ -5,7 +5,7 @@ const nonSecurePath = ["/auth/steam", "/auth/steam/return", "/jwt/steamid",
     "/cases", "/cases/id", "/users/logout", "/users/quantity",
     "/users/opened/quantity", "/users/upgraded/quantity"]
 
-const createJWT = (payload) => {
+const createJWT = (payload) => {  // create json web token
     let key = process.env.JWT_KEY
     let token = null
     try {
@@ -15,7 +15,7 @@ const createJWT = (payload) => {
     }
     return token;
 }
-const verifyToken = (token) => {
+const verifyToken = (token) => {  // verify token
     let key = process.env.JWT_KEY
     let decoded = null
     try {
@@ -25,7 +25,7 @@ const verifyToken = (token) => {
     }
     return decoded
 }
-const checkUserJWT = (req, res, next) => {
+const checkUserJWT = (req, res, next) => {  // check user json web token
     if (nonSecurePath.includes(req.path)) return next();
     let cookies = req.cookies;
     if (cookies && cookies.jwt) {
@@ -49,7 +49,7 @@ const checkUserJWT = (req, res, next) => {
         })
     }
 }
-const checkUserPermisson = (req, res, next) => {
+const checkUserPermisson = (req, res, next) => {  // control user's permisson
     if (nonSecurePath.includes(req.path)) return next();
     if (req.jwt) {
         let roles = req.jwt.data
