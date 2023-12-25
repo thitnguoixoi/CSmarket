@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     Avatarmedium: DataTypes.STRING,
     Avatarfull: DataTypes.STRING,
     CountOpen: DataTypes.INTEGER,
-    CountUpgrade: DataTypes.INTEGER
+    CountUpgrade: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Users',

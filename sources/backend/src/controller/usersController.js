@@ -196,7 +196,7 @@ const deleteUser = async (req, res) => {
 }
 
 
-const logoutUser = (req, res) => {
+const logoutUser = async (req, res) => {
     try {
         res.clearCookie("jwt")
         res.clearCookie("csmarket")
@@ -214,6 +214,59 @@ const logoutUser = (req, res) => {
         })
     }
 }
+
+const countUserQuantity = async (req, res) => {
+    try {
+        let data = await userService.countUser()
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+const countUserOpened = async (req, res) => {
+    try {
+        let data = await userService.countOpened()
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+const countUserUpgraded = async (req, res) => {
+    try {
+        let data = await userService.countUpgraded()
+        return res.status(200).json({
+            EM: data.EM,
+            EC: data.EC,
+            DT: data.DT
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            EM: "Error from server",
+            EC: "-1",
+            DT: ""
+        })
+    }
+}
+
 module.exports = {
     readUser,
     readUsers,
@@ -226,5 +279,8 @@ module.exports = {
     withdrawSkin,
     sellSkin,
     openCase,
-    upgradeSkin
+    upgradeSkin,
+    countUserQuantity,
+    countUserOpened,
+    countUserUpgraded,
 }

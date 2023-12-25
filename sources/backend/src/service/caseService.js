@@ -4,7 +4,8 @@ const { Op } = require('sequelize');
 const getCases = async () => {
     try {
         let cases = await db.Group_Cases.findAll({
-            include: { model: db.Cases }
+            include: { model: db.Cases },
+            attributes: ["id", "Name", "CaseID"]
         });
         if (cases) {
             return {
@@ -47,18 +48,28 @@ const getCasesSkins = async (caseid) => {
                 include: {
                     model: db.Skins,
                 },
-                attributes: ["id", "SkinID", "CaseID"],
+                attributes: ["id", "SkinID", "CaseID", "Percent"],
                 order: [
                     ['Percent', 'ASC'],
                 ],
             });
-            return {
-                EM: "Get case's skin success",
-                EC: "0",
-                DT: {
-                    skins, acase
-                }
+            if (skins != []) {
 
+                return {
+                    EM: "Get case's skin success",
+                    EC: "0",
+                    DT: {
+                        skins, acase
+                    }
+
+                }
+            }
+            else {
+                return {
+                    EM: "Get case's skin error",
+                    EC: "-1",
+                    DT: []
+                }
             }
         } else {
             return {

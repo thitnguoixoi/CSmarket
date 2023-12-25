@@ -423,51 +423,64 @@ const openaCase = async (steamid, caseid) => {
                     ['Percent', 'ASC'],
                 ],
             });
-            if (skins) {
-                const numberOfSkins = skins.length;
-                const randomValue = Math.random();
-                let index = 0;
-                let skinopened = []
-                skins.every((skin) => {
-                    index += 1
-                    if (index == numberOfSkins) {
-                        skinopened = skin.get({ plain: true })
-                        return false;
-                    }
-                    else if (randomValue <= skin.get({ plain: true }).Percent) {
-                        skinopened = skin.get({ plain: true })
-                        return false;
-                    }
-                    return true;
-                });
-
+            if (skins != []) {
                 let user = await db.Users.findOne({
                     where:
                         { SteamID: steamid },
                 })
-
-
-                await db.Users_Skins.create(
-                    {
-                        UserID: user.get({ plain: true }).id,
-                        SkinID: skinopened.SkinID,
-                        Status: "Inventory"
-                    },
-                )
                 let originWallet = user.get({ plain: true }).Wallet
                 let caseprice = acase.get({ plain: true }).Price
-                let wallet = parseFloat(originWallet) - parseFloat(caseprice)
+                if (originWallet >= caseprice) {
+                    const numberOfSkins = skins.length;
+                    const randomValue = Math.random();
+                    let index = 0;
+                    let skinopened = []
+                    skins.every((skin) => {
+                        index += 1
+                        if (index == numberOfSkins) {
+                            skinopened = skin.get({ plain: true })
+                            return false;
+                        }
+                        else if (randomValue <= skin.get({ plain: true }).Percent) {
+                            skinopened = skin.get({ plain: true })
+                            return false;
+                        }
+                        return true;
+                    });
 
-                await db.Users.update(
-                    { Wallet: wallet.toFixed(2) },
-                    { where: { id: user.get({ plain: true }).id, } })
 
-                return {
-                    EM: "Case opened",
-                    EC: "0",
-                    DT: skinopened
+
+                    await db.Users_Skins.create(
+                        {
+                            UserID: user.get({ plain: true }).id,
+                            SkinID: skinopened.SkinID,
+                            Status: "Inventory"
+                        },
+                    )
+                    let wallet = parseFloat(originWallet) - parseFloat(caseprice)
+                    let originOpen = user.get({ plain: true }).CountOpen
+                    let open = parseInt(originOpen) + 1
+                    await db.Users.update(
+                        {
+                            Wallet: wallet.toFixed(2),
+                            CountOpen: open
+                        },
+                        { where: { id: user.get({ plain: true }).id, } })
+                    return {
+                        EM: "Case opened",
+                        EC: "0",
+                        DT: skinopened
+                    }
                 }
-            } else {
+                else {
+                    return {
+                        EM: "Can not open this case",
+                        EC: "-1",
+                        DT: ''
+                    }
+                }
+
+            } else if (skins == []) {
                 return {
                     EM: "Can not open this case",
                     EC: "-1",
@@ -516,8 +529,8 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
         if (userskin && serverskin && userskinprice < serverskinprice) {
             let percent = userskinprice / serverskinprice
             const randomValue = Math.random();
-            console.log(percent)
-            console.log(randomValue)
+            let originUpgrade = user.get({ plain: true }).CountUpgrade
+            let upgrade = parseInt(originUpgrade) + 1
             if (randomValue <= percent) {
                 await db.Users_Skins.update(
                     { SkinID: serverskinid },
@@ -527,6 +540,11 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
                         }
                     },
                 )
+                await db.Users.update(
+                    {
+                        CountUpgrade: upgrade
+                    },
+                    { where: { id: user.get({ plain: true }).id, } })
                 return {
                     EM: "Skin upgraded success",
                     EC: "0",
@@ -539,6 +557,11 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
                         id: userskinid,
                     },
                 })
+                await db.Users.update(
+                    {
+                        CountUpgrade: upgrade
+                    },
+                    { where: { id: user.get({ plain: true }).id, } })
                 return {
                     EM: "Skin upgraded fail",
                     EC: "0",
@@ -562,6 +585,78 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {
         }
     }
 }
+const countOpened = async () => {
+    try {
+        let count
+
+        await db.Users.sum('CountOpen').then(totalCountOpen => {
+            count = totalCountOpen; // Gán tổng vào biến count
+        }).catch(err => {
+            console.error('Get user opened error:', err);
+        });
+
+        return {
+            EM: "Get user opened success",
+            EC: "-1",
+            DT: count
+        }
+    } catch (e) {
+        console.log('Get user opened error:', e)
+        return {
+            EM: "Get user opened error",
+            EC: "-1",
+            DT: ''
+        }
+    }
+}
+const countUpgraded = async () => {
+    try {
+        let count
+
+        await db.Users.sum('CountUpgrade').then(totalCountUpgrade => {
+            count = totalCountUpgrade; // Gán tổng vào biến count
+        }).catch(err => {
+            console.error('Get user opened error:', err);
+        });
+
+        return {
+            EM: "Get user opened success",
+            EC: "-1",
+            DT: count
+        }
+    } catch (e) {
+        console.log('Get user opened error:', e)
+        return {
+            EM: "Get user opened error",
+            EC: "-1",
+            DT: ''
+        }
+    }
+}
+const countUser = async () => {
+    try {
+        let count
+
+        await db.Users.count().then(userCount => {
+            count = userCount;
+        }).catch(err => {
+            console.error('Get user opened error', err);
+        });
+
+        return {
+            EM: "Get user opened success",
+            EC: "-1",
+            DT: count
+        }
+    } catch (e) {
+        console.log('Get amount of user error:', e)
+        return {
+            EM: "Get amount of user error",
+            EC: "-1",
+            DT: ''
+        }
+    }
+}
 module.exports = {
     getUser,
     createUser,
@@ -576,4 +671,7 @@ module.exports = {
     sellUserSkin,
     openaCase,
     upgradeUserSkin,
+    countOpened,
+    countUpgraded,
+    countUser
 }
