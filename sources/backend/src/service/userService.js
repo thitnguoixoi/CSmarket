@@ -424,53 +424,62 @@ const openaCase = async (steamid, caseid) => {
                 ],
             });
             if (skins != []) {
-                const numberOfSkins = skins.length;
-                const randomValue = Math.random();
-                let index = 0;
-                let skinopened = []
-                skins.every((skin) => {
-                    index += 1
-                    if (index == numberOfSkins) {
-                        skinopened = skin.get({ plain: true })
-                        return false;
-                    }
-                    else if (randomValue <= skin.get({ plain: true }).Percent) {
-                        skinopened = skin.get({ plain: true })
-                        return false;
-                    }
-                    return true;
-                });
-
                 let user = await db.Users.findOne({
                     where:
                         { SteamID: steamid },
                 })
-
-
-                await db.Users_Skins.create(
-                    {
-                        UserID: user.get({ plain: true }).id,
-                        SkinID: skinopened.SkinID,
-                        Status: "Inventory"
-                    },
-                )
                 let originWallet = user.get({ plain: true }).Wallet
                 let caseprice = acase.get({ plain: true }).Price
-                let wallet = parseFloat(originWallet) - parseFloat(caseprice)
-                let originOpen = user.get({ plain: true }).CountOpen
-                let open = parseInt(originOpen) + 1
-                await db.Users.update(
-                    {
-                        Wallet: wallet.toFixed(2),
-                        CountOpen: open
-                    },
-                    { where: { id: user.get({ plain: true }).id, } })
+                if (originWallet >= caseprice) {
+                    const numberOfSkins = skins.length;
+                    const randomValue = Math.random();
+                    let index = 0;
+                    let skinopened = []
+                    skins.every((skin) => {
+                        index += 1
+                        if (index == numberOfSkins) {
+                            skinopened = skin.get({ plain: true })
+                            return false;
+                        }
+                        else if (randomValue <= skin.get({ plain: true }).Percent) {
+                            skinopened = skin.get({ plain: true })
+                            return false;
+                        }
+                        return true;
+                    });
 
-                return {
-                    EM: "Case opened",
-                    EC: "0",
-                    DT: skinopened
+
+
+                    await db.Users_Skins.create(
+                        {
+                            UserID: user.get({ plain: true }).id,
+                            SkinID: skinopened.SkinID,
+                            Status: "Inventory"
+                        },
+                    )
+                    let wallet = parseFloat(originWallet) - parseFloat(caseprice)
+                    let originOpen = user.get({ plain: true }).CountOpen
+                    let open = parseInt(originOpen) + 1
+                    await db.Users.update(
+                        {
+                            Wallet: wallet.toFixed(2),
+                            CountOpen: open
+                        },
+                        { where: { id: user.get({ plain: true }).id, } })
+                    return {
+                        EM: "Case opened",
+                        EC: "0",
+                        DT: skinopened
+                    }
                 }
+                else {
+                    return {
+                        EM: "Can not open this case",
+                        EC: "-1",
+                        DT: ''
+                    }
+                }
+
             } else if (skins == []) {
                 return {
                     EM: "Can not open this case",
