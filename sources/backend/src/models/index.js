@@ -15,9 +15,6 @@ const customizeConfig = {
   port: process.env.DB_PORT,
   dialect: process.env.DB_DIALECT,
   logging: false,
-  query: {
-    "raw": true
-  }
 }
 
 sequelize = new Sequelize(
