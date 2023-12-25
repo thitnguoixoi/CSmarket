@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import './styles/popup.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';  // Correct icon name
 
 function Popup({ trigger, children, setTrigger }) {
     const navigate = useNavigate();
