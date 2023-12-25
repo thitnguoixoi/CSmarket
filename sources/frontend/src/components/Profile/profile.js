@@ -28,6 +28,11 @@ function UserProfile() {
             })
             .catch(error => {
                 console.error('Error get skin:', error);
+                Swal.fire({
+                    title: "Faile",
+                    text: "Your skin haven't ưithdraw.",
+                    icon: "error"
+                });
             });
     }
     useEffect(() => {
@@ -61,6 +66,12 @@ function UserProfile() {
                     text: "Your file has been withdraw.",
                     icon: "success"
                 });
+            } else {
+                Swal.fire({
+                    title: "Faile",
+                    text: "Your skin haven't withdraw.",
+                    icon: "error"
+                });
             }
             refreshInventory();
         });
@@ -71,13 +82,13 @@ function UserProfile() {
         }
         axios.put(`/api/v1/users/skins/withdraw`, dataWithDraw)
             .then(response => {
-                console.log(response);
                 refreshUserData();
             })
             .catch(error => {
                 console.error('Error withdraw skin:', error);
             });
         refreshInventory();
+        refreshUserData();
     }
     const PopupSell = (id) => {
         Swal.fire({
@@ -98,6 +109,13 @@ function UserProfile() {
                     icon: "success"
                 });
                 refreshInventory();
+                refreshUserData();
+            } else {
+                Swal.fire({
+                    title: "Faile",
+                    text: "Your skin haven't sold.",
+                    icon: "error"
+                });
             }
             refreshInventory();
         });
@@ -112,7 +130,14 @@ function UserProfile() {
             })
             .catch(error => {
                 console.error('Error sell skin:', error);
+                Swal.fire({
+                    title: "Error",
+                    text: "Sell error",
+                    icon: "warning"
+                });
             });
+        refreshInventory();
+        refreshUserData();
     }
     const handleTradeUpdate = () => {
         const key = `steamprofileURL_${user.SteamID}`;

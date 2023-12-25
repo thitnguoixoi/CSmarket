@@ -6,6 +6,7 @@ import Item from "./Item.js";
 import ServerItem from "./ServerItem.js";
 import axios from '../../assets/setup/axios';
 import ServerSelectedItem from "./ServerSelectedItem.js";
+import Swal from 'sweetalert2';
 
 
 
@@ -57,7 +58,29 @@ function Inventory() {
         // Calculate rate whenever selectedUserItem or selectedServerItem changes
         calculateRate();
     }, [selectedUserItem, selectedServerItem]);
+    const refreshData = () => {
+        // Refresh user inventory
+        axios.get(`/api/v1/users/skins`)
+            .then(response => {
+                setUserItems(response.data.DT);
+                setFilteredUserItems(response.data.DT);
+            })
+            .catch(error => {
+                console.error('Error getting user skin:', error);
+            });
 
+        // Refresh server inventory
+        axios.get(`/api/v1/skins`)
+            .then(response => {
+                setServerItems(response.data.DT);
+                setFilteredServerItems(response.data.DT);
+            })
+            .catch(error => {
+                console.error('Error getting server skin:', error);
+            });
+        setSelectedServerItem(null);
+        setSelectedUserItem(null);
+    };
     // Handler for user item click
     const handleUserItemClick = (item) => {
         setSelectedUserItem(item);
@@ -153,12 +176,34 @@ function Inventory() {
         }
         axios.put(`/api/v1/users/skins/upgrade`, dataUpgrade)
             .then(response => {
-                console.log(response);
+                console.log(response.data.EM);
+                if ((response.data.EM) === "Skin upgraded fail") {
+                    Swal.fire({
+                        title: "Fail",
+                        text: "You lost your skin!",
+                        icon: "error"
+                    });
+                }
+                if ((response.data.EM) === "Skin upgraded success") {
+                    Swal.fire({
+                        title: "Success",
+                        text: "Your skin has been upgrade.",
+                        icon: "success"
+                    });
+                }
+                if ((response.data.EM) === "Can not upgrade this skin") {
+                    Swal.fire({
+                        title: "Error",
+                        text: "Choose another skin",
+                        icon: "warning"
+                    });
+                }
+
             })
             .catch(error => {
                 console.log('error upgrade', error);
             })
-
+        refreshData();
     }
     return (
         <div className="inventory-container">
@@ -174,7 +219,7 @@ function Inventory() {
                 {/* Upgrade Section */}
                 <div className="upgrade-section">
                     <h2>Upgrade your item</h2>
-                    <button id="upgrade-button" onClick={() => sendUpdate()}>Upgrade!</button>
+                    <button id="upgrade-button" onClick={() => {sendUpdate();refreshData();}}>Upgrade!</button>
                     <p>Rating: {upgradeSuccessRate.toFixed(2)}%</p>
                 </div>
 
