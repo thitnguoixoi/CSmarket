@@ -19,6 +19,10 @@ let initApiRoutes = (app) => {
     router.get('/jwt/steamid', loginController.getJWT);
     router.get("/users/logout", usersController.logoutUser);
 
+    router.get("/users/quantity", usersController.countUserQuantity);
+    router.get("/users/opened/quantity", usersController.countUserOpened);
+    router.get("/users/upgraded/quantity", usersController.countUserUpgraded);
+
     /*
     Actions affect users
     */
