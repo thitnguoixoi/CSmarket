@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e66e7d82.css",
+    "main.js": "/static/js/main.9170c1ed.js",
+    "static/media/1.png": "/static/media/1.7e675952894e8a1e1ee4.png",
+    "static/media/3.png": "/static/media/3.28fc5d5a5aac7243eadb.png",
+    "static/media/4.webp": "/static/media/4.df79ba61f3865370ca3f.webp",
+    "static/media/2.png": "/static/media/2.32c12f94189cdddb1bae.png",
+    "static/media/csmarket.png": "/static/media/csmarket.da54957ae2251ced0ae4.png",
+    "static/media/skins.png": "/static/media/skins.04960de223de9b49ba6c.png",
+    "static/media/upgrade.png": "/static/media/upgrade.b08e5cc68772ecf4fe4a.png",
+    "static/media/dashboard.png": "/static/media/dashboard.5ccdb27326bad68d33f0.png",
+    "static/media/opencase.png": "/static/media/opencase.3c3365e6c21d6b67aefd.png",
+    "static/media/case.png": "/static/media/case.9f206e77468080693336.png",
+    "static/media/steam.webp": "/static/media/steam.3c8c34c8d10dc79a0f4b.webp",
+    "static/media/discord.webp": "/static/media/discord.868dba4dc89bd3fca2a9.webp",
+    "static/media/facebook.webp": "/static/media/facebook.95eb9f7f139d4904f150.webp",
+    "index.html": "/index.html",
+    "main.e66e7d82.css.map": "/static/css/main.e66e7d82.css.map",
+    "main.9170c1ed.js.map": "/static/js/main.9170c1ed.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e66e7d82.css",
+    "static/js/main.9170c1ed.js"
+  ]
+}
