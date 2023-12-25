@@ -1,0 +1,275 @@
+.inventory-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(54 57 78 / 49%);
+}
+
+.selected-items {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.selected-item{
+    width: 250px;
+    height: 300px;
+}
+h2 {
+    margin: 0;
+}
+
+.inventory {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 50px;
+    background-color: #293A4E;
+}
+
+.inventory-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* Centered headers outside the scrollable area */
+.user-inventory, .server-inventory {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    max-height: 550px;
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 42%;
+    margin: 0;
+}
+.user-inventory h2, .server-inventory h2 {
+    position: sticky;
+    top: 0;
+    background-color: #6d0606;
+    padding: 10px;
+    z-index: 1;
+}
+
+.user, .server {
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.user li, .server li {
+    width: 245px;
+    height: 300px;
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #1F1E27;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #747171;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+button {
+    background-color: #1F1E27;
+}
+
+button :hover {
+    background-color: #ffffff;
+}
+
+.User-select,
+.Server-select {
+    font-size: 20px;
+    width: 300px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+.upgrade-section {
+    text-align: center;
+    margin-bottom: 10px;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.upgrade-section p{
+    padding-top: 20px;
+    font-size: 20px;
+}
+#upgrade-button{
+    font-size: 16px;
+    width: 150px;
+    height: 40px;
+}
+#upgrade-button:hover{
+    background-image: linear-gradient(
+       to right, 
+       #E7484F,
+       #E7484F 16.65%,
+       #F68B1D 16.65%,
+       #F68B1D 33.3%,
+       #FCED00 33.3%,
+       #FCED00 49.95%,
+       #009E4F 49.95%,
+       #009E4F 66.6%,
+       #00AAC3 66.6%,
+       #00AAC3 83.25%,
+       #732982 83.25%,
+       #732982 100%,
+       #E7484F 100%
+      
+      
+      
+     );
+   animation:slidebg 2s linear infinite;
+ }
+ @keyframes slidebg {
+    to {
+      background-position:20vw;
+    }
+  }
+
+.item {
+    border-left: 10px;
+    border-style: solid;
+    background-color: #161518;
+}
+
+.item-details {
+    background-color: black;
+}
+
+.user ul, .server ul {
+    display: flex;
+    width: 99%;
+}
+
+.selected-items h2 {
+    margin: 20px 20px;
+}
+
+.search-bar{
+    left: 0;
+    position: sticky;
+}
+.search-bar input {
+    background-color: black;
+    color: white;
+    padding: 10px 30px;
+    width: 98%;
+}
+
+
+
+
+
+
+@media screen and (max-width: 1080px) {
+    .selected-items {
+        min-height: 300px;
+        margin-bottom: 5px;
+    }
+    .selected-item{
+        width: 200px;
+
+    }
+    .inventory{
+        padding: 15px 0;
+    }
+    .User-select,
+    .Server-select {
+        height: 100%;
+    }
+    .upgrade-section {
+        height: 100%;
+    }
+    .user li, .server li {
+        padding: 5px;
+        width: 218px;
+        min-height: 225px;
+    }
+
+    .User-select h2, .Server-select h2{
+        font-size: 18px;
+    }
+}
+
+
+
+
+
+
+@media screen and (max-width: 768px){
+    .selected-items {
+        margin-bottom: 5px;
+        min-height: 150px;
+        height: 300px;
+    }
+    .selected-item{
+        width: 150px;
+        height: 200px;
+    }
+    .user li, .server li {
+        padding: 5px;
+        width: 151px;
+        height: 150px;
+    }
+    
+    .inventory{
+        padding: 10px 0;
+    }
+    .User-select h2, .Server-select h2{
+        font-size: 16px;
+    }
+    .upgrade-section{
+
+    }
+    .items{
+        width: 151px;
+        height: 150px;
+    }
+
+    .upgrade-section p{
+        padding-top: 10px;
+        font-size: 12px;
+    }
+}

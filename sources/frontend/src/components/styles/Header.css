@@ -1,0 +1,150 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    padding-bottom: 20px;
+}
+
+.header a {
+    text-decoration: none;
+    color: white;
+}
+
+.header img {
+    width: auto;
+    height: 50px;
+    margin-right: 20px;
+}
+
+.header button {
+    margin-left: auto;
+    margin-right: 30px;
+    border: 1px solid #00ffff;
+    padding: 15px 22px;
+    border-radius: 10px;
+}
+
+.header button:hover {
+    background-color: #00ffffbb;
+    color: #000000;
+}
+
+/* navigation */
+.topnav {
+    margin-right: auto;
+    /* Move the navigation to the right */
+    padding: 15px;
+    overflow: hidden;
+}
+
+.topnav a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/*avatar*/
+.avatar-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    /* Position the dropdown below the avatar */
+    right: 0;
+    background-color: #070404;
+    box-shadow: 0 8px 16px rgba(20, 20, 20, 0.2);
+    list-style-type: none;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+    width: auto;
+    z-index: 10;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    margin-right: 50px;
+    /* Increase the padding as needed */
+    cursor: pointer;
+    width: 150px;
+}
+
+.avatar-container{
+    display: flex;
+}
+.user-wallet{
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+.user-wallet h4{
+    margin: 10px;
+    margin-left: 3px;
+}
+.user-wallet svg{
+    margin: 10px;
+    margin-right: 5px;
+    margin-bottom: 12px;
+}
+.avatar-container:hover .dropdown-menu {
+    display: block;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .header img {
+        width: 150px;
+        height: 40px;
+        margin-right: 10px;
+    }
+    
+    .header .avatar {
+        width: 50px;
+        height: 40px;
+        margin-right: 10px;
+    }
+    .topnav {
+        margin-left: 10px;
+        padding: 10px;
+    }
+
+    .topnav a {
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    .header button {
+        margin-right: 15px;
+        border: 1px solid #00ffff;
+        padding: 10px 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header img {
+        display: none;
+    }
+
+    .topnav {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .topnav a {
+        padding: 15px;
+        font-size: 18px;
+    }
+}
