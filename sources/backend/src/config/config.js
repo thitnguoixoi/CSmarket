@@ -1,11 +1,13 @@
+require("dotenv").config();
+module.exports =
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "csmarket",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "logging": false
+    "username": process.env.DB_USERNAME,
+    "password": process.env.DB_PASSWORD,
+    "database": process.env.DB_DATABASE_NAME,
+    "host": process.env.DB_HOST,
+    "port": process.env.DB_PORT,
+    "dialect": process.env.DB_DIALECT,
   },
   "test": {
     "username": "root",
@@ -13,7 +15,6 @@
     "database": "csmarket",
     "host": "172.30.32.1",
     "dialect": "mysql",
-    "logging": false
   },
   "production": {
     "username": "root",
