@@ -1,6 +1,6 @@
 import userService from "../service/userService"
 
-const readUsers = async (req, res) => {
+const readUsers = async (req, res) => {  // read all user controller
     try {
         let data = await userService.getUsers();
         return res.status(200).json({
@@ -18,7 +18,7 @@ const readUsers = async (req, res) => {
     }
 }
 
-const readUser = async (req, res) => {
+const readUser = async (req, res) => {  // read a single user controller
     try {
         let data = await userService.getUser(req.jwt.steamid);
         return res.status(200).json({
@@ -36,7 +36,7 @@ const readUser = async (req, res) => {
     }
 }
 
-const readUserSkins = async (req, res) => {
+const readUserSkins = async (req, res) => {  // read user skins controller
     try {
         let data = await userService.getUserSkins(req.jwt.steamid);
         return res.status(200).json({
@@ -54,7 +54,7 @@ const readUserSkins = async (req, res) => {
     }
 }
 
-const updateTradeURL = async (req, res) => {
+const updateTradeURL = async (req, res) => {  // update user's TradeURL controller
     try {
         let data = await userService.updateUserTradeURL(req.body.steamid, req.body.url)
         return res.status(200).json({
@@ -72,7 +72,7 @@ const updateTradeURL = async (req, res) => {
     }
 }
 
-const openCase = async (req, res) => {
+const openCase = async (req, res) => {  // open case controller
     try {
         let data = await userService.openaCase(req.jwt.steamid, req.query.caseid)
         return res.status(200).json({
@@ -88,7 +88,7 @@ const openCase = async (req, res) => {
         })
     }
 }
-const upgradeSkin = async (req, res) => {
+const upgradeSkin = async (req, res) => {  // upgrade skin controller
     try {
         let data = await userService.upgradeUserSkin(req.jwt.steamid, req.body.userskinid, req.body.serverskinid)
         return res.status(200).json({
@@ -105,7 +105,7 @@ const upgradeSkin = async (req, res) => {
         })
     }
 }
-const updateWallet = async (req, res) => {
+const updateWallet = async (req, res) => {  // update user's wallet controller
     try {
         let data = await userService.updateUserWallet(req.body.id, req.body.walletValue)
         return res.status(200).json({
@@ -123,7 +123,7 @@ const updateWallet = async (req, res) => {
     }
 }
 
-const withdrawSkin = async (req, res) => {
+const withdrawSkin = async (req, res) => {  // withdraw skin controller
     try {
         let data = await userService.withdrawUserSkin(req.jwt.steamid, req.body.userskinid)
         return res.status(200).json({
@@ -141,7 +141,7 @@ const withdrawSkin = async (req, res) => {
     }
 }
 
-const sellSkin = async (req, res) => {
+const sellSkin = async (req, res) => {  //sell skin controller
     try {
         let data = await userService.sellUserSkin(req.jwt.steamid, req.body.userskinid)
         return res.status(200).json({
@@ -159,7 +159,7 @@ const sellSkin = async (req, res) => {
     }
 }
 
-const updateGroup = async (req, res) => {
+const updateGroup = async (req, res) => {  // update group controller
     try {
         let data = await userService.updateUserGroup(req.body.id, req.body.groupid)
         return res.status(200).json({
@@ -177,7 +177,7 @@ const updateGroup = async (req, res) => {
     }
 }
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {  // delete a user controller
     try {
         let data = await userService.deleteUser(req.body.id, req.jwt.steamid)
         return res.status(200).json({
@@ -196,7 +196,7 @@ const deleteUser = async (req, res) => {
 }
 
 
-const logoutUser = async (req, res) => {
+const logoutUser = async (req, res) => {  // logout user controller
     try {
         res.clearCookie("jwt")
         res.clearCookie("csmarket")
@@ -215,7 +215,7 @@ const logoutUser = async (req, res) => {
     }
 }
 
-const countUserQuantity = async (req, res) => {
+const countUserQuantity = async (req, res) => {  // count user quantity controller
     try {
         let data = await userService.countUser()
         return res.status(200).json({
@@ -232,7 +232,7 @@ const countUserQuantity = async (req, res) => {
         })
     }
 }
-const countUserOpened = async (req, res) => {
+const countUserOpened = async (req, res) => {  // count number of user opened controller
     try {
         let data = await userService.countOpened()
         return res.status(200).json({
@@ -249,7 +249,7 @@ const countUserOpened = async (req, res) => {
         })
     }
 }
-const countUserUpgraded = async (req, res) => {
+const countUserUpgraded = async (req, res) => {  // count number of user upgraded controller
     try {
         let data = await userService.countUpgraded()
         return res.status(200).json({

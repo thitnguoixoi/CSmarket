@@ -1,7 +1,7 @@
 import db from "../models/index"
 import { createJWT } from "../middleware/jwtactions"
 require('dotenv').config();
-const getGroupRoles = async (steamid) => {
+const getGroupRoles = async (steamid) => {  // json web token service
 
     try {
         let user = await db.Users.findOne({
