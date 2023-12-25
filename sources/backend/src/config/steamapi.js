@@ -4,7 +4,7 @@ import userService from "../service/userService"
 require('dotenv').config();
 const strategyOptions = {
     returnURL: `${"http://www.csmarket.me:8080"}/api/v1/auth/steam/return`,
-    realm: `${"http://www.csmarket.me"}`,
+    realm: `${"http://www.csmarket.me:8080"}`,
     apiKey: process.env.STEAM_API_KEY
 };
 
