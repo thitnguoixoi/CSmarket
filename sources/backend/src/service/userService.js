@@ -423,7 +423,7 @@ const openaCase = async (steamid, caseid) => {
                     ['Percent', 'ASC'],
                 ],
             });
-            if (skins != []) {
+            if (skins.length != 0) {
                 let user = await db.Users.findOne({
                     where:
                         { SteamID: steamid },
@@ -480,7 +480,7 @@ const openaCase = async (steamid, caseid) => {
                     }
                 }
 
-            } else if (skins == []) {
+            } else if (skins.length == 0) {
                 return {
                     EM: "Can not open this case",
                     EC: "-1",

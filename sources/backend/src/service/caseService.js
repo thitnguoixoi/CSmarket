@@ -32,16 +32,13 @@ const getCases = async () => {
 
 const getCasesSkins = async (caseid) => {
     try {
-        let skins = []
-
         let acase = await db.Cases.findOne({
             where: {
                 id: caseid
             },
         });
-
         if (acase) {
-            skins = await db.Cases_Skins.findAll({
+            let skins = await db.Cases_Skins.findAll({
                 where: {
                     CaseID: caseid,
                 },
@@ -53,28 +50,17 @@ const getCasesSkins = async (caseid) => {
                     ['Percent', 'ASC'],
                 ],
             });
-            if (skins != []) {
-
-                return {
-                    EM: "Get case's skin success",
-                    EC: "0",
-                    DT: {
-                        skins, acase
-                    }
-
-                }
-            }
-            else {
-                return {
-                    EM: "Get case's skin error",
-                    EC: "-1",
-                    DT: []
+            return {
+                EM: "Get case's skin success",
+                EC: "0",
+                DT: {
+                    skins, acase
                 }
             }
         } else {
             return {
-                EM: "Get case's skin success",
-                EC: "0",
+                EM: "Get case's skin error",
+                EC: "-1",
                 DT: []
             }
         }
@@ -89,21 +75,29 @@ const getCasesSkins = async (caseid) => {
 }
 const createaCase = async (name, price, image, groupname) => {
     try {
-        let acase = await db.Cases.create({
-            Name: name,
-            Price: price,
-            Image: image,
-        });
-        await db.Group_Cases.create({
-            Name: groupname,
-            CaseID: acase.get({ plain: true }).id
-        });
-        return {
-            EM: "Case created",
-            EC: "0",
-            DT: []
-        }
+        if (typeof parseFloat(price) == "number") {
 
+            let acase = await db.Cases.create({
+                Name: name,
+                Price: price,
+                Image: image,
+            });
+            await db.Group_Cases.create({
+                Name: groupname,
+                CaseID: acase.get({ plain: true }).id
+            });
+            return {
+                EM: "Case created",
+                EC: "0",
+                DT: []
+            }
+        } else {
+            return {
+                EM: "Create case error",
+                EC: "-1",
+                DT: []
+            }
+        }
     } catch (e) {
         console.log("Create case error: ", e)
         return {
