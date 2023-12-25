@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 const getCases = async () => {
     try {
         let cases = await db.Group_Cases.findAll({
-            include: { model: db.Cases },
+            include: { model: db.Cases, attributes: ["id", "Name", "Price", "Image"] },
             attributes: ["id", "Name", "CaseID"]
         });
         if (cases) {

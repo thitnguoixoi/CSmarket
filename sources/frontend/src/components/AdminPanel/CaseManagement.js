@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBackward, faPaintBrush, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
-import axios from "../../assets/setup/axios"
+import axios from "../../assets/setup/axios";
+import Swal from 'sweetalert2';
 
 function CaseManagement() {
   const [data, setData] = useState([]);
@@ -173,6 +174,12 @@ function CaseManagement() {
     axios.delete(`/api/v1/cases/delete`, { data: { caseid: caseID } })
       .then(response => {
         console.log('delete case', response)
+        Swal.fire({
+          title: "Delete!",
+          text: "Case has been deleted!",
+          icon: "success"
+        });
+        Refresh();
       })
       .catch(error => {
         console.error('Error cases', error);
