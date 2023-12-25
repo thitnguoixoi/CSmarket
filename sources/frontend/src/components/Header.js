@@ -40,7 +40,6 @@ function Header() {
   useEffect(() => {
     // Set up an interval to refresh the wallet every 1000 milliseconds (1 second)
     const intervalId = setInterval(handleRefreshWallet, 1000);
-
     // Clean up the interval when the component is unmounted
     return () => clearInterval(intervalId);
   }, []);

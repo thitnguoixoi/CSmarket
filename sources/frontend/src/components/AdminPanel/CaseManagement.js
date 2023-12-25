@@ -304,7 +304,7 @@ function CaseManagement() {
           return (
             <tr key={item.id}>
               <td>{item.CaseID}</td>
-              <td>{item.Cases[0].Name}</td>
+              <td>{item.Cases[0]?.Name}</td>
               <td>
                 {selectedItemId === item.id ? (
                   <div>
@@ -317,13 +317,13 @@ function CaseManagement() {
                   </div>
                 ) : (
                   <div onClick={() => handleEditPrice(item.id, item.Cases[0].Price)}>
-                    {item.Cases[0].Price}
+                    {item.Cases[0]?.Price}
                     <FontAwesomeIcon icon={faPaintBrush} />
                   </div>
                 )}
               </td>
               <td>
-                <img src={item.Cases[0].Image} alt="" />
+                <img src={item.Cases[0]?.Image} alt="" />
               </td>
               <td>
                 <button onClick={() => handleEditCaseSkin(item.id)}>Edit skin</button>

@@ -5,7 +5,7 @@ import './styles/Case.css';
 function Case({ caseData }) {
   const originalString = caseData?.Name;
   const convertedString = originalString?.replace(/\s+/g, '').toLowerCase();
-  console.log(caseData);
+  // console.log(caseData);
   return (
     <div className="case_box">
       <Link to={`/${convertedString}`}>
