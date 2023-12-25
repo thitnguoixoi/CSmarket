@@ -56,7 +56,7 @@ function Header() {
 
   // Empty dependency array ensures the effect runs only once
   const handleMessage = (event) => {
-    if (event.origin !== "/") return;
+    if (event.origin !== "http://www.csmarket.me:8080") return;
     const steamData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
     //jwt
