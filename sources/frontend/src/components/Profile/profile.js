@@ -10,6 +10,16 @@ function UserProfile() {
     const [tradeURL, setTradeURL] = useState(sessionStorage.getItem('steamprofileURL') || '');
     const [userItems, setUserItems] = useState([]);
 
+    const refreshUserData = () => {
+        axios.get(`/api/v1/users/steamid`)
+            .then(response => {
+                setUser(response.data.DT);
+            })
+            .catch(error => {
+                console.error('Error get user profile:', error);
+                // Optionally, handle error or redirect to a specific page
+            });
+    };
 
     const refreshInventory = () => {
         axios.get(`/api/v1/users/skins`)
@@ -43,7 +53,7 @@ function UserProfile() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, withdraw it!"
         }).then((result) => {
-            
+
             if (result.isConfirmed) {
                 withDraw(id); refreshInventory();
                 Swal.fire({
@@ -62,6 +72,7 @@ function UserProfile() {
         axios.put(`/api/v1/users/skins/withdraw`, dataWithDraw)
             .then(response => {
                 console.log(response);
+                refreshUserData();
             })
             .catch(error => {
                 console.error('Error withdraw skin:', error);
@@ -111,6 +122,7 @@ function UserProfile() {
 
         axios.put(`/api/v1/users/tradeurl/update`, { steamid: user.SteamID, url: tradeURL })
             .then(response => {
+                refreshUserData();
             })
             .catch(error => {
                 console.error('Error updating trade url:', error);

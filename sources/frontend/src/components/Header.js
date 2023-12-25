@@ -12,6 +12,20 @@ function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [userIsMod, setUserIsMod] = useState(false);
   const navigate = useNavigate();
+
+  const handleRefreshWallet = () => {
+    // Fetch the updated wallet value
+    axios.get(`/api/v1/users/steamid`)
+      .then(response => {
+        setUser(prevUser => ({
+          ...prevUser,
+          Wallet: response.data.DT.Wallet
+        }));
+      })
+      .catch(error => {
+        console.error('Error refreshing wallet', error);
+      });
+  };
   useEffect(() => {
     window.addEventListener("message", handleMessage);
     if (checkCookieExists("csmarket")) {
@@ -23,7 +37,13 @@ function Header() {
       window.removeEventListener("message", handleMessage);
     };
   }, []);
+  useEffect(() => {
+    // Set up an interval to refresh the wallet every 1000 milliseconds (1 second)
+    const intervalId = setInterval(handleRefreshWallet, 1000);
 
+    // Clean up the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, []);
   const handleLogin = async () => {
     const popupWindow = window.open(
       "http://localhost:8080/api/v1/auth/steam",
