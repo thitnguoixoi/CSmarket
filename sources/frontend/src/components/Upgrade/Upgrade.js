@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import './styles/Upgrade.css';
 import SelectedItem from './SelectedItem';
 import Item from "./Item.js";
+import ServerItem from "./ServerItem.js";
 import axios from '../../assets/setup/axios';
+import ServerSelectedItem from "./ServerSelectedItem.js";
+
+
 
 function Inventory() {
     const [userItems, setUserItems] = useState([]);
@@ -12,8 +16,6 @@ function Inventory() {
     // State for selected user and server items
     const [selectedUserItem, setSelectedUserItem] = useState(null);
     const [selectedServerItem, setSelectedServerItem] = useState(null);
-    const [rateUser, setRateUser] = useState(0.0);
-    const [rateServer, setRateServer] = useState(0.0);
     // State for upgrade success rate
     const [upgradeSuccessRate, setUpgradeSuccessRate] = useState(0.0);
     // State for search term
@@ -21,12 +23,25 @@ function Inventory() {
     const [serverSearchTerm, setServerSearchTerm] = useState("");
     const [filteredUserItems, setFilteredUserItems] = useState(userItems);
     const [filteredServerItems, setFilteredServerItems] = useState(serverItems);
+
     useEffect(() => {
-        rateUpgrade();
+        calculateRate();
+        //get userskins
         axios.get(`/api/v1/users/skins`)
             .then(response => {
                 setUserItems(response.data.DT);
                 setFilteredUserItems(response.data.DT);
+            })
+            .catch(error => {
+                console.error('Error get skin:', error);
+                if (error.response.data.EM === 'User is not authenticate') {
+                    navigate('/');
+                }
+            });
+
+        //get serverskin
+        axios.get(`/api/v1/skins`)
+            .then(response => {
                 setServerItems(response.data.DT);
                 setFilteredServerItems(response.data.DT);
             })
@@ -37,16 +52,39 @@ function Inventory() {
                 }
             });
     }, []);
+
+    useEffect(() => {
+        // Calculate rate whenever selectedUserItem or selectedServerItem changes
+        calculateRate();
+    }, [selectedUserItem, selectedServerItem]);
+
     // Handler for user item click
     const handleUserItemClick = (item) => {
         setSelectedUserItem(item);
-        setRateUser(item.float);
+        filterServerItemsByPrice(item.Skin.Price);
+        calculateRate();
     };
-
+    const filterServerItemsByPrice = (userItemPrice) => {
+        // Filter server items based on the price of the selected user item
+        const filteredServer = serverItems.filter(
+            (serverItem) => serverItem.Price >= userItemPrice
+        );
+        // Update filteredServerItems
+        setFilteredServerItems(filteredServer);
+    };
     // Handler for server item click
     const handleServerItemClick = (item) => {
         setSelectedServerItem(item);
-        setRateServer(item.float);
+        filterUserItemsByPrice(item.Price);
+        calculateRate();
+    };
+    const filterUserItemsByPrice = (serverItemPrice) => {
+        // Filter user items based on the price of the selected server item
+        const filteredUser = userItems.filter(
+            (userItem) => userItem.Skin.Price <= serverItemPrice
+        );
+        // Update filteredUserItems
+        setFilteredUserItems(filteredUser);
     };
     const handleUserSearchChange = (event) => {
         const term = event.target.value;
@@ -59,6 +97,18 @@ function Inventory() {
         // Update filteredUserItems only if there's a search term, otherwise, keep all items
         setFilteredUserItems(term ? filteredUser : userItems);
     };
+    const calculateRate = () => {
+        const userPrice = selectedUserItem?.Skin.Price || 0;
+        const serverPrice = selectedServerItem?.Price || 0;
+
+        // Replace this with your actual calculation logic
+        let rate = userPrice > 0 && serverPrice > 0 ? (userPrice / serverPrice) * 100 : 0;
+
+        // Ensure rate does not exceed 100
+        rate = Math.min(rate, 100);
+
+        setUpgradeSuccessRate(rate);
+    };
 
     // Handler for server inventory search term change
     const handleServerSearchChange = (event) => {
@@ -67,86 +117,13 @@ function Inventory() {
 
         // Filter server items based on the search term
         const filteredServer = serverItems.filter(
-            (item) => item.Skin.Name.toLowerCase().includes(term.toLowerCase())
+            (item) => {
+                return item.Name.toLowerCase().includes(term.toLowerCase());
+            }
         );
-
         // Update filteredServerItems only if there's a search term, otherwise, keep all items
         setFilteredServerItems(term ? filteredServer : serverItems);
     };
-    const mapTierToNumber = (tier) => {
-        switch (tier) {
-            case 'tier2':
-                return 2;
-            case 'tier3':
-                return 3;
-            case 'tier4':
-                return 4;
-            case 'tier5':
-                return 5;
-            // Add more cases as needed
-            default:
-                return 1; // Default to 1 if tier is not recognized
-        }
-    };
-    // Function to calculate upgrade success rate
-    const rateUpgrade = () => {
-        // Access properties of selected items safely using optional chaining
-        const userTier = mapTierToNumber(selectedUserItem?.tier);
-        const serverTier = mapTierToNumber(selectedServerItem?.tier);
-        // Set successRate to 100% if userTier is higher than serverTier
-        if (userTier > serverTier) {
-            setUpgradeSuccessRate(100);
-            return;
-        }
-
-        // Example calculation: Combine float and tier to determine success rate
-        let successRate = 0;
-
-        // Define rating scales for different tier ranges
-        const ratingScales = {
-            //tier1
-            '1-1': { baseRate: 80, rateMultiplier: 40 },
-            '1-2': { baseRate: 50, rateMultiplier: 40 },
-            '1-3': { baseRate: 35, rateMultiplier: 40 },
-            '1-4': { baseRate: 15, rateMultiplier: 40 },
-            '1-5': { baseRate: 5, rateMultiplier: 40 },
-            //tier 2
-            '2-2': { baseRate: 80, rateMultiplier: 40 },
-            '2-3': { baseRate: 50, rateMultiplier: 40 },
-            '2-4': { baseRate: 35, rateMultiplier: 40 },
-            '2-5': { baseRate: 15, rateMultiplier: 40 },
-            //tier3
-            '3-3': { baseRate: 80, rateMultiplier: 40 },
-            '3-4': { baseRate: 50, rateMultiplier: 40 },
-            '3-5': { baseRate: 35, rateMultiplier: 40 },
-            //tier4
-            '4-4': { baseRate: 80, rateMultiplier: 40 },
-            '4-5': { baseRate: 50, rateMultiplier: 40 },
-            //tier5
-            '5-5': { baseRate: 80, rateMultiplier: 40 },
-        };
-
-        // Get the ratingScale based on user and server tiers
-        const ratingScale = ratingScales[`${userTier}-${serverTier}`];
-
-        // Check if ratingScale is defined before accessing its properties
-        if (ratingScale && rateServer > 0.0 && rateUser > 0.0) {
-            if (userTier === serverTier) {
-                // The higher the float difference, the higher the success rate
-                successRate = ratingScale.baseRate - Math.abs(rateUser - rateServer) * ratingScale.rateMultiplier;
-            } else {
-                // If tiers are different, lower success rate
-                successRate = ratingScale.baseRate - Math.abs(rateUser - rateServer) * ratingScale.rateMultiplier;
-            }
-
-            // Ensure successRate is between 0 and 100
-            successRate = Math.max(0, Math.min(100, successRate));
-        }
-
-        // Update the state with the calculated success rate
-        setUpgradeSuccessRate(successRate);
-    };
-
 
     const userSearchBar = (
         <div className="search-bar">
@@ -168,9 +145,21 @@ function Inventory() {
             />
         </div>
     );
+    const sendUpdate = () => {
+        console.log(selectedUserItem.id, selectedServerItem.id);
+        const dataUpgrade = {
+            userskinid: selectedUserItem.id,
+            serverskinid: selectedServerItem.id
+        }
+        axios.put(`/api/v1/users/skins/upgrade`, dataUpgrade)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log('error upgrade', error);
+            })
 
-
-
+    }
     return (
         <div className="inventory-container">
             <div className="selected-items">
@@ -185,7 +174,7 @@ function Inventory() {
                 {/* Upgrade Section */}
                 <div className="upgrade-section">
                     <h2>Upgrade your item</h2>
-                    <button id="upgrade-button">Upgrade!</button>
+                    <button id="upgrade-button" onClick={() => sendUpdate()}>Upgrade!</button>
                     <p>Rating: {upgradeSuccessRate.toFixed(2)}%</p>
                 </div>
 
@@ -193,7 +182,7 @@ function Inventory() {
                 <div className="Server-select">
                     <h2>Server Selected Item</h2>
                     <div className="items">
-                        <SelectedItem selectedItem={selectedServerItem} fixedSize />
+                        <ServerSelectedItem selectedItem={selectedServerItem} fixedSize />
                     </div>
                 </div>
             </div>
@@ -209,7 +198,9 @@ function Inventory() {
                             {filteredUserItems.map((item, index) => (
                                 <li
                                     key={index}
-                                    onClick={() => handleUserItemClick(item)}
+                                    onClick={() => {
+                                        handleUserItemClick(item)
+                                    }}
                                     className={selectedUserItem === item ? "selected" : "unselected"}
                                 >
                                     <Item itemData={item} />
@@ -225,20 +216,25 @@ function Inventory() {
                     {serverSearchBar}
                     <div className="server">
                         <ul>
-                            {filteredServerItems.map((item, index) => (
-                                <li
-                                    key={index}
-                                    onClick={() => handleServerItemClick(item)}
-                                    className={selectedServerItem === item ? "selected" : ""}
-                                >
-                                    <Item itemData={item} />
-                                </li>
-                            ))}
+                            {filteredServerItems.map((item, index) => {
+                                // console.log(item); 
+                                return (
+                                    <li
+                                        key={index}
+                                        onClick={() => {
+                                            handleServerItemClick(item);
+                                        }}
+                                        className={selectedServerItem === item ? "selected" : ""}
+                                    >
+                                        <ServerItem data={item} />
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

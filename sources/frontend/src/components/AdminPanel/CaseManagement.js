@@ -25,7 +25,6 @@ function CaseManagement() {
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
 
-
   const Refresh = () => {
     //get case data
     axios.get(`/api/v1/cases`)
@@ -55,7 +54,7 @@ function CaseManagement() {
       skinid: parseInt(SkinID, 10),
       percent: parseFloat(Percent)
     }
-    console.log(caseSkinData);
+
     axios.post(`/api/v1/cases/skins/create`, dataToAdd)
       .then(response => {
         console.log('Add success');
@@ -92,10 +91,8 @@ function CaseManagement() {
       .catch(error => {
         console.error('Error checking user group:', error);
       });
-
     Refresh();
   }, []);
-
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
@@ -208,7 +205,6 @@ function CaseManagement() {
     </>
   );
   const renderEditCaseSkinTable = () => {
-    console.log(caseSkinData);
     return (
       <>
         <h2>Case Skins</h2>
@@ -220,7 +216,7 @@ function CaseManagement() {
               <th>Skin Name</th>
               <th>Percent</th>
               <th>
-                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); setName(); }}>
+                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); }}>
                   <FontAwesomeIcon icon={faPlus} />Skin
                 </button>
               </th>
@@ -228,7 +224,7 @@ function CaseManagement() {
           </thead>
           <tbody>
             {caseSkinData.map((item) => {
-              // console.log(index);
+              console.log(item);
               return (
                 <tr key={item.id}>
                   <td>{item.CaseID}</td>

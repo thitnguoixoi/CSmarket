@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faPlus, faTimes, faTrash, faRefresh, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faPlus, faTrash, faRefresh, faUser } from '@fortawesome/free-solid-svg-icons';
 import axios from "../../assets/setup/axios"
 
 function UserManagement() {
@@ -106,12 +106,8 @@ function UserManagement() {
       });
   }
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleAddWalletSubmit = (itemId, inputValue) => {
     // Implement your logic for handling wallet submission
-    setIsSubmitting(true);
-
     // Example: Send Axios request or perform other actions
     const dataToSend = {
       id: itemId,
@@ -124,17 +120,14 @@ function UserManagement() {
           .then(response => {
             setData(response.data.DT);
             setFilteredData(response.data.DT);
-            setIsSubmitting(false);
             setClickedItemId(null); // Close the input field after submitting
           })
           .catch(error => {
             console.error('Error fetching data:', error);
-            setIsSubmitting(false);
           });
       })
       .catch(error => {
         console.error('Error adding wallet:', error);
-        setIsSubmitting(false);
       });
   };
   const handleDropdownChange = (value) => {
@@ -198,7 +191,7 @@ function UserManagement() {
                   <FontAwesomeIcon icon={faUser} />
                   +Group
                 </button>
-                {clickedItemId === item.id && (
+                {clickedItemId === item.id && showGroupOption &&(
                   <div id="submit-set-group">
                     <label>
                       <input

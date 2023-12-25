@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBackward, faCheck, faRefresh } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faCheck, faCancel } from '@fortawesome/free-solid-svg-icons';
 import axios from "../../assets/setup/axios"
 
 function Withdraw() {
@@ -41,7 +41,6 @@ function Withdraw() {
     Refresh();
   }, []);
   const Check = (id) => {
-    console.log(id);
     //change status
     axios.put(`/api/v1/skins/withdraw/update`, { withdrawskinid: id, isAccept: 1 })
       .then(response => {
@@ -51,6 +50,9 @@ function Withdraw() {
       .catch(error => {
         console.error('Error get data:', error);
       });
+  }
+  const Cancel = (id) => {
+
   }
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
@@ -96,6 +98,9 @@ function Withdraw() {
               <td>
                 <button onClick={() => Check(item.id)}>
                   <FontAwesomeIcon icon={faCheck} />
+                </button>
+                <button onClick={() => Cancel(item.id)}>
+                  <FontAwesomeIcon icon={faCancel} />
                 </button>
               </td>
             </tr>
