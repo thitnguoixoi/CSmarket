@@ -46,7 +46,7 @@ function Header() {
   }, [isLoggedIn]);
   const handleLogin = async () => {
     const popupWindow = window.open(
-      "http://localhost:8080/api/v1/auth/steam",
+      "/api/v1/auth/steam",
       "_blank",
       "width=800, height=600",
     );
@@ -56,7 +56,7 @@ function Header() {
 
   // Empty dependency array ensures the effect runs only once
   const handleMessage = (event) => {
-    if (event.origin !== "http://localhost:8080") return;
+    if (event.origin !== "/") return;
     const steamData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
     //jwt

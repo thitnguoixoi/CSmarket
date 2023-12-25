@@ -1,7 +1,8 @@
 const cors = require('cors');
+require('dotenv').config();
 const configCORS = (app) => {
     const corsOptions = {
-        origin: 'http://localhost:3000',
+        origin: process.env.REACT_URL,
         credentials: true,            //access-control-allow-credentials:true
         optionSuccessStatus: 200
     }
