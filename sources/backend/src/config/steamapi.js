@@ -3,8 +3,8 @@ const { Strategy } = require("passport-steam");
 import userService from "../service/userService"
 require('dotenv').config();
 const strategyOptions = {
-    returnURL: `${"https://csmarket.me"}/api/v1/auth/steam/return`,
-    realm: `${"https://csmarket.me"}/`,
+    returnURL: `${"http://www.csmarket.me:8080"}/api/v1/auth/steam/return`,
+    realm: `${"http://www.csmarket.me:8080"}/`,
     apiKey: process.env.STEAM_API_KEY
 };
 
