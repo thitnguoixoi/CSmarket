@@ -7,7 +7,7 @@ services:
       - MYSQL_DATABASE=csmarket
       - MYSQL_ROOT_PASSWORD=123456
     ports:
-      - '3307:3306'
+      - '3306:3306'
     expose:
       - 3306
 
