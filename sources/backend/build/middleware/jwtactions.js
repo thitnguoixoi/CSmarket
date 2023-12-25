@@ -29,14 +29,11 @@ var verifyToken = function verifyToken(token) {
 var checkUserJWT = function checkUserJWT(req, res, next) {
   // check user json web token
   if (nonSecurePath.includes(req.path)) return next();
-  console.log(1);
   var cookies = req.cookies;
   if (cookies && cookies.jwt) {
-    console.log(1);
     var token = cookies.jwt;
     var decoded = verifyToken(token);
     if (decoded) {
-      console.log(1);
       req.jwt = decoded;
       next();
     } else {
