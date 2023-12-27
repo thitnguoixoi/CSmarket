@@ -219,6 +219,9 @@ function CaseManagement() {
     return (
       <>
         <h2>Case Skins</h2>
+        <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); }}>
+          <FontAwesomeIcon icon={faPlus} /> Add Skin
+        </button>
         <table>
           <thead>
             <tr>
@@ -227,9 +230,6 @@ function CaseManagement() {
               <th>Skin Name</th>
               <th>Percent</th>
               <th>
-                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); }}>
-                  <FontAwesomeIcon icon={faPlus} />Skin
-                </button>
               </th>
             </tr>
           </thead>
@@ -389,7 +389,7 @@ function CaseManagement() {
     <div className="case-management">
       {isAdmin ? (
         <>
-          {showAddCaseSkinForm && renderAddCaseSkinForm()}
+          {showAddCaseSkinForm && renderAddCaseSkinForm()} 
           {editCaseSkinForm && renderEditCaseSkinTable()}
           {showAddForm && renderAddCaseForm()}
           <div className="back-button">
