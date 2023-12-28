@@ -1,4 +1,3 @@
-
 /* AdminPanel.css */
 .admin-panel {
     width: 100%;
@@ -183,6 +182,14 @@ input {
     align-items: center;
 }
 
-.submit-set-group{
+.submit-set-group {
     background-color: transparent;
+}
+
+.header.table button{
+    margin-left: auto;
+    margin-right: 30px;
+    border: 1px solid #00ff37;
+    padding: 15px 22px;
+    border-radius: 10px;
 }
