@@ -8,7 +8,7 @@ function AdminPanel() {
     const [isTrader, setIsTrader] = useState(false);
 
     useEffect(() => {
-        // Send Axios request to check user's group ID
+        // api to set role for user
         axios.get(`/api/v1/users/steamid`)
             .then(response => {
                 if (response.data.DT.GroupID === 3) {

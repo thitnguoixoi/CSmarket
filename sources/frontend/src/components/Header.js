@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import './styles/Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faWallet } from '@fortawesome/free-solid-svg-icons';
-import Popup from './Popup.js';
 
 function Header() {
   const [user, setUser] = useState('');
@@ -29,6 +28,7 @@ function Header() {
       });
   };
   useEffect(() => {
+    //handle message when login with steam
     window.addEventListener("message", handleMessage);
     if (checkCookieExists("csmarket")) {
       handleGetProfileAgain()
@@ -58,6 +58,7 @@ function Header() {
 
   // Empty dependency array ensures the effect runs only once
   const handleMessage = (event) => {
+    //catch data when log in with steam api
     if (event.origin !== "http://localhost:8080") return;
     const steamData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
@@ -75,6 +76,7 @@ function Header() {
   };
 
   const handleGetProfile = () => {
+    //api take data with steamid
     axios.get(`/api/v1/users/steamid`)
       .then(response => {
         setLoggedIn(true);
@@ -92,6 +94,7 @@ function Header() {
 
 
   const handleGetProfileAgain = () => {
+    //api get role permission
     axios.get(`/api/v1/users/steamid`)
       .then(response => {
         setLoggedIn(true);
@@ -110,6 +113,7 @@ function Header() {
       });
   }
   const handleLogout = () => {
+    //api set logout status
     axios.get(`/api/v1/users/logout`)
       .then(response => {
       })
@@ -118,7 +122,7 @@ function Header() {
       });
     navigate('/');
     setLoggedIn(false);
-    setUserIsMod(false);
+    setUserIsMod(false);    //delete permisson when log out
     setShowDropdown(false); // Close the dropdown when logging out
   };
 
@@ -132,7 +136,7 @@ function Header() {
     setShowDropdown(false);
   };
   const addWallet = () => {
-    console.log("dm cinder");
+    //show QR code for payment
     setShowDeposit(true);
   }
   const renderQRdeposit = () => {

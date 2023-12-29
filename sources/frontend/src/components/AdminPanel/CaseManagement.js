@@ -7,12 +7,15 @@ import Swal from 'sweetalert2';
 
 function CaseManagement() {
   const [data, setData] = useState([]);
+  //const for paginate and search system
   const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
+  //show when groudid is admin
   const [isAdmin, setIsAdmin] = useState(false);
+  //const for add,edit,del item
   const [editedPrice, setEditedPrice] = useState('');
   const [showEditPrice, setShowEditPrice] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
@@ -50,14 +53,14 @@ function CaseManagement() {
       });
   }
   const handleAddCaseSkin = (CaseID, SkinID, Percent) => {
-    setShowAddCaseSkinForm(false);
-    console.log(CaseID, SkinID, Percent);
+    setShowAddCaseSkinForm(false); //hide form
+    //data
     const dataToAdd = {
       caseid: parseInt(CaseID, 10),
       skinid: parseInt(SkinID, 10),
       percent: parseFloat(Percent)
     }
-
+    //api add skin
     axios.post(`/api/v1/cases/skins/create`, dataToAdd)
       .then(response => {
         console.log('Add success');
@@ -66,14 +69,13 @@ function CaseManagement() {
       .catch(error => {
         console.error('Error Add', error);
       });
-    ReFreshEditSkinForm();
+    ReFreshEditSkinForm(); //refresh data after send api
   }
   const handleDelCaseSkin = (id) => {
-    // Add your logic for the action here
     const dataToDel = {
       caseskinid: id,
     }
-    console.log(id);
+    //api to del skin with id
     axios.delete(`/api/v1/cases/skins/delete`, { data: dataToDel })
       .then(response => {
         console.log(response);
@@ -81,7 +83,7 @@ function CaseManagement() {
       .catch(error => {
         console.error('Error Add', error);
       });
-    ReFreshEditSkinForm();
+    ReFreshEditSkinForm(); //refresh data after send api
   };
   useEffect(() => {
     //set role
@@ -94,8 +96,9 @@ function CaseManagement() {
       .catch(error => {
         console.error('Error checking user group:', error);
       });
-    Refresh();
+    Refresh(); //refresh data after send api
   }, []);
+
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
@@ -120,45 +123,38 @@ function CaseManagement() {
     setShowAddForm(!showAddForm);
   };
   const handleAddCase = (name, price, image, groupname) => {
-    setShowAddForm(false);
+    setShowAddForm(false); //hide add form  
     const caseAdd = {
       name: name,
       price: price,
       image: image,
       groupname: groupname
     }
-    // console.log(caseAdd);
     axios.post(`/api/v1/cases/create`, caseAdd)
       .then(response => {
-        console.log('add case', response);
-        Refresh();
+        Refresh(); //refresh data if success
       })
-      .catch(error => {
-        console.error('Error update case price:', error);
-      });
-
   }
   const handleEditPrice = (itemId, price) => {
-    setShowEditPrice(!showEditPrice);
-    setSelectedItemId(itemId);
+    setShowEditPrice(!showEditPrice); //hide edit input
+    setSelectedItemId(itemId);  //set id,price for selected item
     setEditedPrice(price);
     const priceSend = parseInt(price, 10);
     const dataToSend = {
       caseid: itemId,
       price: priceSend
     }
-    console.log(dataToSend);
+    //api edit item 
     axios.put(`/api/v1/cases/update`, dataToSend)
       .then(response => {
-        console.log('update price', response);
-        setShowEditPrice(false);
+        setShowEditPrice(false); //hide edit input if send api success
       })
       .catch(error => {
         console.error('Error update case price:', error);
       });
   };
   const handleEditCaseSkin = (caseID) => {
-    setShowAddCaseSkinForm(false);
+    setShowAddCaseSkinForm(false); //hide form
     setCaseId(caseID);
     //get case skins
     axios.get(`/api/v1/cases/id`, { params: { caseid: caseID } })
@@ -172,15 +168,16 @@ function CaseManagement() {
     setEditCaseSkinForm(!editCaseSkinForm);
   }
   const handleDeleteCase = (caseID) => {
+    //api delete case with id
     axios.delete(`/api/v1/cases/delete`, { data: { caseid: caseID } })
       .then(response => {
-        console.log('delete case', response)
+        //alert delete case
         Swal.fire({
           title: "Delete!",
           text: "Case has been deleted!",
           icon: "success"
         });
-        Refresh();
+        Refresh();  //refresh data when delete success
       })
       .catch(error => {
         console.error('Error cases', error);
@@ -218,7 +215,12 @@ function CaseManagement() {
   const renderEditCaseSkinTable = () => {
     return (
       <>
-        <h2>Case Skins</h2>
+        <div className="header table">
+          <h2>Case Skins</h2>
+          <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); }}>
+            <FontAwesomeIcon icon={faPlus} /> Add Skin
+          </button>
+        </div>
         <table>
           <thead>
             <tr>
@@ -227,9 +229,6 @@ function CaseManagement() {
               <th>Skin Name</th>
               <th>Percent</th>
               <th>
-                <button onClick={() => { setShowAddCaseSkinForm(!showAddCaseSkinForm); }}>
-                  <FontAwesomeIcon icon={faPlus} />Skin
-                </button>
               </th>
             </tr>
           </thead>
@@ -312,11 +311,7 @@ function CaseManagement() {
           <th>Name</th>
           <th>Price</th>
           <th>Image</th>
-          <th>
-            <button onClick={() => handleShowAddCase()}>
-              <FontAwesomeIcon icon={faPlus} />Case
-            </button>
-          </th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -397,13 +392,19 @@ function CaseManagement() {
             <Link to="/admin">  Back to menu</Link>
           </div>
 
-          <h2>Case Management</h2>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
+          <div className="header table">
+            <h2>Case Management</h2>
+            <button onClick={() => handleShowAddCase()}>
+              <FontAwesomeIcon icon={faPlus} /> Add Case
+            </button>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </div>
+
           {renderTable()}
           {renderPagination()}
         </>

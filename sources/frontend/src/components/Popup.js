@@ -3,6 +3,7 @@ import "./styles/Popup.css";
 
 
 export default function Modal({text}) {
+// Cac chuoi de dua vao footer
   const intro = "Welcome to CSMarket!\n\nOur website lets customer from all over the world open cases from CS2 game.\n\nAdd furnds to your virtual wallet via available payment menthods, i.a.: SMS, Bank transfer, Credit Card, Paysafecard, Skrill and many others.\n\nThousand of skins are waiting for you! Join the game and try your luck now. Satisfaction Guaranteed. ";
   
   const ques = "1. What is Steam Trade URL and how do I get it?\n\nAns: Steam Trade URL is a special link which lets you send and accept skins via Steam platform.\n\n\n2. I paid via ZEN but I did not receive funds?\nAns: Some payments are being verified by ZEN, it takes some time.If your funds did not arrive after 15 minutes please contact hello@zen.com.\n\n\n3. Can you give me a promocode?\n\nAns: I do not send promocodes in private messages. Promocodes are being posted on Facebook, Instagram and Twitter.\n\n\n4. What will happen if I do not withdraw my skin in 31 days?\n\nAns: Your skin will be automatically sold and you will receive $.\n\n\n5. Is it possible to advertise CSMarket for $?\n\nAns: Yes, you can dm me via FB or Discord. \n\n\n6. How can I contact you?\n\nAns: Please write an email to contact@csmarket.com or message me at Facebook, Discord.";
@@ -13,6 +14,7 @@ export default function Modal({text}) {
 
   const cookie_policy = "We only use cookie for authentication purpose."; 
 
+// Ham de dua content vao footer dua theo input
  function addText(text){
   if(text === "About us") return intro;
   if(text === "Usual question") return ques;

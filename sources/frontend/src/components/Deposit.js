@@ -46,7 +46,6 @@ export default function Modal({ text }) {
         <>
             <div className={`item tier`}>
                 <img src={itemData.Skin?.Image} alt="" />
-                
             </div>
         </>
     );

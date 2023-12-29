@@ -6,7 +6,7 @@ function Popup({ trigger, children, setTrigger }) {
     const navigate = useNavigate();
 
     const handleViewInventory = () => {
-        // Navigate to /profile or your desired route
+        // Navigate to /profile
         navigate("/profile");
     };
 
