@@ -3,6 +3,7 @@
 *.pack
 # dependencies
 /sources/frontend/node_modules
+/sources/frontend/.env
 /.pnp
 .pnp.js
 .vscode
