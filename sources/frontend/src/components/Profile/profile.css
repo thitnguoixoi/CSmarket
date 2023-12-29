@@ -1,8 +1,8 @@
-
 /* User profile CSS */
 .content-user-profile {
     width: 100%;
 }
+
 .user-profile {
     width: 100%;
     display: flex;
@@ -34,13 +34,14 @@
     vertical-align: middle;
     white-space: nowrap;
     word-wrap: break-word;
-  }
-  
-  .infor button:hover {
+}
+
+.infor button:hover {
     background-color: #000000;
     text-decoration: none;
     color: #ffffff;
-  }
+}
+
 /* Avatar CSS */
 .ava-link {
     display: flex;
@@ -61,9 +62,10 @@
 
 
 /* Information CSS */
-.infor{
+.infor {
     width: 100%;
 }
+
 .infor h2 {
     margin-bottom: 30px;
     padding-top: 10px;
@@ -101,8 +103,9 @@
     display: flex;
     justify-content: space-between;
 }
+
 .user-case-count span h5,
-.user-upgrade-count span h5{
+.user-upgrade-count span h5 {
     font-size: 40px;
 }
 
@@ -114,6 +117,7 @@
 .user-profile-inventory h2 {
     margin-bottom: 20px;
 }
+
 .user-profile-inventory-items ul {
     padding: 0;
     display: flex;
@@ -140,9 +144,11 @@
     /* Adjust margin as needed for spacing */
     text-align: center;
 }
-.user-profile-inventory-items .list_item{
+
+.user-profile-inventory-items .list_item {
     padding: 15px;
 }
+
 .user-profile-inventory-items #sell {
     width: 45px;
     background-color: #ff4a4a;
@@ -156,6 +162,7 @@
     transition: background-color 0.3s, color 0.3s;
     margin-top: 5px;
 }
+
 .user-profile-inventory-items #withdraw {
     width: 90px;
     height: 25px;
@@ -170,7 +177,8 @@
     transition: background-color 0.3s, color 0.3s;
     margin-top: 5px;
 }
-.list_items{
+
+.list_items {
     height: 350px;
 }
 
@@ -179,18 +187,22 @@
     width: 100%;
     justify-content: space-between;
 }
-.inputURL{
+
+.inputURL {
     height: 50px;
     display: flex;
 }
-.inputURL button{
+
+.inputURL button {
     height: 30px;
     margin-top: 5px;
 }
-.inputURL label{
+
+.inputURL label {
     margin-top: 10px;
 }
-#tradeURL{
+
+#tradeURL {
     margin-left: 5px;
     margin-right: 15px;
     height: 30px;
@@ -202,90 +214,111 @@
 
 
 
-@media screen and (max-width: 1080px){
+@media screen and (max-width: 1080px) {
     .user-profile {
         padding: 10px;
         height: 250px;
     }
-    
+
     /* Button in profile CSS */
     .infor button {
         padding: 4px 12px;
         width: 175px;
     }
+
     /* Avatar CSS */
-    
+
     .user-avatar img {
         height: 150px;
         width: 150px;
         margin-right: 15px;
     }
-    
-    
-    
+
+
+
     /* Information CSS */
     .infor h2 {
         margin-bottom: 10px;
         padding-top: 5px;
     }
-    
+
     .infor h5 {
         font-size: 12px;
         margin: 6px;
     }
-    .ava-link{
+
+    .ava-link {
         width: 60%;
     }
+
     .properties {
         width: 40%;
         padding: 20px;
     }
-    
+
     .properties img {
         height: 30px;
         width: 30px;
     }
-    
-    
+
+
     .user-inventory-button {
         display: flex;
         width: 100%;
         justify-content: space-around;
     }
-    .inputURL{
+
+    .inputURL {
         height: 110px;
         flex-direction: column;
     }
-    .inputURL button{
+
+    .inputURL button {
         padding-bottom: 10px;
     }
-    #tradeURL{
+
+    #tradeURL {
         margin-left: 5px;
         margin-right: 15px;
         height: 30px;
         width: 90%;
     }
+
     .properties {
         flex-direction: column;
         align-items: start;
     }
+
     .properties h4 {
         padding: 10px;
     }
-    
-    .user-case-count, .user-upgrade-count{
+
+    .user-case-count,
+    .user-upgrade-count {
         justify-content: left;
     }
+
     .user-profile-inventory-items li {
         width: 247.5px;
     }
-    .list_items{
+
+    .list_items {
         height: 300px;
     }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
     .user-profile-inventory-items li {
         width: 226px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .ava-link {
+        border-style: unset;
+    }
+
+    .properties {
+        display: none;
     }
 }
