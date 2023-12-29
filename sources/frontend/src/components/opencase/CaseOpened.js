@@ -4,9 +4,11 @@ import './styles/CaseOpened.css';
 import Popup from "./popup";
 
 function CaseOpened(id) {
+    //data
     const [caseData, setCaseData] = useState([]);
     const [skinData, setSkinData] = useState([]);
     const [gachaData, setGachaData] = useState([]);
+    //show popup
     const [buttonPopup, setButtonPopup] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const handlePopup = () => {
@@ -14,19 +16,21 @@ function CaseOpened(id) {
     }
     const randomSkin = () => {
         setButtonPopup(true);
-        console.log(id.id);
+        //api send request open from user with id of case
         axios.get(`/api/v1/users/cases/open`, { params: { caseid: id.id } })
             .then(response => {
-                console.log(typeof response.data.EM);
+                //if open success set data for popup
                 if (response.data.EM === 'Case opened') setShowPopup(true);
                 setGachaData(response.data.DT.Skin);
             })
             .catch(error => {
+                //if user haven't login ,  alert them
                 setShowPopup(false);
                 alert('please login');
             })
     }
     useEffect(() => {
+        //api refesh data
         axios.get(`/api/v1/cases/id`, { params: { caseid: id.id } })
             .then(response => {
                 setCaseData(response.data.DT.acase);
@@ -36,7 +40,7 @@ function CaseOpened(id) {
                 console.error('Error checking user group:', error);
             });
     }, []);
-    // console.log(skinData);
+
     return (
         <div className="Case_Opened">
             <div className="opencase">

@@ -100,7 +100,7 @@ function UserProfile() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
-            console.log(result);
+            //send alert if result is yes
             if (result.isConfirmed) {
                 sell(id);
                 Swal.fire({
@@ -108,9 +108,10 @@ function UserProfile() {
                     text: "Your skin has been sold.",
                     icon: "success"
                 });
-                refreshInventory();
+                refreshInventory(); //reload data
                 refreshUserData();
             } else {
+                //send alert if choose no
                 Swal.fire({
                     title: "Faile",
                     text: "Your skin haven't sold.",
@@ -124,34 +125,31 @@ function UserProfile() {
         const dataSell = {
             userskinid: id
         }
+        //api delete item
         axios.put(`/api/v1/users/skins/sell`, dataSell)
             .then(response => {
                 console.log(response);
             })
             .catch(error => {
-                console.error('Error sell skin:', error);
+                //alert if fail
                 Swal.fire({
                     title: "Error",
                     text: "Sell error",
                     icon: "warning"
                 });
             });
-        refreshInventory();
+        refreshInventory(); //refresh data
         refreshUserData();
     }
     const handleTradeUpdate = () => {
         const key = `steamprofileURL_${user.SteamID}`;
-
         // Set new key with the updated tradeURL
         sessionStorage.setItem(key, tradeURL);
-
+        //set tradeurl for db
         axios.put(`/api/v1/users/tradeurl/update`, { steamid: user.SteamID, url: tradeURL })
             .then(response => {
-                refreshUserData();
+                refreshUserData(); //reload data when success
             })
-            .catch(error => {
-                console.error('Error updating trade url:', error);
-            });
     }
     return (
         //information
