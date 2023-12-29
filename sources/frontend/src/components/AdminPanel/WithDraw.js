@@ -42,7 +42,7 @@ function Withdraw() {
   }, []);
   const Check = (id) => {
     //change status
-    axios.put(`/api/v1/skins/withdraw/update`, { withdrawskinid: id, isAccept: 1 })
+    axios.put(`/api/v1/skins/withdraw`, { withdrawskinid: id, isAccept: 1 })
       .then(response => {
         console.log(response);
         Refresh();

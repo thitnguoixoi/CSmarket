@@ -38,7 +38,7 @@ function SkinManagement() {
       addcount: parseInt(countInputValue, 10)
     }
 
-    axios.put(`/api/v1/skins/update`, dataUpdate) //api send data
+    axios.put(`/api/v1/skins`, dataUpdate) //api send data
     refresh(); //reload data aften call api
   };
   useEffect(() => {
@@ -66,7 +66,7 @@ function SkinManagement() {
       count: count
     }
     // Gọi API hoặc xử lý khác theo yêu cầu của bạn
-    axios.post(`/api/v1/skins/create`, addData)
+    axios.post(`/api/v1/skins`, addData)
       .then(response => {
         console.log('Add success');
       })
@@ -101,7 +101,7 @@ function SkinManagement() {
       }
     }
     console.log(dataDel);
-    axios.delete(`/api/v1/skins/delete`, dataDel)
+    axios.delete(`/api/v1/skins`, dataDel)
       .then(response => {
         console.log(response);
       })

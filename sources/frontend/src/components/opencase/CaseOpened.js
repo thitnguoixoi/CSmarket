@@ -31,8 +31,9 @@ function CaseOpened(id) {
     }
     useEffect(() => {
         //api refesh data
-        axios.get(`/api/v1/cases/id`, { params: { caseid: id.id } })
+        axios.get(`/api/v1/cases/skins`, { params: { caseid: id.id } })
             .then(response => {
+                console.log(response);
                 setCaseData(response.data.DT.acase);
                 setSkinData(response.data.DT.skins);
             })
@@ -44,9 +45,9 @@ function CaseOpened(id) {
     return (
         <div className="Case_Opened">
             <div className="opencase">
-                <h3>{caseData.Name}</h3>
-                <img src={caseData.Image} alt="Case" />
-                <button className="opencase-btn" onClick={() => randomSkin()}>Open {caseData.Price}$ </button>
+                <h3>{caseData?.Name}</h3>
+                <img src={caseData?.Image} alt="Case" />
+                <button className="opencase-btn" onClick={() => randomSkin()}>Open {caseData?.Price}$ </button>
                 {showPopup && (
                     <Popup trigger={buttonPopup} setTrigger={handlePopup}>
                         <h3>Congratulation</h3>
@@ -64,10 +65,11 @@ function CaseOpened(id) {
 
             <div className="image-container">
                 {skinData.map((item) => {
+                    console.log(skinData);
                     return (
-                        <div className={`tierskin tier${item.Skin.Tier}`} >
-                            <img src={item.Skin.Image} alt="skin" />
-                            <h4>{item.Skin.Name}</h4>
+                        <div className={`tierskin tier${item?.Skin.Tier}`} >
+                            <img src={item?.Skin.Image} alt="skin" />
+                            <h4>{item?.Skin.Name}</h4>
                         </div>
                     )
                 })}

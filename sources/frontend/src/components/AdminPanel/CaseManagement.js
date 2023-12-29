@@ -44,7 +44,7 @@ function CaseManagement() {
   }
   const ReFreshEditSkinForm = () => {
     //get case skins
-    axios.get(`/api/v1/cases/id`, { params: { caseid: caseid } })
+    axios.get(`/api/v1/cases/skins`, { params: { caseid: caseid } })
       .then(response => {
         setCaseSkinData(response.data.DT.skins);
       })
@@ -61,7 +61,7 @@ function CaseManagement() {
       percent: parseFloat(Percent)
     }
     //api add skin
-    axios.post(`/api/v1/cases/skins/create`, dataToAdd)
+    axios.post(`/api/v1/cases/skins`, dataToAdd)
       .then(response => {
         console.log('Add success');
         console.log(response);
@@ -76,7 +76,7 @@ function CaseManagement() {
       caseskinid: id,
     }
     //api to del skin with id
-    axios.delete(`/api/v1/cases/skins/delete`, { data: dataToDel })
+    axios.delete(`/api/v1/cases/skins`, { data: dataToDel })
       .then(response => {
         console.log(response);
       })
@@ -130,7 +130,7 @@ function CaseManagement() {
       image: image,
       groupname: groupname
     }
-    axios.post(`/api/v1/cases/create`, caseAdd)
+    axios.post(`/api/v1/cases`, caseAdd)
       .then(response => {
         Refresh(); //refresh data if success
       })
@@ -145,7 +145,7 @@ function CaseManagement() {
       price: priceSend
     }
     //api edit item 
-    axios.put(`/api/v1/cases/update`, dataToSend)
+    axios.put(`/api/v1/cases`, dataToSend)
       .then(response => {
         setShowEditPrice(false); //hide edit input if send api success
       })
@@ -157,7 +157,7 @@ function CaseManagement() {
     setShowAddCaseSkinForm(false); //hide form
     setCaseId(caseID);
     //get case skins
-    axios.get(`/api/v1/cases/id`, { params: { caseid: caseID } })
+    axios.get(`/api/v1/cases/skins`, { params: { caseid: caseID } })
       .then(response => {
         setCaseSkinData(response.data.DT.skins);
       })
@@ -169,7 +169,7 @@ function CaseManagement() {
   }
   const handleDeleteCase = (caseID) => {
     //api delete case with id
-    axios.delete(`/api/v1/cases/delete`, { data: { caseid: caseID } })
+    axios.delete(`/api/v1/cases`, { data: { caseid: caseID } })
       .then(response => {
         //alert delete case
         Swal.fire({

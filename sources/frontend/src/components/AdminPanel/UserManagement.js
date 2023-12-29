@@ -72,7 +72,7 @@ function UserManagement() {
   }
   const handleDel = (itemId) => {
     // api delete user with id
-    axios.delete(`/api/v1/users/delete`, { data: { id: itemId } })
+    axios.delete(`/api/v1/users`, { data: { id: itemId } })
       .then(response => {
         //refresh data when delete success
         refresh();
@@ -101,7 +101,7 @@ function UserManagement() {
       walletValue: inputValue,
     };
     //api update wallet
-    axios.put('/api/v1/users/wallet/update', dataToSend)
+    axios.put('/api/v1/users/wallet', dataToSend)
       .then(response => {
         // After submitting, refresh the data
         axios.get('/api/v1/users')
@@ -124,7 +124,7 @@ function UserManagement() {
       groupid: groupId
     }
     // Send Axios request to set the user as a moderator
-    axios.put(`/api/v1/users/group/update`, dataSetGroup)
+    axios.put(`/api/v1/users/group`, dataSetGroup)
       .then(response => {
         console.log('User set as moderator successfully:', response);
         // If you need to update the data after setting the user as a moderator, you can call the refresh function
