@@ -31,7 +31,7 @@ function CaseOpened(id) {
     }
     useEffect(() => {
         //api refesh data
-        axios.get(`/api/v1/cases/id`, { params: { caseid: id.id } })
+        axios.get(`/api/v1/cases/skins`, { params: { caseid: id.id } })
             .then(response => {
                 setCaseData(response.data.DT.acase);
                 setSkinData(response.data.DT.skins);

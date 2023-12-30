@@ -27,8 +27,7 @@ let initApiRoutes = (app) => {
     Actions affect users
     */
 
-    //user, trader, admin - 8
-    router.get("/users", usersController.readUsers);
+    //user, trader, admin - 7
     router.get("/users/steamid", usersController.readUser);
     router.put("/users/tradeurl", usersController.updateTradeURL);
     router.get("/users/cases/open", usersController.openCase) // caseid
@@ -41,7 +40,8 @@ let initApiRoutes = (app) => {
 
     router.put("/users/skins/upgrade", usersController.upgradeSkin) //userskinid, serverskinid
 
-    //admin - 3
+    //admin - 4
+    router.get("/users", usersController.readUsers);
     router.put("/users/wallet", usersController.updateWallet);
     router.delete("/users", usersController.deleteUser);
     router.put("/users/group", usersController.updateGroup);
@@ -77,7 +77,7 @@ let initApiRoutes = (app) => {
     router.put("/cases", casesController.updateCase); //caseid, price
     router.post("/cases/skins", casesController.createCaseSkins); //caseskinid, percent
     router.delete("/cases/skins", casesController.deleteCaseSkins); //caseskinid
-    router.delete("/cases/delete", casesController.deleteCase); //caseid
+    router.delete("/cases", casesController.deleteCase); //caseid
 
     return app.use("/api/v1", router);
 }
