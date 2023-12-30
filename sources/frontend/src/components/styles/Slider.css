@@ -104,7 +104,7 @@
     background: #00ffff;
   }
 
-  @media screen and (max-width: 1366px) and (min-width: 860px){
+  @media screen and (max-width: 1080px){
     .slider{
       width: 800px;
       height: 450px;
@@ -127,11 +127,5 @@
     .navigation-auto{
       width: 800px;
       margin-top: 410px;
-    }
-  }
-
-  @media screen and (max-width: 860px) {
-    .slider{
-      display: none;
     }
   }
