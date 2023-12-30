@@ -314,11 +314,28 @@
 }
 
 @media screen and (max-width: 375px) {
+    .user-profile-inventory{
+        padding: 0;
+    }
+    .user-profile-inventory-items li {
+        width: 150px;
+        height: 190px;
+    }
+    .user-avatar{
+        display: none;
+    }
+    .user-profile{
+        justify-content: center;
+    }
     .ava-link {
         border-style: unset;
+        width: 100%;
     }
 
     .properties {
         display: none;
+    }
+    .user-profile-inventory-items ul{
+        justify-content: space-evenly;
     }
 }

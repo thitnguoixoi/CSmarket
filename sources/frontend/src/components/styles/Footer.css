@@ -1,4 +1,7 @@
 /* Logo and livedrop status */
+.footer{
+    width: 100%;
+}
 #live_div {
     width: 100%;
     display: flex;
