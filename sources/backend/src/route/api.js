@@ -44,7 +44,7 @@ let initApiRoutes = (app) => {
     router.get("/users", usersController.readUsers);
     router.put("/users/wallet", usersController.updateWallet);
     router.delete("/users", usersController.deleteUser);
-    router.put("/users/group", usersController.updateGroup);
+    router.put("/users/groups", usersController.updateGroup);
 
     /*
     Actions affect skins in database
