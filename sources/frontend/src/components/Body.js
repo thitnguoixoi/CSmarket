@@ -18,22 +18,17 @@ import { useEffect, useState } from 'react';
 function Body() {
     const [data, setData] = useState([]);
 
+    //api take cases data to rewrite url (react router)
     useEffect(() => {
         axios.get(`/api/v1/cases`)
             .then(response => {
                 setData(response.data.DT)
             })
-            .catch(error => {
-                console.error('Error checking user group:', error);
-            });
     }, []);
 
-
-
+    //create router base on data from api
     const renderCaseOpened = () => {
         return data.map((item) => {
-            //console.log(item.Cases[0].Name.replace(/\s+/g, '').toLowerCase());
-            // console.log(item.Cases[0].id);
             return (
                 <Route
                     path={item.Cases[0]?.Name.replace(/\s+/g, '').toLowerCase()}

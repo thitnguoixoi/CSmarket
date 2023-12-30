@@ -3,54 +3,64 @@
     box-sizing: border-box;
     color: white;
 }
+
 button {
     cursor: pointer;
     border: none;
 }
 
-.openCasePage{
+.openCasePage {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
+
 /*header*/
-#header{
+#header {
     display: flex;
     align-items: center;
 }
 
-#logo{
+#logo {
     width: 200px;
     height: 50px;
     margin-right: 20px;
 }
-#opencase_btn, #upgrade_btn{
+
+#opencase_btn,
+#upgrade_btn {
     height: 100%;
     padding: 20px;
     border: 1px solid transparent;
 }
-#login_btn{
+
+#login_btn {
     margin-left: auto;
     margin-right: 50px;
     border: 1px solid #00ffff;
     padding: 15px 22px;
     border-radius: 10px;
 }
-#opencase_btn:hover, #upgrade_btn:hover{
+
+#opencase_btn:hover,
+#upgrade_btn:hover {
     border: 1px solid #00ffff;
 }
-#header .btn:hover{
+
+#header .btn:hover {
     background-color: #00ffff;
     color: #000000;
 }
+
 /* End header */
 
-.title{
+.title {
     text-align: center;
 }
-.case{
+
+.case {
     width: 100%;
     padding-bottom: 10px;
     display: flex;
@@ -58,35 +68,47 @@ button {
     flex-direction: column;
     align-items: center;
 }
-.case h1{
+
+.case h1 {
     padding-bottom: 15px;
 }
-.case h3{
+
+.case h3 {
     width: 20%;
     font-size: 16px;
     text-align: center;
     border: 2px solid white;
     display: inline-block;
-    padding:8px;
+    padding: 8px;
     border-radius: 15px;
 }
-.case-container{
+
+.case-container {
     padding: 0px 5px 50px;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
 }
 
+@media screen and (max-width: 1080px) {
 
-@media screen and (max-width: 768px){
-    .case h1{
+}
+
+@media screen and (max-width: 768px) {
+    .case h1 {
         font-size: 30px;
     }
-    .case-container{
+
+    .case-container {
         padding-bottom: 25px;
     }
 }
-@media screen and (max-width: 1080px){
-    
+
+
+@media screen and (max-width: 375px) {
+    .case-container {
+        flex-direction: column;
+    }
 }

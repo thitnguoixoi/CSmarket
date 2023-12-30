@@ -376,7 +376,10 @@ const deleteUser = async (userid, steamid) => {  // delete a user from database
         let user = await db.Users.findOne({
             where: { id: userid }
         })
-        if (user && user.SteamID !== steamid) {
+        let userskins = await db.Users_Skins.findOne({
+            where: { id: userid }
+        })
+        if (user && user.SteamID !== steamid && !userskins) {
             await db.Users.destroy({
                 where: {
                     id: userid
@@ -435,7 +438,7 @@ const openaCase = async (steamid, caseid) => {  // open a case
                     const randomValue = Math.random();  // random opening
                     let index = 0;
                     let skinopened = []
-                    skins.every((skin) => {  
+                    skins.every((skin) => {
                         index += 1
                         if (index == numberOfSkins) {
                             skinopened = skin.get({ plain: true })
