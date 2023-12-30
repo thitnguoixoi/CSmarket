@@ -154,6 +154,14 @@ const updateaWithdrawSkin = async (withdrawskinid, isAccept) => {  // update wit
                 DT: []
             }
         } else if (withdraw && isAccept == 0) {
+            await db.Users_Skins.update(
+                { Status: "Inventory" },
+                {
+                    where: {
+                        id: withdrawskinid
+                    }
+                }
+            );
             return {
                 EM: "Update withdraw skin success",
                 EC: "0",

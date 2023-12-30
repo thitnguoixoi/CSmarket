@@ -176,7 +176,6 @@ function Inventory() {
         }
         axios.put(`/api/v1/users/skins/upgrade`, dataUpgrade)
             .then(response => {
-                console.log(response.data.EM);
                 if ((response.data.EM) === "Skin upgraded fail") {
                     Swal.fire({
                         title: "Fail",
@@ -219,7 +218,7 @@ function Inventory() {
                 {/* Upgrade Section */}
                 <div className="upgrade-section">
                     <h2>Upgrade your item</h2>
-                    <button id="upgrade-button" onClick={() => {sendUpdate();refreshData();}}>Upgrade!</button>
+                    <button id="upgrade-button" onClick={() => { sendUpdate(); refreshData(); }}>Upgrade!</button>
                     <p>Rating: {upgradeSuccessRate.toFixed(2)}%</p>
                 </div>
 

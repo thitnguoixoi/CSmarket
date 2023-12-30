@@ -33,7 +33,6 @@ function CaseOpened(id) {
         //api refesh data
         axios.get(`/api/v1/cases/skins`, { params: { caseid: id.id } })
             .then(response => {
-                console.log(response);
                 setCaseData(response.data.DT.acase);
                 setSkinData(response.data.DT.skins);
             })
