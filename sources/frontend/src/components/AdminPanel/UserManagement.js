@@ -29,9 +29,6 @@ function UserManagement() {
         setData(response.data.DT);
         setFilteredData(response.data.DT);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
     //api set role 
     axios.get(`/api/v1/users/steamid`)
       .then(response => {
@@ -39,9 +36,6 @@ function UserManagement() {
           setIsAdmin(true);
         }
       })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
   }, []); // Empty dependency array ensures the effect runs only once
 
   const handleSearch = (e) => {
@@ -126,13 +120,9 @@ function UserManagement() {
     // Send Axios request to set the user as a moderator
     axios.put(`/api/v1/users/group`, dataSetGroup)
       .then(response => {
-        console.log('User set as moderator successfully:', response);
-        // If you need to update the data after setting the user as a moderator, you can call the refresh function
+        //set role then refresh
         refresh();
       })
-      .catch(error => {
-        console.error('Error setting user as moderator:', error);
-      });
   };
 
   const renderTable = () => (

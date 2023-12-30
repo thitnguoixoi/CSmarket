@@ -23,9 +23,6 @@ function Header() {
           Wallet: response.data.DT.Wallet
         }));
       })
-      .catch(error => {
-        console.error('Error refreshing wallet', error);
-      });
   };
   useEffect(() => {
     //handle message when login with steam
@@ -64,9 +61,6 @@ function Header() {
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
     //jwt
     axios.get(`/api/v1/jwt/steamid`, { params: { steamid: steamData.steamid } })
-      .catch(error => {
-        console.error('Error get jwt:', error);
-      });
     handleGetProfile()
   };
 
@@ -106,7 +100,6 @@ function Header() {
         }
       })
       .catch(error => {
-        console.error('Error get user profile', error);
         if (error.response.data.EM === 'User is not authenticate') {
           handleLogout()
         }
@@ -115,11 +108,7 @@ function Header() {
   const handleLogout = () => {
     //api set logout status
     axios.get(`/api/v1/users/logout`)
-      .then(response => {
-      })
-      .catch(error => {
-        console.error('Error user log out', error);
-      });
+
     navigate('/');
     setLoggedIn(false);
     setUserIsMod(false);    //delete permisson when log out

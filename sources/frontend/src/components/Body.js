@@ -24,9 +24,6 @@ function Body() {
             .then(response => {
                 setData(response.data.DT)
             })
-            .catch(error => {
-                console.error('Error checking user group:', error);
-            });
     }, []);
 
     //create router base on data from api

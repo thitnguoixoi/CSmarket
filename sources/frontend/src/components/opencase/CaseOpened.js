@@ -65,7 +65,6 @@ function CaseOpened(id) {
 
             <div className="image-container">
                 {skinData.map((item) => {
-                    console.log(skinData);
                     return (
                         <div className={`tierskin tier${item?.Skin.Tier}`} >
                             <img src={item?.Skin.Image} alt="skin" />

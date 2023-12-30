@@ -37,9 +37,6 @@ function CaseManagement() {
         setData(response.data.DT);
         setFilteredData(response.data.DT);
       })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
   }
   const ReFreshEditSkinForm = () => {
     //get case skins
@@ -47,9 +44,6 @@ function CaseManagement() {
       .then(response => {
         setCaseSkinData(response.data.DT.skins);
       })
-      .catch(error => {
-        console.error('Error cases', error);
-      });
   }
   const handleAddCaseSkin = (CaseID, SkinID, Percent) => {
     setShowAddCaseSkinForm(false); //hide form
@@ -61,13 +55,6 @@ function CaseManagement() {
     }
     //api add skin
     axios.post(`/api/v1/cases/skins`, dataToAdd)
-      .then(response => {
-        console.log('Add success');
-        console.log(response);
-      })
-      .catch(error => {
-        console.error('Error Add', error);
-      });
     ReFreshEditSkinForm(); //refresh data after send api
   }
   const handleDelCaseSkin = (id) => {
@@ -76,12 +63,6 @@ function CaseManagement() {
     }
     //api to del skin with id
     axios.delete(`/api/v1/cases/skins`, { data: dataToDel })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.error('Error Add', error);
-      });
     ReFreshEditSkinForm(); //refresh data after send api
   };
   useEffect(() => {
@@ -92,9 +73,6 @@ function CaseManagement() {
           setIsAdmin(true);
         }
       })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
     Refresh(); //refresh data after send api
   }, []);
 
@@ -148,9 +126,6 @@ function CaseManagement() {
       .then(response => {
         setShowEditPrice(false); //hide edit input if send api success
       })
-      .catch(error => {
-        console.error('Error update case price:', error);
-      });
   };
   const handleEditCaseSkin = (caseID) => {
     setShowAddCaseSkinForm(false); //hide form
@@ -160,9 +135,6 @@ function CaseManagement() {
       .then(response => {
         setCaseSkinData(response.data.DT.skins);
       })
-      .catch(error => {
-        console.error('Error cases', error);
-      });
     //show caseskin form
     setEditCaseSkinForm(!editCaseSkinForm);
   }
@@ -178,9 +150,6 @@ function CaseManagement() {
         });
         Refresh();  //refresh data when delete success
       })
-      .catch(error => {
-        console.error('Error cases', error);
-      });
   }
   const renderAddCaseSkinForm = () => (
     <>
@@ -233,7 +202,6 @@ function CaseManagement() {
           </thead>
           <tbody>
             {caseSkinData.map((item) => {
-              // console.log(item);
               return (
                 <tr key={item.id}>
                   <td>{item.CaseID}</td>
@@ -315,7 +283,6 @@ function CaseManagement() {
       </thead>
       <tbody>
         {currentItems.map((item) => {
-          // console.log(item.CaseID);
           return (
             <tr key={item.id}>
               <td>{item.CaseID}</td>

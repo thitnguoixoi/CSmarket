@@ -50,9 +50,6 @@ function SkinManagement() {
           setIsAdmin(true);
         }
       })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
   }, []);
   const handleSubmit = (name, price, float, tier, image, count) => {
     // Xử lý dữ liệu khi người dùng nhấn nút Submit
@@ -67,13 +64,6 @@ function SkinManagement() {
     }
     // Gọi API hoặc xử lý khác theo yêu cầu của bạn
     axios.post(`/api/v1/skins`, addData)
-      .then(response => {
-        console.log('Add success');
-      })
-      .catch(error => {
-        console.error('Error Add', error);
-      });
-
     refresh();
   };
   const handleSearch = (e) => {
@@ -94,21 +84,13 @@ function SkinManagement() {
     setShowAddForm(!showAddForm);
   };
   const handleDeleteSkin = (id) => {
-
     const dataDel = {
       data: {
         skinid: id
       }
     }
-    console.log(dataDel);
+    //api delete skin with id
     axios.delete(`/api/v1/skins`, dataDel)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.error('Error deleting item:', error);
-      });
-
     refresh();
   };
 

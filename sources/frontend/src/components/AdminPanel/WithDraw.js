@@ -16,13 +16,9 @@ function Withdraw() {
     //get data
     axios.get(`/api/v1/skins/withdraw`)
       .then(response => {
-        console.log(response.data.DT);
         setData(response.data.DT);
         setFilteredData(response.data.DT);
       })
-      .catch(error => {
-        console.error('Error get data:', error);
-      });
   }
   useEffect(() => {
     //check role
@@ -34,22 +30,14 @@ function Withdraw() {
           setIsMod(true);
         }
       })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
-
     Refresh();
   }, []);
   const Check = (id) => {
     //change status
     axios.put(`/api/v1/skins/withdraw`, { withdrawskinid: id, isAccept: 1 })
       .then(response => {
-        console.log(response);
         Refresh();
       })
-      .catch(error => {
-        console.error('Error get data:', error);
-      });
   }
   const Cancel = (id) => {
 
@@ -88,7 +76,6 @@ function Withdraw() {
       </thead>
       <tbody>
         {currentItems.map((item) => {
-          // console.log(item);
           return (
             <tr key={item.id}>
               <td>{item.User.SteamID}</td>

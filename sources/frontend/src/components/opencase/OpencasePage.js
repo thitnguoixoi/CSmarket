@@ -12,9 +12,6 @@ function Opencase() {
             .then(response => {
                 setCaseCategories(response.data.DT);
             })
-            .catch(error => {
-                console.error('Error checking user group:', error);
-            });
     }, []);
 
     return (

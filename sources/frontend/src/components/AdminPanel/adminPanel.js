@@ -17,9 +17,6 @@ function AdminPanel() {
                     setIsTrader(true);
                 }
             })
-            .catch(error => {
-                console.error('Error checking user group:', error);
-            });
     }, []);
 
     return (

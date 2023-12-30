@@ -15,10 +15,6 @@ function UserProfile() {
             .then(response => {
                 setUser(response.data.DT);
             })
-            .catch(error => {
-                console.error('Error get user profile:', error);
-                // Optionally, handle error or redirect to a specific page
-            });
     };
 
     const refreshInventory = () => {
@@ -27,7 +23,6 @@ function UserProfile() {
                 setUserItems(response.data.DT);
             })
             .catch(error => {
-                console.error('Error get skin:', error);
                 Swal.fire({
                     title: "Faile",
                     text: "Your skin haven't ưithdraw.",
@@ -42,9 +37,6 @@ function UserProfile() {
                 setUser(response.data.DT);
                 setTradeURL(response.data.DT?.TradeURL || '');
             })
-            .catch(error => {
-                console.error('Error get user profile:', error);
-            });
         refreshInventory();
     }, []);
 
@@ -84,9 +76,6 @@ function UserProfile() {
             .then(response => {
                 refreshUserData();
             })
-            .catch(error => {
-                console.error('Error withdraw skin:', error);
-            });
         refreshInventory();
         refreshUserData();
     }
@@ -127,9 +116,6 @@ function UserProfile() {
         }
         //api delete item
         axios.put(`/api/v1/users/skins/sell`, dataSell)
-            .then(response => {
-                console.log(response);
-            })
             .catch(error => {
                 //alert if fail
                 Swal.fire({
