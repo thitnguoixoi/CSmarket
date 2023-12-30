@@ -25,7 +25,7 @@ const createaSkin = async (name, float, price, tier, image, count) => {  // crea
         }
     }
 }
-const getSkins = async () => {  // get skin from database
+const getSkins = async () => {  // get all skins from database
     try {
 
         let skins = await db.Skins.findAll({
@@ -56,7 +56,7 @@ const getSkins = async () => {  // get skin from database
     }
 }
 
-const getWithdrawSkins = async () => {  // get the withdrawed skin
+const getWithdrawSkins = async () => {  // get the list of skin which user want to withdraw
     try {
         let withdraws = await db.Users_Skins.findAll({
             where: {
@@ -91,7 +91,7 @@ const getWithdrawSkins = async () => {  // get the withdrawed skin
     }
 }
 
-const updateaSkin = async (skinid, addcount) => {  // update a skin
+const updateaSkin = async (skinid, addcount) => {  // update a skin's count
     try {
         let skin = await db.Skins.findOne({
             where: {
@@ -126,7 +126,7 @@ const updateaSkin = async (skinid, addcount) => {  // update a skin
     }
 }
 
-const updateaWithdrawSkin = async (withdrawskinid, isAccept) => {  // update withdraw skin
+const updateaWithdrawSkin = async (withdrawskinid, isAccept) => {  // update skin's status which user want to withdraw
     try {
         let withdraw = await db.Users_Skins.findOne({
             where: {
