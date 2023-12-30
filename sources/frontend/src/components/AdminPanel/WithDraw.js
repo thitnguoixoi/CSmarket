@@ -40,7 +40,14 @@ function Withdraw() {
       })
   }
   const Cancel = (id) => {
-
+    axios.put(`/api/v1/skins/withdraw`, { withdrawskinid: id, isAccept: 0 })
+      .then(response => {
+        console.log(response);
+        Refresh();
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();

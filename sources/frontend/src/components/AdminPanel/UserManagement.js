@@ -107,9 +107,7 @@ function UserManagement() {
           })
       })
   };
-  const handleDropdownChange = (value) => {
-    setSelectedOption(value);
-  };
+
   const handleSetMod = (itemId, selectedOption) => {
     setClickedItemId(null);
     const groupId = parseInt(selectedOption, 10);
@@ -118,7 +116,7 @@ function UserManagement() {
       groupid: groupId
     }
     // Send Axios request to set the user as a moderator
-    axios.put(`/api/v1/users/group`, dataSetGroup)
+    axios.put(`/api/v1/users/groups`, dataSetGroup)
       .then(response => {
         //set role then refresh
         refresh();
