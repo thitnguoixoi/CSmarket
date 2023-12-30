@@ -261,7 +261,6 @@ function Inventory() {
                     <div className="server">
                         <ul>
                             {filteredServerItems.map((item, index) => {
-                                // console.log(item); 
                                 return (
                                     <li
                                         key={index}

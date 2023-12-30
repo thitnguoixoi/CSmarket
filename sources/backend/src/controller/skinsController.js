@@ -93,7 +93,6 @@ const updateWithdrawSkin = async (req, res) => {  // update withdrawed skin cont
 
 const deleteSkin = async (req, res) => {  // delete skin controller
     try {
-        console.log(req.body);
         let data = await skinService.deleteaSkin(req.body.skinid);
         return res.status(200).json({
             EM: data.EM,
