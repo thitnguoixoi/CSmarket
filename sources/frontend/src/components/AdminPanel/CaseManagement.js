@@ -34,7 +34,6 @@ function CaseManagement() {
     //get case data
     axios.get(`/api/v1/cases`)
       .then(response => {
-        console.log(response.data.DT);
         setData(response.data.DT);
         setFilteredData(response.data.DT);
       })
