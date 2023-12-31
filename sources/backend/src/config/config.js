@@ -1,4 +1,5 @@
 require("dotenv").config();
+//config database env
 module.exports =
 {
   "development": {

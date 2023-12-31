@@ -1,5 +1,6 @@
 const cors = require('cors');
 require('dotenv').config();
+//config CORS
 const configCORS = (app) => {
     const corsOptions = {
         origin: process.env.REACT_URL,

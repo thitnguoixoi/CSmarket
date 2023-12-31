@@ -14,7 +14,7 @@ let initApiRoutes = (app) => {
     */
 
     //everyone
-    router.get('/auth/steam', loginController.handleSteamAuth);//, loginController.redirectHome
+    router.get('/auth/steam', loginController.handleSteamAuth);
     router.get('/auth/steam/return', loginController.handleSteamReturn, loginController.handleSendProfile);
     router.get('/jwt/steamid', loginController.getJWT);
     router.get("/users/logout", usersController.logoutUser);
@@ -30,7 +30,7 @@ let initApiRoutes = (app) => {
     //user, trader, admin - 7
     router.get("/users/steamid", usersController.readUser);
     router.put("/users/tradeurl", usersController.updateTradeURL);
-    router.get("/users/cases/open", usersController.openCase) // caseid
+    router.get("/users/cases/open", usersController.openCase)
 
     router.get("/users/skins", usersController.readUserSkins)
 
@@ -38,7 +38,7 @@ let initApiRoutes = (app) => {
 
     router.put("/users/skins/sell", usersController.sellSkin)
 
-    router.put("/users/skins/upgrade", usersController.upgradeSkin) //userskinid, serverskinid
+    router.put("/users/skins/upgrade", usersController.upgradeSkin)
 
     //admin - 4
     router.get("/users", usersController.readUsers);
@@ -54,7 +54,7 @@ let initApiRoutes = (app) => {
     //Get skins data, user want to withdraw
     router.get("/skins/withdraw", skinsController.readWithdrawSkins);
 
-    router.put("/skins/withdraw", skinsController.updateWithdrawSkin); //withdrawid, isAccept
+    router.put("/skins/withdraw", skinsController.updateWithdrawSkin);
 
     //user, trader, admin - 3
     router.get("/skins", skinsController.readSkins);
@@ -70,14 +70,14 @@ let initApiRoutes = (app) => {
 
     //everyone
     router.get("/cases", casesController.readCases);
-    router.get("/cases/skins", casesController.readCasesSkins); //caseid
+    router.get("/cases/skins", casesController.readCasesSkins);
 
     //admin - 5
-    router.post("/cases", casesController.createCase); //name, price, image, groupname
-    router.put("/cases", casesController.updateCase); //caseid, price
-    router.post("/cases/skins", casesController.createCaseSkins); //caseskinid, percent
-    router.delete("/cases/skins", casesController.deleteCaseSkins); //caseskinid
-    router.delete("/cases", casesController.deleteCase); //caseid
+    router.post("/cases", casesController.createCase);
+    router.put("/cases", casesController.updateCase);
+    router.post("/cases/skins", casesController.createCaseSkins);
+    router.delete("/cases/skins", casesController.deleteCaseSkins);
+    router.delete("/cases", casesController.deleteCase);
 
     return app.use("/api/v1", router);
 }

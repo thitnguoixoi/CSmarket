@@ -1,4 +1,5 @@
 import passport from "passport";
+// config passport for OAuth
 const configPassport = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());

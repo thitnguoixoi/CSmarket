@@ -588,7 +588,7 @@ const upgradeUserSkin = async (steamid, userskinid, serverskinid) => {  // upgra
         }
     }
 }
-const countOpened = async () => {
+const countOpened = async () => { // Count user opened
     try {
         let count
 
@@ -612,7 +612,7 @@ const countOpened = async () => {
         }
     }
 }
-const countUpgraded = async () => {
+const countUpgraded = async () => {// Count user upgraded
     try {
         let count
 
@@ -636,7 +636,7 @@ const countUpgraded = async () => {
         }
     }
 }
-const countUser = async () => {
+const countUser = async () => {// Count user
     try {
         let count
 

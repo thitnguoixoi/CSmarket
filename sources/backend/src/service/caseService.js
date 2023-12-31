@@ -108,7 +108,7 @@ const createaCase = async (name, price, image, groupname) => { // create new cas
     }
 }
 
-const updateaCase = async (caseid, price) => { // update a case
+const updateaCase = async (caseid, price) => { // update a case's price
     try {
         await db.Cases.update({
             Price: price,
