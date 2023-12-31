@@ -275,17 +275,26 @@ var updateaWithdrawSkin = /*#__PURE__*/function () {
           });
         case 13:
           if (!(withdraw && isAccept == 0)) {
-            _context5.next = 17;
+            _context5.next = 19;
             break;
           }
+          _context5.next = 16;
+          return _index["default"].Users_Skins.update({
+            Status: "Inventory"
+          }, {
+            where: {
+              id: withdrawskinid
+            }
+          });
+        case 16:
           return _context5.abrupt("return", {
             EM: "Update withdraw skin success",
             EC: "0",
             DT: []
           });
-        case 17:
+        case 19:
           if (withdraw) {
-            _context5.next = 19;
+            _context5.next = 21;
             break;
           }
           return _context5.abrupt("return", {
@@ -293,11 +302,11 @@ var updateaWithdrawSkin = /*#__PURE__*/function () {
             EC: "-1",
             DT: []
           });
-        case 19:
-          _context5.next = 25;
-          break;
         case 21:
-          _context5.prev = 21;
+          _context5.next = 27;
+          break;
+        case 23:
+          _context5.prev = 23;
           _context5.t0 = _context5["catch"](0);
           console.log("Update withdraw skin error: ", _context5.t0);
           return _context5.abrupt("return", {
@@ -305,11 +314,11 @@ var updateaWithdrawSkin = /*#__PURE__*/function () {
             EC: "-1",
             DT: []
           });
-        case 25:
+        case 27:
         case "end":
           return _context5.stop();
       }
-    }, _callee5, null, [[0, 21]]);
+    }, _callee5, null, [[0, 23]]);
   }));
   return function updateaWithdrawSkin(_x9, _x10) {
     return _ref5.apply(this, arguments);

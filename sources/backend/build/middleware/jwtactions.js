@@ -3,7 +3,7 @@
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 require("dotenv").config();
-var nonSecurePath = ["/auth/steam", "/auth/steam/return", "/jwt/steamid", "/cases", "/cases/id", "/users/logout", "/users/quantity", "/users/opened/quantity", "/users/upgraded/quantity"];
+var nonSecurePath = ["/auth/steam", "/auth/steam/return", "/jwt/steamid", "/cases", "/cases/skins", "/users/logout", "/users/quantity", "/users/opened/quantity", "/users/upgraded/quantity"];
 var createJWT = function createJWT(payload) {
   // create json web token
   var key = process.env.JWT_KEY;

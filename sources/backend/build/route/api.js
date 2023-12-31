@@ -28,36 +28,38 @@ var initApiRoutes = function initApiRoutes(app) {
   Actions affect users
   */
 
-  //user, trader, admin - 8
-  router.get("/users", _usersController["default"].readUsers);
+  //user, trader, admin - 7
   router.get("/users/steamid", _usersController["default"].readUser);
-  router.put("/users/tradeurl/update", _usersController["default"].updateTradeURL);
+  router.put("/users/tradeurl", _usersController["default"].updateTradeURL);
+  router.get("/users/cases/open", _usersController["default"].openCase); // caseid
+
   router.get("/users/skins", _usersController["default"].readUserSkins);
   router.put("/users/skins/withdraw", _usersController["default"].withdrawSkin);
   router.put("/users/skins/sell", _usersController["default"].sellSkin);
-  router.get("/users/cases/open", _usersController["default"].openCase); // caseid
   router.put("/users/skins/upgrade", _usersController["default"].upgradeSkin); //userskinid, serverskinid
 
-  //admin - 3
-  router.put("/users/wallet/update", _usersController["default"].updateWallet);
-  router["delete"]("/users/delete", _usersController["default"].deleteUser);
-  router.put("/users/group/update", _usersController["default"].updateGroup);
+  //admin - 4
+  router.get("/users", _usersController["default"].readUsers);
+  router.put("/users/wallet", _usersController["default"].updateWallet);
+  router["delete"]("/users", _usersController["default"].deleteUser);
+  router.put("/users/groups", _usersController["default"].updateGroup);
 
   /*
   Actions affect skins in database
   */
 
   //trader, admin - 2
+  //Get skins data, user want to withdraw
   router.get("/skins/withdraw", _skinsController["default"].readWithdrawSkins);
-  router.put("/skins/withdraw/update", _skinsController["default"].updateWithdrawSkin); //withdrawid, isAccept
+  router.put("/skins/withdraw", _skinsController["default"].updateWithdrawSkin); //withdrawid, isAccept
 
   //user, trader, admin - 3
   router.get("/skins", _skinsController["default"].readSkins);
 
   //admin - 3
-  router.post("/skins/create", _skinsController["default"].createSkin);
-  router.put("/skins/update", _skinsController["default"].updateSkin);
-  router["delete"]("/skins/delete", _skinsController["default"].deleteSkin);
+  router.post("/skins", _skinsController["default"].createSkin);
+  router.put("/skins", _skinsController["default"].updateSkin);
+  router["delete"]("/skins", _skinsController["default"].deleteSkin);
 
   /*
   Actions affect cases in database
@@ -65,14 +67,14 @@ var initApiRoutes = function initApiRoutes(app) {
 
   //everyone
   router.get("/cases", _casesController["default"].readCases);
-  router.get("/cases/id", _casesController["default"].readCasesSkins); //caseid
+  router.get("/cases/skins", _casesController["default"].readCasesSkins); //caseid
 
   //admin - 5
-  router.post("/cases/create", _casesController["default"].createCase); //name, price, image, groupname
-  router.put("/cases/update", _casesController["default"].updateCase); //caseid, price
-  router.post("/cases/skins/create", _casesController["default"].createCaseSkins); //caseskinid, percent
-  router["delete"]("/cases/skins/delete", _casesController["default"].deleteCaseSkins); //caseskinid
-  router["delete"]("/cases/delete", _casesController["default"].deleteCase); //caseid
+  router.post("/cases", _casesController["default"].createCase); //name, price, image, groupname
+  router.put("/cases", _casesController["default"].updateCase); //caseid, price
+  router.post("/cases/skins", _casesController["default"].createCaseSkins); //caseskinid, percent
+  router["delete"]("/cases/skins", _casesController["default"].deleteCaseSkins); //caseskinid
+  router["delete"]("/cases", _casesController["default"].deleteCase); //caseid
 
   return app.use("/api/v1", router);
 };

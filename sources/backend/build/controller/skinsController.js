@@ -188,18 +188,17 @@ var deleteSkin = /*#__PURE__*/function () {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
           _context6.prev = 0;
-          console.log(req.body);
-          _context6.next = 4;
+          _context6.next = 3;
           return _skinService["default"].deleteaSkin(req.body.skinid);
-        case 4:
+        case 3:
           data = _context6.sent;
           return _context6.abrupt("return", res.status(200).json({
             EM: data.EM,
             EC: data.EC,
             DT: data.DT
           }));
-        case 8:
-          _context6.prev = 8;
+        case 7:
+          _context6.prev = 7;
           _context6.t0 = _context6["catch"](0);
           console.log(_context6.t0);
           return _context6.abrupt("return", res.status(500).json({
@@ -207,11 +206,11 @@ var deleteSkin = /*#__PURE__*/function () {
             EC: "-1",
             DT: ""
           }));
-        case 12:
+        case 11:
         case "end":
           return _context6.stop();
       }
-    }, _callee6, null, [[0, 8]]);
+    }, _callee6, null, [[0, 7]]);
   }));
   return function deleteSkin(_x11, _x12) {
     return _ref6.apply(this, arguments);

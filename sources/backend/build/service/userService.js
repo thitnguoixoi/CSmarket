@@ -645,7 +645,7 @@ var updateUserGroup = /*#__PURE__*/function () {
 }();
 var deleteUser = /*#__PURE__*/function () {
   var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(userid, steamid) {
-    var user;
+    var user, userskins;
     return _regeneratorRuntime().wrap(function _callee11$(_context11) {
       while (1) switch (_context11.prev = _context11.next) {
         case 0:
@@ -658,33 +658,41 @@ var deleteUser = /*#__PURE__*/function () {
           });
         case 3:
           user = _context11.sent;
-          if (!(user && user.SteamID !== steamid)) {
-            _context11.next = 10;
+          _context11.next = 6;
+          return _index["default"].Users_Skins.findOne({
+            where: {
+              id: userid
+            }
+          });
+        case 6:
+          userskins = _context11.sent;
+          if (!(user && user.SteamID !== steamid && !userskins)) {
+            _context11.next = 13;
             break;
           }
-          _context11.next = 7;
+          _context11.next = 10;
           return _index["default"].Users.destroy({
             where: {
               id: userid
             }
           });
-        case 7:
+        case 10:
           return _context11.abrupt("return", {
             EM: userid + " deleted",
             EC: "0",
             DT: ''
           });
-        case 10:
+        case 13:
           return _context11.abrupt("return", {
             EM: "Can not delete this user",
             EC: "-1",
             DT: ''
           });
-        case 11:
-          _context11.next = 17;
+        case 14:
+          _context11.next = 20;
           break;
-        case 13:
-          _context11.prev = 13;
+        case 16:
+          _context11.prev = 16;
           _context11.t0 = _context11["catch"](0);
           console.log('Error delete user:', _context11.t0);
           return _context11.abrupt("return", {
@@ -692,11 +700,11 @@ var deleteUser = /*#__PURE__*/function () {
             EC: "-1",
             DT: ''
           });
-        case 17:
+        case 20:
         case "end":
           return _context11.stop();
       }
-    }, _callee11, null, [[0, 13]]);
+    }, _callee11, null, [[0, 16]]);
   }));
   return function deleteUser(_x20, _x21) {
     return _ref11.apply(this, arguments);
