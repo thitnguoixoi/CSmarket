@@ -1,4 +1,7 @@
 /* Logo and livedrop status */
+.footer{
+    width: 100%;
+}
 #live_div {
     width: 100%;
     display: flex;
@@ -6,42 +9,50 @@
     justify-content: space-evenly;
     padding: 15px 0;
 }
-#live_div .logo{
+
+#live_div .logo {
     display: flex;
     justify-content: center;
     align-items: center;
     justify-content: space-evenly;
     width: 40%;
 }
-#logo_big{
+
+#logo_big {
     width: 40%;
     padding-right: 30px;
 }
-#logo_big img{
+
+#logo_big img {
     width: 100%;
     height: auto;
 }
-#logo_small{
+
+#logo_small {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     width: 60%;
     padding-left: 30px;
 }
-#logo_small .logo{
+
+#logo_small .logo {
     width: 33%;
     height: auto;
 }
+
 .live {
     padding: 20px;
     display: flex;
     align-items: center;
 }
-.live img{
+
+.live img {
     height: 50px;
     width: auto;
 }
-.live h3{
+
+.live h3 {
     color: #fff;
     margin-left: 10px;
 }
@@ -53,7 +64,8 @@
     align-items: center;
     padding-right: 20px;
 }
-.footer_terms ul{
+
+.footer_terms ul {
     width: 100%;
     padding: 20;
     list-style-type: none;
@@ -62,7 +74,8 @@
     justify-content: space-evenly;
     line-height: 40px;
 }
-.footer_terms li{
+
+.footer_terms li {
     display: flex;
     justify-content: center;
     color: #a6a6a6;
@@ -70,43 +83,69 @@
     padding: 0;
     width: 15%;
 }
-.footer_terms li:last-child{
+
+.footer_terms li:last-child {
     margin-right: 0;
 
 }
-.footer_terms li a{
+
+.footer_terms li a {
     text-decoration: none;
     color: #f1f1f1;
 }
-.footer_logo{
+
+.footer_logo {
     display: flex;
     align-items: center;
 }
-.footer_logo img{
+
+.footer_logo img {
     height: 40px;
     padding: 0 20px;
 }
 
 @media screen and (max-width: 1080px) {
-    #copyright{
+    #copyright {
         display: none;
     }
-    #live_div{
+
+    #live_div {
         padding: 0;
     }
-    #live_div .logo{
+
+    #live_div .logo {
         display: none;
     }
-    .footer_terms{
+
+    .footer_terms {
         padding: 5px;
     }
-    .footer_terms ul{
+
+    .footer_terms ul {
         padding: 0;
     }
-    .footer_terms li{
-       
+
+    .footer_terms li {
+
         font-size: 16px;
         padding: 5px;
         width: 20%;
+    }
+}
+
+
+@media screen and (max-width: 375px) {
+
+    #live-div {
+        width: 100%;
+    }
+
+    .live img {
+        height: 20px;
+
+    }
+
+    .live h3 {
+        font-size: 12px;
     }
 }

@@ -15,6 +15,8 @@ function Footer() {
     const [live, setLive] = useState(0);
     const [countOpen, setCountOpen] = useState(0);
     const [countUp, setCountUp] = useState(0);
+    
+    //api take quantity user, count of opencases and upgraded
     useEffect(() => {
         axios.get(`/api/v1/users/quantity`)
             .then(response => {

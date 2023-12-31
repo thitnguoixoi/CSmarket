@@ -1,5 +1,6 @@
 import './styles/Slider.css';
 
+// Slider component code
 function Slider() {
     return (
         <div className="slider">
