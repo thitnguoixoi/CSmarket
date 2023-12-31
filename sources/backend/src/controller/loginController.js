@@ -7,7 +7,7 @@ const handleSteamReturn = passport.authenticate('steam', { session: false });
 const handleSendProfile = (req, res) => {
     res.render("authenticated", {
         steamprofile: JSON.stringify(req.user._json),
-        clientUrl: "http://www.csmarket.me",
+        clientUrl: process.env.DOMAIN_REACT,
     });
 }
 const getJWT = async (req, res) => {

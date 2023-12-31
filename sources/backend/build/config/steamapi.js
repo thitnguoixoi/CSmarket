@@ -7,8 +7,8 @@ var _require = require("passport-steam"),
   Strategy = _require.Strategy;
 require('dotenv').config();
 var strategyOptions = {
-  returnURL: "".concat(process.env.DOMAIN, "/api/v1/auth/steam/return"),
-  realm: "".concat(process.env.DOMAIN),
+  returnURL: "".concat(process.env.DOMAIN_NODE, "/api/v1/auth/steam/return"),
+  realm: "".concat(process.env.DOMAIN_NODE),
   apiKey: process.env.STEAM_API_KEY
 };
 module.exports = function (app) {

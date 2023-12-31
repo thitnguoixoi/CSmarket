@@ -17,7 +17,7 @@ var handleSteamReturn = passport.authenticate('steam', {
 var handleSendProfile = function handleSendProfile(req, res) {
   res.render("authenticated", {
     steamprofile: JSON.stringify(req.user._json),
-    clientUrl: "http://www.csmarket.me"
+    clientUrl: process.env.DOMAIN_REACT
   });
 };
 var getJWT = /*#__PURE__*/function () {
