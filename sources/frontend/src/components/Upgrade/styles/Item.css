@@ -43,3 +43,10 @@
     }
 
 }
+
+@media screen and (max-width: 375px) {
+    .user li, .server li{
+        width: 140px;
+        height: 200px;
+    }
+}

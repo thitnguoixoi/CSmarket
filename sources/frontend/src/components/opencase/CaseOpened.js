@@ -4,9 +4,11 @@ import './styles/CaseOpened.css';
 import Popup from "./popup";
 
 function CaseOpened(id) {
+    //data
     const [caseData, setCaseData] = useState([]);
     const [skinData, setSkinData] = useState([]);
     const [gachaData, setGachaData] = useState([]);
+    //show popup
     const [buttonPopup, setButtonPopup] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const handlePopup = () => {
@@ -14,20 +16,22 @@ function CaseOpened(id) {
     }
     const randomSkin = () => {
         setButtonPopup(true);
-        console.log(id.id);
+        //api send request open from user with id of case
         axios.get(`/api/v1/users/cases/open`, { params: { caseid: id.id } })
             .then(response => {
-                console.log(typeof response.data.EM);
+                //if open success set data for popup
                 if (response.data.EM === 'Case opened') setShowPopup(true);
                 setGachaData(response.data.DT.Skin);
             })
             .catch(error => {
+                //if user haven't login ,  alert them
                 setShowPopup(false);
                 alert('please login');
             })
     }
     useEffect(() => {
-        axios.get(`/api/v1/cases/id`, { params: { caseid: id.id } })
+        //api refesh data
+        axios.get(`/api/v1/cases/skins`, { params: { caseid: id.id } })
             .then(response => {
                 setCaseData(response.data.DT.acase);
                 setSkinData(response.data.DT.skins);
@@ -36,13 +40,13 @@ function CaseOpened(id) {
                 console.error('Error checking user group:', error);
             });
     }, []);
-    // console.log(skinData);
+
     return (
         <div className="Case_Opened">
             <div className="opencase">
-                <h3>{caseData.Name}</h3>
-                <img src={caseData.Image} alt="Case" />
-                <button className="opencase-btn" onClick={() => randomSkin()}>Open {caseData.Price}$ </button>
+                <h3>{caseData?.Name}</h3>
+                <img src={caseData?.Image} alt="Case" />
+                <button className="opencase-btn" onClick={() => randomSkin()}>Open {caseData?.Price}$ </button>
                 {showPopup && (
                     <Popup trigger={buttonPopup} setTrigger={handlePopup}>
                         <h3>Congratulation</h3>
@@ -61,9 +65,9 @@ function CaseOpened(id) {
             <div className="image-container">
                 {skinData.map((item) => {
                     return (
-                        <div className={`tierskin tier${item.Skin.Tier}`} >
-                            <img src={item.Skin.Image} alt="skin" />
-                            <h4>{item.Skin.Name}</h4>
+                        <div className={`tierskin tier${item?.Skin.Tier}`} >
+                            <img src={item?.Skin.Image} alt="skin" />
+                            <h4>{item?.Skin.Name}</h4>
                         </div>
                     )
                 })}

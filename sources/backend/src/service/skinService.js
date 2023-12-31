@@ -1,7 +1,7 @@
 import { where } from "sequelize";
 import db from "../models/index"
 const { Op } = require('sequelize');
-const createaSkin = async (name, float, price, tier, image, count) => {
+const createaSkin = async (name, float, price, tier, image, count) => {  // create a skin with these attributes
     try {
         await db.Skins.create({
             Name: name,
@@ -25,7 +25,7 @@ const createaSkin = async (name, float, price, tier, image, count) => {
         }
     }
 }
-const getSkins = async () => {
+const getSkins = async () => {  // get all skins from database
     try {
 
         let skins = await db.Skins.findAll({
@@ -56,7 +56,7 @@ const getSkins = async () => {
     }
 }
 
-const getWithdrawSkins = async () => {
+const getWithdrawSkins = async () => {  // get the list of skin which user want to withdraw
     try {
         let withdraws = await db.Users_Skins.findAll({
             where: {
@@ -91,7 +91,7 @@ const getWithdrawSkins = async () => {
     }
 }
 
-const updateaSkin = async (skinid, addcount) => {
+const updateaSkin = async (skinid, addcount) => {  // update a skin's count
     try {
         let skin = await db.Skins.findOne({
             where: {
@@ -126,7 +126,7 @@ const updateaSkin = async (skinid, addcount) => {
     }
 }
 
-const updateaWithdrawSkin = async (withdrawskinid, isAccept) => {
+const updateaWithdrawSkin = async (withdrawskinid, isAccept) => {  // update skin's status which user want to withdraw
     try {
         let withdraw = await db.Users_Skins.findOne({
             where: {
@@ -154,6 +154,14 @@ const updateaWithdrawSkin = async (withdrawskinid, isAccept) => {
                 DT: []
             }
         } else if (withdraw && isAccept == 0) {
+            await db.Users_Skins.update(
+                { Status: "Inventory" },
+                {
+                    where: {
+                        id: withdrawskinid
+                    }
+                }
+            );
             return {
                 EM: "Update withdraw skin success",
                 EC: "0",
@@ -176,7 +184,7 @@ const updateaWithdrawSkin = async (withdrawskinid, isAccept) => {
     }
 }
 
-const deleteaSkin = async (skinid) => {
+const deleteaSkin = async (skinid) => {  // delete a skin
     try {
         let skin = await db.Skins.findOne({
             where: {

@@ -82,40 +82,45 @@
     width: 150px;
 }
 
-.avatar-container{
+.avatar-container {
     display: flex;
 }
-.user-wallet{
+
+.user-wallet {
     margin-right: 10px;
     display: flex;
     align-items: center;
 }
-.user-wallet h4{
+
+.user-wallet h4 {
     margin: 10px;
     margin-left: 3px;
 }
-.user-wallet svg{
+
+.user-wallet svg {
     margin: 10px;
     margin-right: 5px;
     margin-bottom: 12px;
 }
+
 .avatar-container:hover .dropdown-menu {
     display: block;
 }
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1080px) {
     .header img {
         width: 150px;
         height: 40px;
         margin-right: 10px;
     }
-    
+
     .header .avatar {
         width: 50px;
         height: 40px;
         margin-right: 10px;
     }
+
     .topnav {
         margin-left: 10px;
         padding: 10px;
@@ -146,5 +151,32 @@
     .topnav a {
         padding: 15px;
         font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .header {
+        max-width: 100%;
+    }
+
+    .body {
+        max-width: 100%;
+    }
+
+    .footer {
+        max-width: 100%;
+    }
+
+    #live-div {
+        width: 100%;
+    }
+
+    .live img {
+        height: 15px;
+    }
+
+    .topnav a {
+        font-size: 12px;
+        padding: 8px;
     }
 }

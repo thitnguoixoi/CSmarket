@@ -1,5 +1,5 @@
 import skinService from "../service/skinService"
-const createSkin = async (req, res) => {
+const createSkin = async (req, res) => {  // create skin controller
     try {
         let data = await skinService.createaSkin(req.body.name, req.body.float, req.body.price, req.body.tier, req.body.image, req.body.count);
         return res.status(200).json({
@@ -16,7 +16,7 @@ const createSkin = async (req, res) => {
         })
     }
 }
-const readSkins = async (req, res) => {
+const readSkins = async (req, res) => {  // read skins controller 
     try {
         let data = await skinService.getSkins();
         return res.status(200).json({
@@ -34,7 +34,7 @@ const readSkins = async (req, res) => {
     }
 }
 
-const readWithdrawSkins = async (req, res) => {
+const readWithdrawSkins = async (req, res) => {  // read withdrawed skin controller
     try {
         let data = await skinService.getWithdrawSkins();
         return res.status(200).json({
@@ -54,7 +54,7 @@ const readWithdrawSkins = async (req, res) => {
 
 
 
-const updateSkin = async (req, res) => {
+const updateSkin = async (req, res) => {  // update skin controller
     try {
         let data = await skinService.updateaSkin(req.body.skinid, req.body.addcount);
         return res.status(200).json({
@@ -72,7 +72,7 @@ const updateSkin = async (req, res) => {
     }
 }
 
-const updateWithdrawSkin = async (req, res) => {
+const updateWithdrawSkin = async (req, res) => {  // update withdrawed skin controller
     try {
         let data = await skinService.updateaWithdrawSkin(req.body.withdrawskinid, req.body.isAccept);
         return res.status(200).json({
@@ -91,9 +91,8 @@ const updateWithdrawSkin = async (req, res) => {
 }
 
 
-const deleteSkin = async (req, res) => {
+const deleteSkin = async (req, res) => {  // delete skin controller
     try {
-        console.log(req.body);
         let data = await skinService.deleteaSkin(req.body.skinid);
         return res.status(200).json({
             EM: data.EM,

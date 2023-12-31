@@ -29,6 +29,15 @@
     }
 }
 
+@media screen and (max-width: 1080px){
+    .case_box{
+        width: 320px;
+        height: 260px;
+    }
+    .img_box{
+        height: 250px;
+    }
+}
 @media screen and (max-width: 768px){
     .case_box{
         width: 300px;
@@ -36,14 +45,5 @@
     }
     .img_box{
         height: 200px;
-    }
-}
-@media screen and (max-width: 1080px){
-    .case_box{
-        width: 350px;
-        height: 280px;
-    }
-    .img_box{
-        height: 250px;
     }
 }

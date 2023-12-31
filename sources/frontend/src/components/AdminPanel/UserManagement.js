@@ -22,29 +22,21 @@ function UserManagement() {
     setSelectedOption(value);
   };
 
-
-
   useEffect(() => {
-
-    // Fetch data from the API using Axios
+    // Fetch data from api
     axios.get('/api/v1/users')
       .then(response => {
         setData(response.data.DT);
         setFilteredData(response.data.DT);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
+    //api set role 
     axios.get(`/api/v1/users/steamid`)
       .then(response => {
         if (response.data.DT.GroupID === 3) {
           setIsAdmin(true);
         }
       })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
-  }, []); // Empty dependency array ensures the effect runs only once, similar to componentDidMount
+  }, []); // Empty dependency array ensures the effect runs only once
 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
@@ -73,21 +65,12 @@ function UserManagement() {
     handleClick(itemId);
   }
   const handleDel = (itemId) => {
-    // Send Axios request to delete item with the specified ID
-    axios.delete(`/api/v1/users/delete`, { data: { id: itemId } })
+    // api delete user with id
+    axios.delete(`/api/v1/users`, { data: { id: itemId } })
       .then(response => {
-        axios.get('/api/v1/users')
-          .then(response => {
-            setData(response.data.DT);
-            setFilteredData(response.data.DT);
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+        //refresh data when delete success
+        refresh();
       })
-      .catch(error => {
-        console.error('Error deleting item:', error);
-      });
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -96,14 +79,12 @@ function UserManagement() {
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   const refresh = () => {
+    //api refress data
     axios.get('/api/v1/users')
       .then(response => {
         setData(response.data.DT);
         setFilteredData(response.data.DT);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
   }
 
   const handleAddWalletSubmit = (itemId, inputValue) => {
@@ -113,26 +94,20 @@ function UserManagement() {
       id: itemId,
       walletValue: inputValue,
     };
-    axios.put('/api/v1/users/wallet/update', dataToSend)
+    //api update wallet
+    axios.put('/api/v1/users/wallet', dataToSend)
       .then(response => {
-        // After submitting, you may want to refresh the data
+        // After submitting, refresh the data
         axios.get('/api/v1/users')
           .then(response => {
+            //refresh data
             setData(response.data.DT);
             setFilteredData(response.data.DT);
             setClickedItemId(null); // Close the input field after submitting
           })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
       })
-      .catch(error => {
-        console.error('Error adding wallet:', error);
-      });
   };
-  const handleDropdownChange = (value) => {
-    setSelectedOption(value);
-  };
+
   const handleSetMod = (itemId, selectedOption) => {
     setClickedItemId(null);
     const groupId = parseInt(selectedOption, 10);
@@ -141,15 +116,11 @@ function UserManagement() {
       groupid: groupId
     }
     // Send Axios request to set the user as a moderator
-    axios.put(`/api/v1/users/group/update`, dataSetGroup)
+    axios.put(`/api/v1/users/groups`, dataSetGroup)
       .then(response => {
-        console.log('User set as moderator successfully:', response);
-        // If you need to update the data after setting the user as a moderator, you can call the refresh function
+        //set role then refresh
         refresh();
       })
-      .catch(error => {
-        console.error('Error setting user as moderator:', error);
-      });
   };
 
   const renderTable = () => (
@@ -191,7 +162,7 @@ function UserManagement() {
                   <FontAwesomeIcon icon={faUser} />
                   +Group
                 </button>
-                {clickedItemId === item.id && showGroupOption &&(
+                {clickedItemId === item.id && showGroupOption && (
                   <div id="submit-set-group">
                     <label>
                       <input

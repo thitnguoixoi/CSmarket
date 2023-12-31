@@ -273,3 +273,13 @@ button :hover {
         font-size: 12px;
     }
 }
+
+
+
+
+@media screen and (max-width: 375px){
+    .search-bar input{
+        padding: 5px 0;
+        margin: 0;
+    }
+}

@@ -1,7 +1,7 @@
 import { where } from "sequelize";
 import db from "../models/index"
 const { Op } = require('sequelize');
-const getCases = async () => {
+const getCases = async () => { // get cases from database
     try {
         let cases = await db.Group_Cases.findAll({
             include: { model: db.Cases, attributes: ["id", "Name", "Price", "Image"] },
@@ -30,7 +30,7 @@ const getCases = async () => {
     }
 }
 
-const getCasesSkins = async (caseid) => {
+const getCasesSkins = async (caseid) => { // get skin form cases
     try {
         let acase = await db.Cases.findOne({
             where: {
@@ -73,7 +73,7 @@ const getCasesSkins = async (caseid) => {
         }
     }
 }
-const createaCase = async (name, price, image, groupname) => {
+const createaCase = async (name, price, image, groupname) => { // create new case
     try {
         if (typeof parseFloat(price) == "number") {
 
@@ -108,7 +108,7 @@ const createaCase = async (name, price, image, groupname) => {
     }
 }
 
-const updateaCase = async (caseid, price) => {
+const updateaCase = async (caseid, price) => { // update a case
     try {
         await db.Cases.update({
             Price: price,
@@ -131,7 +131,7 @@ const updateaCase = async (caseid, price) => {
     }
 }
 
-const createaCaseSkins = async (caseid, skinid, percent) => {
+const createaCaseSkins = async (caseid, skinid, percent) => { // create a skin in a case
     try {
         let cases_skins = await db.Cases_Skins.findOne({
             where: {
@@ -169,7 +169,7 @@ const createaCaseSkins = async (caseid, skinid, percent) => {
     }
 }
 
-const deleteaCase = async (caseid) => {
+const deleteaCase = async (caseid) => {  // delete a case from database
     try {
         let acase = await db.Cases.findOne({
             where: {
@@ -211,7 +211,7 @@ const deleteaCase = async (caseid) => {
     }
 }
 
-const deleteaCaseSkins = async (caseskinid) => {
+const deleteaCaseSkins = async (caseskinid) => {  // delete a skin from a case
     try {
         let case_skin = await db.Cases_Skins.findOne({
             where: {

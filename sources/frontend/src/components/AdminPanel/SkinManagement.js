@@ -29,20 +29,17 @@ function SkinManagement() {
     setAddingCountForItemId(itemId);
   };
   const handleAddCountSubmit = (id, countInputValue) => {
-    // Your logic for handling count input submission goes here
+    //hide submit form
     setShowAddCountForm(false);
     setCountInputValue('');
-
+    //value for api
     const dataUpdate = {
       skinid: id,
       addcount: parseInt(countInputValue, 10)
     }
-    console.log(dataUpdate);
-    axios.put(`/api/v1/skins/update`, dataUpdate)
-      .then(response => {
-        console.log(response);
-      })
-    refresh();
+
+    axios.put(`/api/v1/skins`, dataUpdate) //api send data
+    refresh(); //reload data aften call api
   };
   useEffect(() => {
     refresh();
@@ -53,9 +50,6 @@ function SkinManagement() {
           setIsAdmin(true);
         }
       })
-      .catch(error => {
-        console.error('Error checking user group:', error);
-      });
   }, []);
   const handleSubmit = (name, price, float, tier, image, count) => {
     // Xử lý dữ liệu khi người dùng nhấn nút Submit
@@ -69,14 +63,7 @@ function SkinManagement() {
       count: count
     }
     // Gọi API hoặc xử lý khác theo yêu cầu của bạn
-    axios.post(`/api/v1/skins/create`, addData)
-      .then(response => {
-        console.log('Add success');
-      })
-      .catch(error => {
-        console.error('Error Add', error);
-      });
-
+    axios.post(`/api/v1/skins`, addData)
     refresh();
   };
   const handleSearch = (e) => {
@@ -97,21 +84,13 @@ function SkinManagement() {
     setShowAddForm(!showAddForm);
   };
   const handleDeleteSkin = (id) => {
-
     const dataDel = {
       data: {
         skinid: id
       }
     }
-    console.log(dataDel);
-    axios.delete(`/api/v1/skins/delete`, dataDel)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.error('Error deleting item:', error);
-      });
-
+    //api delete skin with id
+    axios.delete(`/api/v1/skins`, dataDel)
     refresh();
   };
 
@@ -133,9 +112,6 @@ function SkinManagement() {
           <th>Image</th>
           <th>Count</th>
           <th>
-            <button onClick={handleAddSkin}>
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
           </th>
         </tr>
       </thead>
@@ -268,13 +244,18 @@ function SkinManagement() {
             <FontAwesomeIcon icon={faBackward} />
             <Link to="/admin">  Back to menu</Link>
           </div>
-          <h2>Skin Management</h2>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
+          <div className="header table">
+            <h2>Skin Management</h2>
+            <button onClick={handleAddSkin}>
+              <FontAwesomeIcon icon={faPlus} /> Add Skin
+            </button>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </div>
           {renderTable()}
           {renderPagination()}
         </>
@@ -284,7 +265,6 @@ function SkinManagement() {
           <Link to="/">Go back to homepage</Link>
         </div>
       )}
-
     </div >
   );
 }
