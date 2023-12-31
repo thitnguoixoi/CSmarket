@@ -45,7 +45,7 @@ function Header() {
   }, [isLoggedIn]);
   const handleLogin = async () => {
     const popupWindow = window.open(
-      process.env.DOMAIN1 + "/api/v1/auth/steam",
+      "http://www.csmarket.me:8080/api/v1/auth/steam",
       "_blank",
       "width=800, height=600",
     );
@@ -56,7 +56,7 @@ function Header() {
   // Empty dependency array ensures the effect runs only once
   const handleMessage = (event) => {
     //catch data when log in with steam api
-    if (event.origin !== process.env.DOMAIN1 || event.origin !== process.env.DOMAIN2) return;
+    if (event.origin !== "http://www.csmarket.me:8080" || event.origin !== "http://csmarket.me:8080") return;
     const steamData = JSON.parse(event.data);
     sessionStorage.setItem("steamprofile", JSON.stringify(steamData));
     //jwt
